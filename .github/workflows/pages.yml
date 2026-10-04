@@ -26,6 +26,16 @@ jobs:
 
       - uses: actions/configure-pages@v5
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      # La feuille publiée est reconstruite ici, pour qu'elle ne puisse pas
+      # dériver de src/precis.css même si la copie du dépôt est périmée.
+      - run: npm ci
+      - run: npm run build
+
       - name: Stage the static site
         run: |
           mkdir -p _site

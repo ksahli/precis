@@ -1,0 +1,157 @@
+@import "tailwindcss";
+
+/* Détection explicite des sources : les classes vivent aussi dans le script
+   qui construit la légende de la planche. */
+@source "../index.html";
+@source "../mitochondrie.html";
+@source "../assets/mitochondrie-3d.js";
+
+/*
+ * precis — facture d'un précis de médecine, vers 1910.
+ *
+ * Le parti pris est assumé : papier crème, encre brune, rubriques au rouge
+ * du typographe, caractères didones pour les titres et elzéviriens pour le
+ * texte. Pas de variante sombre — un livre de 1910 n'en avait pas, et
+ * inverser ce papier en ferait un autre objet.
+ */
+
+@theme {
+  /* --- encres et papier ------------------------------------------------ */
+  --color-papier: #f2ead8;
+  --color-papier-vif: #f8f3e6;
+  --color-papier-ombre: #e6dcc4;
+  --color-encre: #221b12;
+  --color-encre-douce: #4d4030;
+  --color-encre-pale: #7d6e58;
+  --color-filet: #c6b795;
+  --color-rubrique: #8c2f1f;
+  --color-rubrique-pale: #efded4;
+
+  /* --- caractères ------------------------------------------------------ */
+  --font-titre: "Playfair Display", "Times New Roman", Didot, Georgia, serif;
+  --font-texte: "EB Garamond", "Iowan Old Style", Palatino, Georgia, serif;
+  --font-cap: "Cinzel", "Playfair Display", Georgia, serif;
+
+  /* --- mesures --------------------------------------------------------- */
+  --text-corps: 1.0625rem;
+  --text-corps--line-height: 1.68;
+  --spacing-mesure: 34rem;
+}
+
+/* ---------------------------------------------------------------- socle */
+
+@layer base {
+  html {
+    color-scheme: light;         /* le papier ne s'inverse pas */
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-papier);
+    color: var(--color-encre);
+    font-family: var(--font-texte);
+    font-variant-numeric: oldstyle-nums proportional-nums;
+    /* Grain de papier : une turbulence SVG, assez faible pour ne se voir
+       qu'en aplat, et une ombre de reliure dans les marges. */
+    background-image:
+      linear-gradient(90deg, rgb(0 0 0 / 0.045) 0%, transparent 7%, transparent 93%, rgb(0 0 0 / 0.045) 100%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23g)' opacity='0.05'/%3E%3C/svg%3E");
+    background-attachment: fixed, fixed;
+  }
+
+  ::selection {
+    background-color: var(--color-rubrique-pale);
+    color: var(--color-rubrique);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-rubrique);
+    outline-offset: 2px;
+  }
+}
+
+/* ------------------------------------------------------------ fabrique */
+
+@layer components {
+  /* Capitales espacées : les titres courants et les étiquettes de planche. */
+  .cap {
+    font-family: var(--font-cap);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-encre-pale);
+  }
+
+  /* Lettrine sur deux lignes, comme en tête de chapitre. */
+  .lettrine::first-letter {
+    float: left;
+    margin: 0.08em 0.1em 0 0;
+    font-family: var(--font-titre);
+    font-size: 3.4em;
+    line-height: 0.78;
+    font-weight: 500;
+    color: var(--color-rubrique);
+  }
+
+  /* Filet orné : un trait, un losange, un trait. */
+  .ornement {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--color-filet);
+  }
+  .ornement::before,
+  .ornement::after {
+    content: "";
+    flex: 1;
+    border-top: 1px solid currentColor;
+  }
+  .ornement > span {
+    font-size: 0.6rem;
+    color: var(--color-rubrique);
+  }
+
+  /* Double filet, pour encadrer une planche. */
+  .encadre-planche {
+    border: 1px solid var(--color-filet);
+    box-shadow: 0 0 0 4px var(--color-papier), 0 0 0 5px var(--color-filet);
+  }
+
+  /* Texte justifié avec césures, comme une composition au plomb. */
+  .justif {
+    text-align: justify;
+    hyphens: auto;
+    text-wrap: pretty;
+  }
+
+  /* Bouton d'appareil : petite capitale dans un cadre sobre. */
+  .bouton {
+    font-family: var(--font-cap);
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.7rem;
+    border: 1px solid var(--color-filet);
+    background-color: var(--color-papier-vif);
+    color: var(--color-encre-douce);
+    cursor: pointer;
+  }
+  .bouton:hover { border-color: var(--color-encre-pale); color: var(--color-encre); }
+  .bouton[aria-pressed="true"] {
+    border-color: var(--color-rubrique);
+    background-color: var(--color-rubrique-pale);
+    color: var(--color-rubrique);
+  }
+
+  /* Renvoi de note, en exposant et au rouge. */
+  .renvoi {
+    font-size: 0.7em;
+    vertical-align: super;
+    line-height: 0;
+    color: var(--color-rubrique);
+    text-decoration: none;
+    padding-inline: 0.1em;
+  }
+}

@@ -18,11 +18,26 @@
 
   /* ------------------------------------------------------------------ données */
 
+  /**
+   * Palette de la planche : des encres d'atlas gravé, posées sur papier crème.
+   * Une seule source pour la scène et pour les pastilles de la légende — les
+   * deux divergeaient quand chaque géométrie portait sa propre teinte.
+   */
+  const ENCRES = {
+    externe: 0xb9a47c,
+    intermembranaire: 0xd9c49a,
+    interne: 0x7d5c33,
+    cretes: 0x9a7342,
+    matrice: 0xe8dbba,
+    adn: 0x8c2f1f,
+    ribosomes: 0x4f4132,
+  };
+
   const PARTIES = [
     {
       id: 'externe',
       nom: 'Membrane externe',
-      couleur: 0x8fb8d8,
+      couleur: ENCRES.externe,
       resume: 'Une double couche lipidique perméable, criblée de porines.',
       texte: `Elle délimite l'organite et le sépare du cytosol. Ses porines laissent
         passer librement ions et petites molécules jusqu'à environ 5 000 daltons,
@@ -33,7 +48,7 @@
     {
       id: 'intermembranaire',
       nom: 'Espace intermembranaire',
-      couleur: 0xe8c48a,
+      couleur: ENCRES.intermembranaire,
       resume: 'Le réservoir de protons qui fait tourner l’ATP synthase.',
       texte: `Un espace mince entre les deux membranes, où la chaîne respiratoire
         refoule les protons. Il y règne un pH plus acide que dans la matrice&nbsp;:
@@ -44,7 +59,7 @@
     {
       id: 'interne',
       nom: 'Membrane interne',
-      couleur: 0xd98c4a,
+      couleur: ENCRES.interne,
       resume: 'Imperméable, repliée, couverte de complexes respiratoires.',
       texte: `Riche en cardiolipide, elle est quasiment étanche&nbsp;: rien ne la
         traverse sans transporteur dédié. Elle porte les quatre complexes de la
@@ -54,7 +69,7 @@
     {
       id: 'cretes',
       nom: 'Crêtes',
-      couleur: 0xe8a765,
+      couleur: ENCRES.cretes,
       resume: 'Les replis qui multiplient la surface utile.',
       texte: `Les crêtes (ou <i>cristae</i>) sont les invaginations de la membrane
         interne. Elles peuvent multiplier sa surface par cinq, et les cellules les
@@ -65,7 +80,7 @@
     {
       id: 'matrice',
       nom: 'Matrice',
-      couleur: 0xf0d9b5,
+      couleur: ENCRES.matrice,
       resume: 'Le compartiment enzymatique, siège du cycle de Krebs.',
       texte: `Un gel dense en enzymes où se déroulent le cycle de Krebs, la
         β-oxydation des acides gras et une partie du cycle de l'urée. C'est là que
@@ -75,7 +90,7 @@
     {
       id: 'adn',
       nom: 'ADN mitochondrial',
-      couleur: 0x6fae8f,
+      couleur: ENCRES.adn,
       resume: 'Un chromosome circulaire, transmis par la mère.',
       texte: `Chez l'humain, une molécule circulaire de 16&nbsp;569 paires de bases
         portant 37 gènes&nbsp;: 13 protéines de la chaîne respiratoire, 22 ARN de
@@ -86,7 +101,7 @@
     {
       id: 'ribosomes',
       nom: 'Ribosomes',
-      couleur: 0xb08cc4,
+      couleur: ENCRES.ribosomes,
       resume: 'Une machinerie de traduction propre à l’organite.',
       texte: `Les mitoribosomes traduisent sur place les 13 protéines codées par
         l'ADN mitochondrial. Plus proches des ribosomes bactériens que de ceux du
@@ -98,8 +113,9 @@
   /* ------------------------------------------------------- garde-fou matériel */
 
   if (!window.THREE) {
-    hote.innerHTML = `<p class="repli">Le schéma 3D n’a pas pu être chargé.
-      Les descriptions ci-dessous restent lisibles.</p>`;
+    hote.innerHTML = `<p class="text-encre-pale p-6 text-sm leading-relaxed italic">
+      La planche en relief n’a pas pu être calculée&nbsp;: votre navigateur ne
+      fournit pas WebGL. L’explication ci-contre reste lisible.</p>`;
     construireLegende(null);
     return;
   }
@@ -112,11 +128,11 @@
   rendu.setPixelRatio(Math.min(devicePixelRatio, 2));
   hote.append(rendu.domElement);
 
-  scene.add(new THREE.AmbientLight(0xffffff, 0.55));
-  const cle = new THREE.DirectionalLight(0xfff2e0, 0.85);
+  scene.add(new THREE.AmbientLight(0xfff6e6, 0.62));
+  const cle = new THREE.DirectionalLight(0xfff0d8, 0.8);
   cle.position.set(4, 5, 6);
   scene.add(cle);
-  const appoint = new THREE.DirectionalLight(0x9fc4e8, 0.35);
+  const appoint = new THREE.DirectionalLight(0xcbb795, 0.3);
   appoint.position.set(-5, -2, -4);
   scene.add(appoint);
 
@@ -151,7 +167,7 @@
   // Membrane externe — enveloppe translucide, visible de l'intérieur aussi.
   {
     const geo = new THREE.SphereGeometry(1, 64, 48);
-    const mesh = new THREE.Mesh(geo, matiere(0x8fb8d8, 0.22, {
+    const mesh = new THREE.Mesh(geo, matiere(ENCRES.externe, 0.22, {
       side: THREE.DoubleSide, depthWrite: false, roughness: 0.25,
     }));
     mesh.scale.set(RX, RY, RZ);
@@ -161,7 +177,7 @@
   // Espace intermembranaire — une coquille fine, juste sous la précédente.
   {
     const geo = new THREE.SphereGeometry(1, 48, 36);
-    const mesh = new THREE.Mesh(geo, matiere(0xe8c48a, 0.16, {
+    const mesh = new THREE.Mesh(geo, matiere(ENCRES.intermembranaire, 0.16, {
       side: THREE.DoubleSide, depthWrite: false,
     }));
     mesh.scale.set(RX * 0.94, RY * 0.9, RZ * 0.9);
@@ -171,7 +187,7 @@
   // Membrane interne.
   {
     const geo = new THREE.SphereGeometry(1, 48, 36);
-    const mesh = new THREE.Mesh(geo, matiere(0xd98c4a, 0.38, {
+    const mesh = new THREE.Mesh(geo, matiere(ENCRES.interne, 0.38, {
       side: THREE.DoubleSide, depthWrite: false,
     }));
     mesh.scale.set(RX * 0.86, RY * 0.8, RZ * 0.8);
@@ -193,7 +209,7 @@
 
       // Un tore aplati lu de profil donne la silhouette d'un repli membranaire.
       const geo = new THREE.TorusGeometry(rayon * 0.82, rayon * 0.2, 10, 48);
-      const mat = matiere(0xe8a765, 0.92, { roughness: 0.45 });
+      const mat = matiere(ENCRES.cretes, 0.92, { roughness: 0.45 });
       const crete = new THREE.Mesh(geo, mat);
       crete.rotation.y = Math.PI / 2;
       crete.rotation.x = (i % 2 ? 1 : -1) * 0.14;
@@ -208,7 +224,7 @@
   // Matrice — un volume diffus qui remplit l'intérieur.
   {
     const geo = new THREE.SphereGeometry(1, 32, 24);
-    const mesh = new THREE.Mesh(geo, matiere(0xf0d9b5, 0.14, { depthWrite: false }));
+    const mesh = new THREE.Mesh(geo, matiere(ENCRES.matrice, 0.14, { depthWrite: false }));
     mesh.scale.set(RX * 0.8, RY * 0.74, RZ * 0.74);
     enregistrer(PARTIES[4], mesh, [mesh.material]);
   }
@@ -219,7 +235,7 @@
     const mats = [];
     [[-0.55, 0.22, 0.2, 0.34], [0.78, -0.26, -0.18, 0.26]].forEach(([x, y, z, r], i) => {
       const geo = new THREE.TorusKnotGeometry(r, r * 0.17, 72, 8, 1, 3);
-      const mat = matiere(0x6fae8f, 1, { roughness: 0.4 });
+      const mat = matiere(ENCRES.adn, 1, { roughness: 0.4 });
       const boucle = new THREE.Mesh(geo, mat);
       boucle.position.set(x, y, z);
       boucle.rotation.set(0.6 * i, 0.9 * i, 0.3);
@@ -233,7 +249,7 @@
   {
     const groupe = new THREE.Group();
     const geo = new THREE.SphereGeometry(0.055, 12, 10);
-    const mat = matiere(0xb08cc4, 1, { roughness: 0.5 });
+    const mat = matiere(ENCRES.ribosomes, 1, { roughness: 0.5 });
     let graine = 7;
     const aleatoire = () => (graine = (graine * 16807) % 2147483647) / 2147483647;
 
@@ -271,7 +287,7 @@
 
         mat.opacity = opacite;
         mat.transparent = opacite < 1;
-        mat.emissive.setHex(estActif ? 0x3a2a12 : 0x000000);
+        mat.emissive.setHex(estActif ? 0x4a2a16 : 0x000000);
       });
     }
 
@@ -285,10 +301,13 @@
     const partie = PARTIES.find(p => p.id === actif);
 
     if (!partie) {
-      panneau.innerHTML = `<p class="invite">Fais tourner le schéma, puis clique
-        une zone — ou choisis une entrée de la légende — pour la description.</p>`;
+      panneau.innerHTML = `<p class="text-encre-pale text-[0.8rem] leading-relaxed italic">
+        Faites tourner la planche, puis désignez une partie — ou choisissez une
+        entrée de l’explication — pour en lire la description.</p>`;
     } else {
-      panneau.innerHTML = `<h3>${partie.nom}</h3><p>${partie.texte}</p>`;
+      panneau.innerHTML =
+        `<h3 class="font-titre text-encre mb-2 text-[0.95rem] leading-snug">${partie.nom}</h3>
+         <p class="text-encre-douce justif text-[0.85rem] leading-relaxed">${partie.texte}</p>`;
     }
     appliquerStyles();
   }
@@ -300,10 +319,17 @@
       bouton.type = 'button';
       bouton.dataset.id = partie.id;
       bouton.setAttribute('aria-pressed', 'false');
+      bouton.className = [
+        'grid w-full grid-cols-[auto_1fr] items-baseline gap-x-2.5 gap-y-0.5',
+        'border border-transparent px-2 py-1.5 text-left',
+        'hover:bg-rubrique-pale/60',
+        'aria-pressed:border-filet aria-pressed:bg-rubrique-pale/80',
+      ].join(' ');
       bouton.innerHTML =
-        `<span class="puce" style="--c:#${partie.couleur.toString(16).padStart(6, '0')}"></span>
-         <span class="nom">${partie.nom}</span>
-         <span class="resume">${partie.resume}</span>`;
+        `<span class="border-encre-pale/40 mt-[0.35em] size-2.5 border"
+                style="background:#${partie.couleur.toString(16).padStart(6, '0')}"></span>
+         <span class="text-encre text-[0.85rem] leading-snug font-medium">${partie.nom}</span>
+         <span class="text-encre-pale col-start-2 text-[0.75rem] leading-snug italic">${partie.resume}</span>`;
       if (interactive !== null) bouton.addEventListener('click', () => selectionner(partie.id));
       li.append(bouton);
       return li;

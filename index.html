@@ -3,27 +3,81 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>precis</title>
-<meta name="description" content="precis — des fiches brèves, illustrées quand il le faut.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>·</text></svg>">
-<link rel="stylesheet" href="assets/styles.css">
+<title>Précis — fiches du vivant</title>
+<meta name="description" content="Précis : fiches brèves sur quelques objets du vivant, dans la facture d’un manuel de médecine du début du XXe siècle.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.92em' font-size='86' fill='%238c2f1f'>§</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..700&family=EB+Garamond:ital,wght@0,400..600;1,400..500&family=Playfair+Display:ital,wght@0,400..700;1,400..500&display=swap">
+<link rel="stylesheet" href="assets/precis.css">
 </head>
-<body>
-<main>
-  <h1>precis</h1>
-  <p class="lede">Des fiches brèves, illustrées quand il le faut.</p>
+<body class="min-h-screen">
 
-  <ul class="sommaire">
-    <li>
-      <a href="mitochondrie.html">
-        <span class="titre">La mitochondrie</span>
-        <span class="note">Structure, production d’ATP, génome propre — avec un schéma 3D interactif.</span>
-      </a>
-    </li>
-  </ul>
+<div class="mx-auto flex min-h-screen max-w-3xl flex-col px-5 sm:px-10">
 
-  <hr>
-  <p class="meta"><a href="https://github.com/ksahli/precis">le dépôt sur GitHub</a></p>
-</main>
+  <!-- ------------------------------------------------- page de titre -->
+  <main class="flex grow flex-col justify-center py-16 text-center sm:py-24">
+
+    <p class="cap mb-10">Fascicule premier &middot; Nouvelle série</p>
+
+    <h1 class="font-titre text-encre text-[clamp(3rem,16vw,6.5rem)] leading-[0.86] font-medium tracking-[-0.02em]">
+      Précis
+    </h1>
+
+    <p class="font-titre text-encre-douce mt-5 text-[clamp(1rem,4vw,1.35rem)] italic">
+      de quelques objets du vivant
+    </p>
+
+    <div class="ornement my-10"><span>&#10022;</span></div>
+
+    <p class="font-texte text-encre-douce mx-auto max-w-[26rem] text-sm leading-relaxed">
+      Notions essentielles, exposées brièvement, à l’usage de qui veut savoir
+      sans tout lire. Chaque chapitre tient en une page et porte sa planche.
+    </p>
+
+    <!-- --------------------------------------------- table des matières -->
+    <nav class="mt-14 text-left" aria-labelledby="table">
+      <h2 id="table" class="cap border-filet mb-5 border-b pb-2">Table des matières</h2>
+
+      <ol class="space-y-1">
+        <li>
+          <a href="mitochondrie.html"
+             class="group hover:bg-papier-ombre/60 -mx-2 flex items-baseline gap-2 px-2 py-2.5 no-underline">
+            <span class="cap text-encre-pale w-[6.5rem] shrink-0 pt-[0.2em]">Chapitre&nbsp;I</span>
+            <span class="min-w-0">
+              <span class="font-titre text-encre group-hover:text-rubrique block text-lg leading-snug">
+                La mitochondrie
+              </span>
+              <span class="text-encre-pale mt-0.5 block text-[0.8rem] leading-snug italic">
+                Structure, chimiosmose, génome propre — avec une planche en relief.
+              </span>
+            </span>
+            <span class="border-filet mx-1 hidden grow translate-y-[-0.35em] border-b border-dotted sm:block"></span>
+            <span class="font-titre text-encre-pale shrink-0 text-sm">1</span>
+          </a>
+        </li>
+
+        <li aria-disabled="true"
+            class="-mx-2 flex items-baseline gap-2 px-2 py-2.5 opacity-45">
+          <span class="cap text-encre-pale w-[6.5rem] shrink-0 pt-[0.2em]">Chapitre&nbsp;II</span>
+          <span class="font-titre text-encre text-lg italic">à paraître</span>
+          <span class="border-filet mx-1 hidden grow translate-y-[-0.35em] border-b border-dotted sm:block"></span>
+          <span class="font-titre text-encre-pale shrink-0 text-sm">—</span>
+        </li>
+      </ol>
+    </nav>
+  </main>
+
+  <!-- ------------------------------------------------------- colophon -->
+  <footer class="border-filet text-encre-pale border-t py-8 text-center">
+    <p class="cap mb-2">Aux dépens de l’auteur</p>
+    <p class="text-xs italic">
+      Page statique, composée avec Tailwind. —
+      <a href="https://github.com/ksahli/precis" class="text-rubrique decoration-filet underline underline-offset-2">
+        le dépôt sur GitHub</a>
+    </p>
+  </footer>
+</div>
+
 </body>
 </html>

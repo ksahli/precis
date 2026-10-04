@@ -3,188 +3,319 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>La mitochondrie — precis</title>
-<meta name="description" content="La mitochondrie expliquée : structure, production d'ATP, ADN propre et origine bactérienne, avec un schéma 3D interactif.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>·</text></svg>">
-<link rel="stylesheet" href="assets/article.css">
+<title>La mitochondrie — Précis</title>
+<meta name="description" content="La mitochondrie : structure, production d’ATP par chimiosmose, génome propre et origine bactérienne. Avec une planche en relief interactive.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.92em' font-size='86' fill='%238c2f1f'>§</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..700&family=EB+Garamond:ital,wght@0,400..600;1,400..500&family=Playfair+Display:ital,wght@0,400..700;1,400..500&display=swap">
+<link rel="stylesheet" href="assets/precis.css">
 </head>
 <body>
 
-<nav class="fil">
-  <a href="./">precis</a> <span aria-hidden="true">/</span> <span>la mitochondrie</span>
-</nav>
+<!-- ------------------------------------------------------ titre courant -->
+<header class="border-filet border-b">
+  <div class="mx-auto flex max-w-5xl items-baseline justify-between gap-4 px-5 py-3 sm:px-10">
+    <a href="./" class="cap hover:text-rubrique no-underline">Précis</a>
+    <p class="cap hidden sm:block">La mitochondrie</p>
+    <p class="cap">Chap.&nbsp;I</p>
+  </div>
+</header>
 
-<article>
+<article class="mx-auto max-w-5xl px-5 pb-4 sm:px-10">
 
-  <header class="tete">
-    <p class="surtitre">Biologie cellulaire</p>
-    <h1>La mitochondrie</h1>
-    <p class="chapeau">
-      Un organite à double membrane, présent dans presque toutes les cellules
-      eucaryotes, qui convertit l’énergie des nutriments en ATP — la monnaie
-      énergétique de la cellule. Elle possède son propre ADN et descend,
-      selon toute vraisemblance, d’une bactérie avalée il y a près de deux
-      milliards d’années.
+  <!-- ------------------------------------------------- tête de chapitre -->
+  <header class="mx-auto max-w-[34rem] pt-14 pb-2 text-center">
+    <p class="cap">Chapitre premier</p>
+
+    <h1 class="font-titre text-encre mt-4 text-[clamp(2.3rem,9vw,3.6rem)] leading-[1.02] font-medium tracking-[-0.02em]">
+      La mitochondrie
+    </h1>
+
+    <p class="font-titre text-encre-pale mt-3 text-base italic">
+      de sa structure, de ses fonctions et de son origine
     </p>
+
+    <div class="ornement mt-8"><span>&#10022;</span></div>
   </header>
 
-  <section>
-    <h2>Ce que c’est</h2>
-    <p>
-      Une mitochondrie mesure de 0,5 à 3&nbsp;µm — l’ordre de grandeur d’une
-      bactérie. Le nombre varie énormément d’un type cellulaire à l’autre&nbsp;:
-      une poignée dans un globule rouge immature, un ou deux milliers dans une
-      cellule du foie, et jusqu’à un tiers du volume d’une cellule du muscle
-      cardiaque. Elles ne sont pas des objets isolés mais un réseau&nbsp;: elles
-      fusionnent, se divisent et se déplacent le long du cytosquelette selon les
-      besoins du moment.
-    </p>
-    <p>
-      Sa particularité tient à ses deux membranes, et surtout à l’espace étroit
-      qu’elles enferment. Toute la production d’énergie repose sur cette
-      géométrie&nbsp;: sans deux compartiments séparés par une membrane étanche,
-      pas de gradient de protons, donc pas d’ATP.
-    </p>
+  <!-- ---------------------------------------------------------- § I -->
+  <section class="mx-auto mt-10 grid max-w-5xl gap-x-12 gap-y-4 lg:grid-cols-[minmax(0,34rem)_13rem]">
+    <div class="mx-auto w-full max-w-[34rem] lg:mx-0">
+      <h2 class="font-titre text-encre mb-4 text-xl">
+        <span class="text-rubrique">§&nbsp;I.</span> — Définition
+      </h2>
+
+      <p class="text-corps justif lettrine text-encre mb-4">
+        La mitochondrie est un organite à double membrane, présent dans presque
+        toutes les cellules eucaryotes, qui convertit l’énergie des nutriments en
+        adénosine triphosphate — l’ATP, monnaie énergétique de la cellule. Elle
+        mesure de 0,5 à 3&nbsp;µm, soit l’ordre de grandeur d’une bactérie, et
+        possède son propre acide désoxyribonucléique.<a href="#note-1" class="renvoi" id="renvoi-1">1</a>
+      </p>
+
+      <p class="text-corps justif text-encre mb-4">
+        Le nombre varie considérablement selon le tissu&nbsp;: une poignée dans un
+        globule rouge immature, un ou deux milliers dans une cellule hépatique,
+        et jusqu’au tiers du volume dans une cellule du muscle cardiaque. Ces
+        organites ne forment pas une population d’objets isolés mais un réseau
+        mouvant&nbsp;: ils fusionnent, se divisent et se déplacent le long du
+        cytosquelette selon les besoins du moment.
+      </p>
+
+      <p class="text-corps justif text-encre">
+        Toute sa singularité tient aux deux membranes, et surtout à l’espace
+        étroit qu’elles enferment. La production d’énergie repose sur cette
+        géométrie&nbsp;: sans deux compartiments séparés par une membrane étanche,
+        point de gradient de protons, donc point d’ATP.
+      </p>
+    </div>
+
+    <aside class="border-filet text-encre-pale border-l pl-4 text-[0.78rem] leading-relaxed italic lg:mt-12">
+      <p class="mb-3"><span class="cap not-italic">Note marginale.</span>
+        L’organite fut aperçu dès 1857 par Kölliker dans le muscle, puis nommé
+        <i>mitochondrie</i> par Benda en 1898 — du grec <i>mitos</i>, filament,
+        et <i>khondros</i>, grain.</p>
+      <p>On en compte de quelques dizaines à plusieurs milliers par cellule.</p>
+    </aside>
   </section>
 
-  <section class="section-schema">
-    <h2>Anatomie</h2>
-    <p class="intro-schema">
-      Fais tourner le schéma en le faisant glisser, zoome à la molette, puis
-      clique une zone — ou une entrée de la légende — pour la description.
-      Le bouton <i>vue en coupe</i> efface les membranes extérieures.
-    </p>
+  <!-- --------------------------------------------------- § II, planche -->
+  <section class="mt-14">
+    <div class="mx-auto max-w-[34rem]">
+      <h2 class="font-titre text-encre mb-4 text-xl">
+        <span class="text-rubrique">§&nbsp;II.</span> — Anatomie
+      </h2>
+      <p class="text-corps justif text-encre mb-8">
+        La planche ci-dessous est en relief&nbsp;: on la fait tourner en la
+        faisant glisser, on l’approche à la molette, et l’on obtient la
+        description d’une partie en la désignant du doigt ou en la choisissant
+        dans la légende. Le bouton <i>vue en coupe</i> lève les enveloppes
+        extérieures.
+      </p>
+    </div>
 
-    <figure class="schema">
-      <div class="cadre">
-        <div id="scene" role="img"
-             aria-label="Schéma 3D d’une mitochondrie : enveloppe externe translucide, membrane interne repliée en crêtes, matrice contenant l’ADN circulaire et des ribosomes."></div>
-        <div class="outils">
-          <button id="coupe" type="button" aria-pressed="false">Vue en coupe</button>
-          <button id="tourner" type="button" aria-pressed="true">Rotation</button>
-          <button id="recadrer" type="button">Recadrer</button>
+    <figure class="encadre-planche bg-papier-vif/70 mx-auto mt-2 p-4 sm:p-6">
+      <figcaption class="cap border-filet mb-4 border-b pb-2 text-center">
+        Planche I. — Coupe schématique d’une mitochondrie
+      </figcaption>
+
+      <div class="grid gap-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+
+        <!-- la scène -->
+        <div class="border-filet bg-papier relative border">
+          <div id="scene" class="h-[clamp(280px,46vh,440px)] w-full cursor-grab touch-none active:cursor-grabbing"
+               role="img"
+               aria-label="Planche en relief d’une mitochondrie : enveloppe externe translucide, membrane interne repliée en crêtes, matrice contenant l’ADN circulaire et des ribosomes."></div>
+          <div class="absolute bottom-2.5 left-2.5 flex flex-wrap gap-1.5">
+            <button id="coupe" type="button" class="bouton" aria-pressed="false">Vue en coupe</button>
+            <button id="tourner" type="button" class="bouton" aria-pressed="true">Rotation</button>
+            <button id="recadrer" type="button" class="bouton">Recadrer</button>
+          </div>
+        </div>
+
+        <!-- légende et notice -->
+        <div class="flex min-w-0 flex-col gap-4">
+          <div>
+            <p class="cap border-filet mb-2 border-b pb-1.5">Explication de la planche</p>
+            <ul id="legende" class="grid gap-0.5"></ul>
+          </div>
+          <div id="panneau" class="border-filet bg-papier border px-4 py-3" aria-live="polite"></div>
         </div>
       </div>
 
-      <div class="lecture">
-        <ul id="legende" class="legende"></ul>
-        <div id="panneau" class="panneau" aria-live="polite"></div>
-      </div>
-
-      <figcaption>
-        Représentation schématique&nbsp;: les proportions sont lisibles plutôt
-        qu’exactes, et les crêtes d’une mitochondrie réelle sont bien plus
-        denses et irrégulières.
-      </figcaption>
+      <p class="text-encre-pale border-filet mt-4 border-t pt-3 text-[0.75rem] leading-relaxed italic">
+        Les proportions sont lisibles plutôt qu’exactes&nbsp;; les crêtes d’une
+        mitochondrie réelle sont bien plus denses et irrégulières.
+      </p>
     </figure>
   </section>
 
-  <section>
-    <h2>Comment elle fabrique l’ATP</h2>
-    <p>
-      Le glucose est d’abord coupé en deux dans le cytosol (glycolyse), ce qui
-      ne rapporte que deux ATP. Le pyruvate qui en résulte entre dans la
-      matrice, où le cycle de Krebs l’oxyde complètement. Ce cycle ne produit
-      presque pas d’ATP directement&nbsp;: son vrai rendement, ce sont des
-      transporteurs d’électrons chargés, le NADH et le FADH₂.
-    </p>
-    <p>
-      Ces électrons sont ensuite cédés à la chaîne respiratoire, quatre
-      complexes enchâssés dans la membrane interne. À chaque transfert,
-      l’énergie libérée sert à pomper des protons de la matrice vers l’espace
-      intermembranaire. Il s’y accumule une charge&nbsp;: la membrane devient une
-      pile. L’ATP synthase est la turbine qui l’exploite — les protons refluent
-      à travers elle, elle tourne, et chaque tour soude un phosphate sur l’ADP.
-      C’est la <b>chimiosmose</b>, proposée par Peter Mitchell en 1961 et longtemps
-      jugée invraisemblable.
-    </p>
-    <p>
-      L’oxygène n’intervient qu’à la toute fin&nbsp;: il récupère les électrons
-      épuisés pour former de l’eau. Sans lui, la chaîne s’engorge et tout
-      s’arrête — c’est précisément ce que la respiration sert à alimenter.
-    </p>
+  <!-- -------------------------------------------------------- § III -->
+  <section class="mx-auto mt-14 grid max-w-5xl gap-x-12 gap-y-4 lg:grid-cols-[minmax(0,34rem)_13rem]">
+    <div class="mx-auto w-full max-w-[34rem] lg:mx-0">
+      <h2 class="font-titre text-encre mb-4 text-xl">
+        <span class="text-rubrique">§&nbsp;III.</span> — De la production de l’ATP
+      </h2>
 
-    <div class="chiffres">
-      <dl>
-        <div><dt>ATP par glucose</dt><dd>≈ 30 à 32</dd></div>
-        <div><dt>Part venant des mitochondries</dt><dd>environ 90&nbsp;%</dd></div>
-        <div><dt>Taille de l’organite</dt><dd>0,5 à 3&nbsp;µm</dd></div>
-        <div><dt>Génome humain mitochondrial</dt><dd>16&nbsp;569 pb, 37 gènes</dd></div>
+      <p class="text-corps justif text-encre mb-4">
+        Le glucose est d’abord scindé dans le cytosol — c’est la glycolyse, qui
+        ne rapporte que deux ATP. Le pyruvate qui en résulte pénètre dans la
+        matrice, où le cycle de Krebs l’oxyde complètement. Ce cycle ne produit
+        presque pas d’ATP directement&nbsp;: son véritable rendement consiste en
+        transporteurs d’électrons chargés, le NADH et le FADH₂.
+      </p>
+
+      <p class="text-corps justif text-encre mb-4">
+        Ces électrons sont ensuite cédés à la chaîne respiratoire, quatre
+        complexes enchâssés dans la membrane interne. À chaque transfert,
+        l’énergie libérée refoule des protons de la matrice vers l’espace
+        intermembranaire. Il s’y accumule une charge&nbsp;: la membrane devient
+        une pile. L’ATP synthase est la turbine qui l’exploite — les protons
+        refluent à travers elle, elle tourne, et chaque tour soude un phosphate
+        sur l’ADP. Telle est la <b class="font-semibold">chimiosmose</b>, proposée
+        par Peter Mitchell en 1961 et longtemps tenue pour invraisemblable.<a href="#note-2" class="renvoi" id="renvoi-2">2</a>
+      </p>
+
+      <p class="text-corps justif text-encre">
+        L’oxygène n’intervient qu’au terme de la chaîne&nbsp;: il recueille les
+        électrons épuisés pour former de l’eau. À défaut, la chaîne s’engorge et
+        tout s’arrête — c’est précisément ce que la respiration sert à
+        entretenir.
+      </p>
+    </div>
+
+    <aside class="border-filet text-encre-pale border-l pl-4 text-[0.78rem] leading-relaxed italic lg:mt-12">
+      <p><span class="cap not-italic">Rendement.</span>
+        L’estimation classique de 36 à 38 ATP par glucose est aujourd’hui
+        révisée à la baisse&nbsp;: le transport des métabolites consomme
+        lui-même une part du gradient.</p>
+    </aside>
+
+    <!-- tableau des chiffres -->
+    <div class="mx-auto w-full max-w-[34rem] lg:mx-0 lg:col-start-1">
+      <p class="cap border-filet mt-10 mb-0 border-b pb-1.5">Quelques nombres</p>
+      <dl class="divide-filet border-filet divide-y border-b">
+        <div class="flex items-baseline justify-between gap-4 py-2.5">
+          <dt class="text-encre-douce text-[0.9rem]">ATP par molécule de glucose</dt>
+          <dd class="font-titre shrink-0 text-base">≈ 30 à 32</dd>
+        </div>
+        <div class="flex items-baseline justify-between gap-4 py-2.5">
+          <dt class="text-encre-douce text-[0.9rem]">Part d’origine mitochondriale</dt>
+          <dd class="font-titre shrink-0 text-base">environ 90&nbsp;%</dd>
+        </div>
+        <div class="flex items-baseline justify-between gap-4 py-2.5">
+          <dt class="text-encre-douce text-[0.9rem]">Dimensions de l’organite</dt>
+          <dd class="font-titre shrink-0 text-base">0,5 à 3&nbsp;µm</dd>
+        </div>
+        <div class="flex items-baseline justify-between gap-4 py-2.5">
+          <dt class="text-encre-douce text-[0.9rem]">Génome humain mitochondrial</dt>
+          <dd class="font-titre shrink-0 text-base">16&nbsp;569 pb, 37 gènes</dd>
+        </div>
       </dl>
     </div>
   </section>
 
-  <section>
-    <h2>Un génome à part</h2>
-    <p>
-      La mitochondrie garde un chromosome circulaire et de quoi le lire&nbsp;:
-      ses propres ARN de transfert, ses propres ribosomes. Mais 37 gènes ne
-      suffisent pas à la faire fonctionner&nbsp;: les quelque 1&nbsp;500 autres
-      protéines dont elle a besoin sont codées par le noyau, fabriquées dans le
-      cytosol, puis importées. L’organite est donc autonome en apparence et
-      dépendant en pratique.
+  <!-- --------------------------------------------------------- § IV -->
+  <section class="mx-auto mt-14 max-w-[34rem]">
+    <h2 class="font-titre text-encre mb-4 text-xl">
+      <span class="text-rubrique">§&nbsp;IV.</span> — D’un génome à part
+    </h2>
+    <p class="text-corps justif text-encre mb-4">
+      L’organite conserve un chromosome circulaire et de quoi le lire&nbsp;: ses
+      propres ARN de transfert, ses propres ribosomes. Mais trente-sept gènes ne
+      suffisent pas à le faire fonctionner&nbsp;: les quelque mille cinq cents
+      autres protéines dont il a besoin sont codées par le noyau, fabriquées
+      dans le cytosol, puis importées. Autonome en apparence, dépendant en
+      pratique.
     </p>
-    <p>
+    <p class="text-corps justif text-encre">
       Comme les mitochondries d’un embryon proviennent presque toutes de
-      l’ovocyte, cet ADN se transmet par la lignée maternelle sans se recombiner.
-      D’où son usage en généalogie et en phylogénie&nbsp;: il enregistre les
-      migrations humaines comme un carnet qu’on n’aurait jamais raturé.
+      l’ovocyte, cet ADN se transmet par la lignée maternelle sans se
+      recombiner. D’où son usage en généalogie et en phylogénie&nbsp;: il
+      enregistre les migrations humaines comme un carnet que l’on n’aurait
+      jamais raturé.
     </p>
   </section>
 
-  <section>
-    <h2>Une ancienne bactérie</h2>
-    <p>
+  <!-- ---------------------------------------------------------- § V -->
+  <section class="mx-auto mt-14 max-w-[34rem]">
+    <h2 class="font-titre text-encre mb-4 text-xl">
+      <span class="text-rubrique">§&nbsp;V.</span> — D’une ancienne bactérie
+    </h2>
+    <p class="text-corps justif text-encre mb-4">
       L’hypothèse endosymbiotique, défendue par Lynn Margulis à partir de 1967,
       veut qu’une cellule ancestrale ait englouti une alphaprotéobactérie sans
-      la digérer, et que les deux y aient gagné. Les indices se sont accumulés&nbsp;:
-      deux membranes, un génome circulaire de type bactérien, des ribosomes
-      sensibles aux antibiotiques antibactériens, une division par
-      étranglement, et le cardiolipide — un lipide que l’on ne trouve
-      pratiquement que chez les bactéries et dans la membrane interne.
+      la digérer, et que les deux y aient trouvé leur compte. Les indices se
+      sont accumulés&nbsp;: deux membranes, un génome circulaire de type
+      bactérien, des ribosomes sensibles aux antibiotiques antibactériens, une
+      division par étranglement, et le cardiolipide — lipide que l’on ne trouve
+      guère que chez les bactéries et dans la membrane interne.
     </p>
-    <p>
+    <p class="text-corps justif text-encre">
       Depuis, la plupart des gènes de l’ancienne bactérie ont migré vers le
-      noyau. Ce qui reste est le vestige fonctionnel d’une association devenue
+      noyau. Ce qui demeure est le vestige fonctionnel d’une association devenue
       irréversible&nbsp;: aucune des deux cellules ne survit plus sans l’autre.
     </p>
   </section>
 
-  <section>
-    <h2>Au-delà de l’énergie</h2>
-    <ul class="roles">
-      <li><b>Apoptose</b> — la perméabilisation de la membrane libère le
-        cytochrome&nbsp;c dans le cytosol, signal qui enclenche la mort cellulaire
-        programmée.</li>
-      <li><b>Calcium</b> — l’organite capte et relâche du Ca²⁺, et participe
-        ainsi à la signalisation cellulaire.</li>
-      <li><b>Chaleur</b> — dans le tissu adipeux brun, la protéine découplante UCP1
-        court-circuite l’ATP synthase&nbsp;: le gradient se dissipe en chaleur
-        plutôt qu’en ATP.</li>
-      <li><b>Synthèses</b> — hèmes, certaines hormones stéroïdes, et une partie
-        du cycle de l’urée passent par elle.</li>
-      <li><b>Stress oxydant</b> — la chaîne respiratoire laisse fuir des
-        électrons qui produisent des radicaux libres, impliqués dans le
-        vieillissement cellulaire.</li>
-    </ul>
-    <p>
-      Quand l’ADN mitochondrial est muté, les tissus les plus gourmands cèdent
+  <!-- --------------------------------------------------------- § VI -->
+  <section class="mx-auto mt-14 max-w-[34rem]">
+    <h2 class="font-titre text-encre mb-4 text-xl">
+      <span class="text-rubrique">§&nbsp;VI.</span> — Des fonctions annexes
+    </h2>
+
+    <dl class="divide-filet border-filet divide-y border-y">
+      <div class="py-3">
+        <dt class="cap text-encre-douce">Apoptose</dt>
+        <dd class="text-corps justif text-encre mt-1">La perméabilisation de la
+          membrane libère le cytochrome&nbsp;c dans le cytosol&nbsp;: signal qui
+          enclenche la mort cellulaire programmée.</dd>
+      </div>
+      <div class="py-3">
+        <dt class="cap text-encre-douce">Calcium</dt>
+        <dd class="text-corps justif text-encre mt-1">L’organite capte et relâche
+          du Ca²⁺, et participe ainsi à la signalisation cellulaire.</dd>
+      </div>
+      <div class="py-3">
+        <dt class="cap text-encre-douce">Chaleur</dt>
+        <dd class="text-corps justif text-encre mt-1">Dans le tissu adipeux brun,
+          la protéine découplante UCP1 court-circuite l’ATP synthase&nbsp;: le
+          gradient se dissipe en chaleur plutôt qu’en ATP.</dd>
+      </div>
+      <div class="py-3">
+        <dt class="cap text-encre-douce">Synthèses</dt>
+        <dd class="text-corps justif text-encre mt-1">Hèmes, certaines hormones
+          stéroïdes et une part du cycle de l’urée passent par elle.</dd>
+      </div>
+      <div class="py-3">
+        <dt class="cap text-encre-douce">Stress oxydant</dt>
+        <dd class="text-corps justif text-encre mt-1">La chaîne respiratoire
+          laisse fuir des électrons qui engendrent des radicaux libres, impliqués
+          dans le vieillissement cellulaire.</dd>
+      </div>
+    </dl>
+
+    <p class="text-corps justif text-encre mt-5">
+      Lorsque l’ADN mitochondrial est muté, les tissus les plus gourmands cèdent
       les premiers&nbsp;: muscle, cœur, nerf optique, système nerveux central.
-      C’est la signature des maladies mitochondriales — neuropathie optique de
-      Leber, syndrome MELAS, myopathies — et la raison pour laquelle leurs
+      Telle est la signature des maladies mitochondriales — neuropathie optique
+      de Leber, syndrome MELAS, myopathies — et la raison pour laquelle leurs
       tableaux cliniques paraissent si disparates.
     </p>
   </section>
 
+  <!-- -------------------------------------------------------- notes -->
+  <section class="mx-auto mt-16 max-w-[34rem]" aria-labelledby="notes">
+    <div class="ornement mb-6"><span>&#10022;</span></div>
+    <h2 id="notes" class="cap mb-3">Notes</h2>
+    <ol class="text-encre-douce space-y-2 text-[0.82rem] leading-relaxed">
+      <li id="note-1">
+        <span class="text-rubrique">1.</span> Chez l’humain, 16&nbsp;569 paires
+        de bases pour 37 gènes, présentes en dizaines de copies par organite.
+        <a href="#renvoi-1" class="text-rubrique no-underline" aria-label="retour au texte">↩</a>
+      </li>
+      <li id="note-2">
+        <span class="text-rubrique">2.</span> Mitchell reçut le prix Nobel de
+        chimie en 1978, dix-sept ans après avoir formulé l’hypothèse.
+        <a href="#renvoi-2" class="text-rubrique no-underline" aria-label="retour au texte">↩</a>
+      </li>
+    </ol>
+  </section>
+
 </article>
 
-<footer>
-  <p>
-    Page statique&nbsp;; le schéma 3D est rendu localement par ton navigateur.
-    Rien n’est envoyé nulle part.
-  </p>
-  <p><a href="./">Retour à l’accueil</a> &middot;
-     <a href="https://github.com/ksahli/precis">le dépôt sur GitHub</a></p>
+<!-- ----------------------------------------------------------- colophon -->
+<footer class="border-filet mt-14 border-t">
+  <div class="text-encre-pale mx-auto max-w-5xl px-5 py-8 text-center sm:px-10">
+    <p class="cap mb-2">Fin du chapitre premier</p>
+    <p class="mx-auto max-w-[32rem] text-xs leading-relaxed italic">
+      Page statique&nbsp;; la planche est calculée par votre navigateur et rien
+      n’est envoyé nulle part. —
+      <a href="./" class="text-rubrique decoration-filet underline underline-offset-2">table des matières</a> &middot;
+      <a href="https://github.com/ksahli/precis" class="text-rubrique decoration-filet underline underline-offset-2">le dépôt</a>
+    </p>
+  </div>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"
