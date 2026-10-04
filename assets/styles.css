@@ -51,6 +51,37 @@ h1 {
   font-size: clamp(1rem, 4vw, 1.125rem);
 }
 
+.sommaire {
+  margin: 2.5rem 0 0;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+
+.sommaire a {
+  display: block;
+  padding: 14px 16px;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.sommaire a:hover { border-color: var(--accent); }
+
+.sommaire .titre {
+  display: block;
+  font: 600 1.0625rem/1.3 Iowan Old Style, "Palatino Linotype", Palatino, Georgia, serif;
+}
+
+.sommaire .note {
+  display: block;
+  margin-top: 4px;
+  color: var(--ink-soft);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
 hr {
   width: 2.5rem;
   margin: 2.5rem auto;

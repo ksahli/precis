@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La mitochondrie — precis</title>
+<meta name="description" content="La mitochondrie expliquée : structure, production d'ATP, ADN propre et origine bactérienne, avec un schéma 3D interactif.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>·</text></svg>">
+<link rel="stylesheet" href="assets/article.css">
+</head>
+<body>
+
+<nav class="fil">
+  <a href="./">precis</a> <span aria-hidden="true">/</span> <span>la mitochondrie</span>
+</nav>
+
+<article>
+
+  <header class="tete">
+    <p class="surtitre">Biologie cellulaire</p>
+    <h1>La mitochondrie</h1>
+    <p class="chapeau">
+      Un organite à double membrane, présent dans presque toutes les cellules
+      eucaryotes, qui convertit l’énergie des nutriments en ATP — la monnaie
+      énergétique de la cellule. Elle possède son propre ADN et descend,
+      selon toute vraisemblance, d’une bactérie avalée il y a près de deux
+      milliards d’années.
+    </p>
+  </header>
+
+  <section>
+    <h2>Ce que c’est</h2>
+    <p>
+      Une mitochondrie mesure de 0,5 à 3&nbsp;µm — l’ordre de grandeur d’une
+      bactérie. Le nombre varie énormément d’un type cellulaire à l’autre&nbsp;:
+      une poignée dans un globule rouge immature, un ou deux milliers dans une
+      cellule du foie, et jusqu’à un tiers du volume d’une cellule du muscle
+      cardiaque. Elles ne sont pas des objets isolés mais un réseau&nbsp;: elles
+      fusionnent, se divisent et se déplacent le long du cytosquelette selon les
+      besoins du moment.
+    </p>
+    <p>
+      Sa particularité tient à ses deux membranes, et surtout à l’espace étroit
+      qu’elles enferment. Toute la production d’énergie repose sur cette
+      géométrie&nbsp;: sans deux compartiments séparés par une membrane étanche,
+      pas de gradient de protons, donc pas d’ATP.
+    </p>
+  </section>
+
+  <section class="section-schema">
+    <h2>Anatomie</h2>
+    <p class="intro-schema">
+      Fais tourner le schéma en le faisant glisser, zoome à la molette, puis
+      clique une zone — ou une entrée de la légende — pour la description.
+      Le bouton <i>vue en coupe</i> efface les membranes extérieures.
+    </p>
+
+    <figure class="schema">
+      <div class="cadre">
+        <div id="scene" role="img"
+             aria-label="Schéma 3D d’une mitochondrie : enveloppe externe translucide, membrane interne repliée en crêtes, matrice contenant l’ADN circulaire et des ribosomes."></div>
+        <div class="outils">
+          <button id="coupe" type="button" aria-pressed="false">Vue en coupe</button>
+          <button id="tourner" type="button" aria-pressed="true">Rotation</button>
+          <button id="recadrer" type="button">Recadrer</button>
+        </div>
+      </div>
+
+      <div class="lecture">
+        <ul id="legende" class="legende"></ul>
+        <div id="panneau" class="panneau" aria-live="polite"></div>
+      </div>
+
+      <figcaption>
+        Représentation schématique&nbsp;: les proportions sont lisibles plutôt
+        qu’exactes, et les crêtes d’une mitochondrie réelle sont bien plus
+        denses et irrégulières.
+      </figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>Comment elle fabrique l’ATP</h2>
+    <p>
+      Le glucose est d’abord coupé en deux dans le cytosol (glycolyse), ce qui
+      ne rapporte que deux ATP. Le pyruvate qui en résulte entre dans la
+      matrice, où le cycle de Krebs l’oxyde complètement. Ce cycle ne produit
+      presque pas d’ATP directement&nbsp;: son vrai rendement, ce sont des
+      transporteurs d’électrons chargés, le NADH et le FADH₂.
+    </p>
+    <p>
+      Ces électrons sont ensuite cédés à la chaîne respiratoire, quatre
+      complexes enchâssés dans la membrane interne. À chaque transfert,
+      l’énergie libérée sert à pomper des protons de la matrice vers l’espace
+      intermembranaire. Il s’y accumule une charge&nbsp;: la membrane devient une
+      pile. L’ATP synthase est la turbine qui l’exploite — les protons refluent
+      à travers elle, elle tourne, et chaque tour soude un phosphate sur l’ADP.
+      C’est la <b>chimiosmose</b>, proposée par Peter Mitchell en 1961 et longtemps
+      jugée invraisemblable.
+    </p>
+    <p>
+      L’oxygène n’intervient qu’à la toute fin&nbsp;: il récupère les électrons
+      épuisés pour former de l’eau. Sans lui, la chaîne s’engorge et tout
+      s’arrête — c’est précisément ce que la respiration sert à alimenter.
+    </p>
+
+    <div class="chiffres">
+      <dl>
+        <div><dt>ATP par glucose</dt><dd>≈ 30 à 32</dd></div>
+        <div><dt>Part venant des mitochondries</dt><dd>environ 90&nbsp;%</dd></div>
+        <div><dt>Taille de l’organite</dt><dd>0,5 à 3&nbsp;µm</dd></div>
+        <div><dt>Génome humain mitochondrial</dt><dd>16&nbsp;569 pb, 37 gènes</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section>
+    <h2>Un génome à part</h2>
+    <p>
+      La mitochondrie garde un chromosome circulaire et de quoi le lire&nbsp;:
+      ses propres ARN de transfert, ses propres ribosomes. Mais 37 gènes ne
+      suffisent pas à la faire fonctionner&nbsp;: les quelque 1&nbsp;500 autres
+      protéines dont elle a besoin sont codées par le noyau, fabriquées dans le
+      cytosol, puis importées. L’organite est donc autonome en apparence et
+      dépendant en pratique.
+    </p>
+    <p>
+      Comme les mitochondries d’un embryon proviennent presque toutes de
+      l’ovocyte, cet ADN se transmet par la lignée maternelle sans se recombiner.
+      D’où son usage en généalogie et en phylogénie&nbsp;: il enregistre les
+      migrations humaines comme un carnet qu’on n’aurait jamais raturé.
+    </p>
+  </section>
+
+  <section>
+    <h2>Une ancienne bactérie</h2>
+    <p>
+      L’hypothèse endosymbiotique, défendue par Lynn Margulis à partir de 1967,
+      veut qu’une cellule ancestrale ait englouti une alphaprotéobactérie sans
+      la digérer, et que les deux y aient gagné. Les indices se sont accumulés&nbsp;:
+      deux membranes, un génome circulaire de type bactérien, des ribosomes
+      sensibles aux antibiotiques antibactériens, une division par
+      étranglement, et le cardiolipide — un lipide que l’on ne trouve
+      pratiquement que chez les bactéries et dans la membrane interne.
+    </p>
+    <p>
+      Depuis, la plupart des gènes de l’ancienne bactérie ont migré vers le
+      noyau. Ce qui reste est le vestige fonctionnel d’une association devenue
+      irréversible&nbsp;: aucune des deux cellules ne survit plus sans l’autre.
+    </p>
+  </section>
+
+  <section>
+    <h2>Au-delà de l’énergie</h2>
+    <ul class="roles">
+      <li><b>Apoptose</b> — la perméabilisation de la membrane libère le
+        cytochrome&nbsp;c dans le cytosol, signal qui enclenche la mort cellulaire
+        programmée.</li>
+      <li><b>Calcium</b> — l’organite capte et relâche du Ca²⁺, et participe
+        ainsi à la signalisation cellulaire.</li>
+      <li><b>Chaleur</b> — dans le tissu adipeux brun, la protéine découplante UCP1
+        court-circuite l’ATP synthase&nbsp;: le gradient se dissipe en chaleur
+        plutôt qu’en ATP.</li>
+      <li><b>Synthèses</b> — hèmes, certaines hormones stéroïdes, et une partie
+        du cycle de l’urée passent par elle.</li>
+      <li><b>Stress oxydant</b> — la chaîne respiratoire laisse fuir des
+        électrons qui produisent des radicaux libres, impliqués dans le
+        vieillissement cellulaire.</li>
+    </ul>
+    <p>
+      Quand l’ADN mitochondrial est muté, les tissus les plus gourmands cèdent
+      les premiers&nbsp;: muscle, cœur, nerf optique, système nerveux central.
+      C’est la signature des maladies mitochondriales — neuropathie optique de
+      Leber, syndrome MELAS, myopathies — et la raison pour laquelle leurs
+      tableaux cliniques paraissent si disparates.
+    </p>
+  </section>
+
+</article>
+
+<footer>
+  <p>
+    Page statique&nbsp;; le schéma 3D est rendu localement par ton navigateur.
+    Rien n’est envoyé nulle part.
+  </p>
+  <p><a href="./">Retour à l’accueil</a> &middot;
+     <a href="https://github.com/ksahli/precis">le dépôt sur GitHub</a></p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"
+        integrity="sha384-CI3ELBVUz9XQO+97x6nwMDPosPR5XvsxW2ua7N1Xeygeh1IxtgqtCkGfQY9WWdHu"
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="assets/mitochondrie-3d.js"></script>
+</body>
+</html>
