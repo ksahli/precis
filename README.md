@@ -56,18 +56,18 @@ donne la silhouette en gélule de l’organite. Le même rayon sert ensuite à s
 si un point tombe dans la matrice : les ribosomes y sont semés par tirage avec
 rejet, si bien qu’aucun ne chevauche un repli, un chromosome ou un repère.
 
-L’animation montre la chimiosmose, et rien d’autre. Les complexes refoulent des
-protons dans l’espace intermembranaire, ceux-ci dérivent jusqu’à l’ATP synthase,
-refluent au travers, en font tourner le rotor, et trois refluxs valent une
-molécule d’ATP. Les électrons courent dans l’épaisseur de la membrane, de I à
-IV, puisque c’est leur passage qui alimente les pompes.
+La chimiosmose est portée par des **flèches, non par un mouvement** : les
+complexes refoulent les protons sous la membrane, ceux-ci gagnent l’ATP
+synthase, refluent au travers, et l’ATP paraît dans la matrice. Les électrons
+sautent de complexe en complexe dans l’épaisseur même de la membrane, puisque
+c’est leur passage qui alimente les pompes. Rien ne bouge : la planche est un
+schéma, pas un film.
 
 Les neuf parties sont déclarées dans une seule liste, qui pose à la fois les
 repères chiffrés sur la planche et les entrées de la légende : on les parcourt
-donc au clavier, sans jamais viser un pixel. L’animation s’arrête hors de
-l’écran, se tait d’emblée si `prefers-reduced-motion` est réglé — la planche
-s’ouvre alors peuplée mais immobile, quelques secondes ayant été jouées à
-vide — et se mène à la main avec les trois boutons.
+donc au clavier, sans jamais viser un pixel. Désigner une partie — sur la
+planche ou dans la légende — l’allume au rouge du typographe, jusque dans sa
+hachure, et éteint le reste.
 
 ## Déploiement
 

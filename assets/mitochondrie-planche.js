@@ -1,10 +1,10 @@
 /**
- * Planche animée d'une mitochondrie — une gravure au trait, en deux dimensions.
+ * Planche d'une mitochondrie — une gravure au trait, en deux dimensions.
  *
  * Tout est dessiné en SVG, d'une seule encre : les régions se distinguent par
  * leur hachure, comme sur une planche gravée, et non par une couleur. Le rouge
- * du typographe ne sert qu'à deux choses, marquer la partie choisie et suivre
- * les protons.
+ * du typographe ne sert qu'à deux choses, marquer la partie choisie et tracer
+ * le circuit des protons.
  *
  * La planche porte deux figures, comme il se doit quand une échelle ne suffit
  * pas. La figure 1 donne l'organite en coupe ; la figure 2 agrandit le morceau
@@ -18,11 +18,10 @@
  * savoir si un point tombe dans la matrice — ce qui sème les ribosomes sans
  * qu'aucun ne chevauche un repli, un chromosome ou un repère.
  *
- * L'animation montre la chimiosmose, et rien d'autre : les complexes refoulent
- * des protons dans l'espace intermembranaire, ceux-ci dérivent jusqu'à l'ATP
- * synthase, refluent au travers, en font tourner le rotor, et trois refluxs
- * valent une molécule d'ATP. Les électrons courent dans la membrane, de I à IV,
- * puisque c'est leur passage qui alimente les pompes.
+ * La chimiosmose est portée par des flèches, non par un mouvement : les
+ * complexes refoulent les protons sous la membrane, ceux-ci gagnent l'ATP
+ * synthase, refluent au travers, et l'ATP paraît dans la matrice. Rien ne
+ * bouge — la planche est un schéma, pas un film.
  *
  * Les repères chiffrés de la planche et les entrées de la légende sortent de la
  * même liste : on peut donc tout parcourir au clavier, sans jamais viser un
@@ -153,9 +152,8 @@
       repere: [730, 128], vers: [676, 152],
       resume: 'Le réservoir de protons qui fait tourner l’ATP synthase.',
       texte: `Un espace mince entre les deux membranes, où la chaîne respiratoire
-        refoule les protons&nbsp;— ce sont les points que l'on voit dériver vers la
-        droite au bas de la figure&nbsp;2. Il y règne un pH plus acide que dans la
-        matrice&nbsp;: c'est cette différence, le gradient électrochimique, qui
+        refoule les protons&nbsp;— c'est la flèche qui court vers la droite au bas de
+        la figure&nbsp;2. Il y règne un pH plus acide que dans la matrice&nbsp;: c'est cette différence, le gradient électrochimique, qui
         stocke l'énergie. La lumière des crêtes en fait partie, et c'est pourquoi
         elle porte la même hachure. On y trouve aussi le cytochrome&nbsp;c, dont la
         libération vers le cytosol déclenche l'apoptose.`,
@@ -227,8 +225,8 @@
       repere: [300, 608], vers: [350, 538],
       resume: 'Quatre complexes ; trois d’entre eux refoulent des protons.',
       texte: `Les électrons du NADH et du FADH₂ descendent de complexe en complexe
-        — on les suit à la figure&nbsp;2, de <b class="font-semibold">I</b> à
-        <b class="font-semibold">IV</b>. À chaque transfert, l'énergie libérée sert
+        — les petites flèches de la figure&nbsp;2 vont de <b class="font-semibold">I</b>
+        à <b class="font-semibold">IV</b>. À chaque transfert, l'énergie libérée sert
         à refouler des protons vers l'espace intermembranaire&nbsp;; seul le
         complexe <b class="font-semibold">II</b>, qui ne fait qu'injecter des
         électrons, ne pompe pas. Au terme de la chaîne, l'oxygène recueille les
@@ -238,7 +236,7 @@
       id: 'synthase',
       chiffre: 9,
       nom: 'ATP synthase',
-      repere: [592, 608], vers: [592, 538],
+      repere: [650, 608], vers: [614, 540],
       resume: 'La turbine qui monnaie le gradient en ATP.',
       texte: `Les protons accumulés ne peuvent revenir que par elle. Leur reflux
         fait tourner le rotor, et chaque tour soude un phosphate sur l'ADP&nbsp;:
@@ -306,9 +304,53 @@
       <path class="trait epais" d="M${fixe(x - 7)},${fixe(y - FUT.h / 2)}V${fixe(yTete + rTete - 6)}
                                    M${fixe(x + 7)},${fixe(y - FUT.h / 2)}V${fixe(yTete + rTete - 6)}"/>
       <circle class="tete" cx="${fixe(x)}" cy="${fixe(yTete)}" r="${rTete}"/>
-      <g class="rotor" transform="translate(${fixe(x)} ${fixe(yTete)})">
+      <g transform="translate(${fixe(x)} ${fixe(yTete)})">
         <path class="trait epais" d="${branches}"/>
       </g>`;
+  }
+
+  /**
+   * Le circuit des protons, en flèches plutôt qu'en mouvement : ils sortent par
+   * les trois pompes, gagnent la synthase sous la membrane, refluent au travers,
+   * et l'ATP paraît dans la matrice. Les électrons, eux, sautent de complexe en
+   * complexe dans l'épaisseur même de la membrane.
+   *
+   * Le circuit vit hors des groupes de parties : c'est une annotation, non une
+   * pièce de l'organite, et il ne doit donc ni s'éteindre ni se laisser cliquer.
+   */
+  function dessinCircuit() {
+    const fleche = (classe, d) => `<path class="fleche ${classe}" d="${d}"/>`;
+    const haut = DETAIL.haut - 36;              // d'où partent les protons
+    const bas = DETAIL.allee + 6;               // où ils débouchent
+    const voie = DETAIL.allee + 20;             // l'allée qu'ils suivent ensuite
+
+    // Trois descentes, au flanc des fûts qui pompent.
+    const descentes = POMPES.map(p =>
+      fleche('circuit-proton', `M${fixe(p.x + 18)},${fixe(haut)}V${fixe(bas)}`)).join('');
+
+    // La dérive sous la membrane et le reflux par la synthase ne font qu'un
+    // coude : deux flèches bout à bout laisseraient voir le raccord.
+    const coude = fleche('circuit-proton',
+      `M${fixe(POMPES[0].x + 32)},${fixe(voie)}H${fixe(SYNTHASE.x)}`
+      + `V${fixe(SYNTHASE.yTete + SYNTHASE.rTete + 6)}`);
+    const sortie = fleche('circuit-proton',
+      `M${fixe(SYNTHASE.x + SYNTHASE.rTete + 4)},${fixe(SYNTHASE.yTete - 8)}`
+      + `L${fixe(SYNTHASE.x + SYNTHASE.rTete + 30)},${fixe(SYNTHASE.yTete - 24)}`);
+
+    // Les sauts d'électrons, dans les intervalles entre complexes.
+    const intervalles = COMPLEXES.slice(0, -1).map((c, i) => [
+      c.x + FUT.l / 2 + 6, COMPLEXES[i + 1].x - FUT.l / 2 - 6,
+    ]);
+    const sauts = intervalles.map(([a, b]) =>
+      fleche('circuit-electron', `M${fixe(a)},${fixe(DETAIL.conduit)}H${fixe(b)}`)).join('');
+    const [a0, b0] = intervalles[0];
+
+    return `<g class="circuit">
+      ${descentes}${coude}${sortie}${sauts}
+      <text class="formule" x="${fixe(SYNTHASE.x - 180)}" y="${fixe(voie - 14)}">H⁺</text>
+      <text class="formule" x="${fixe(SYNTHASE.x + SYNTHASE.rTete + 52)}" y="${fixe(SYNTHASE.yTete - 26)}">ATP</text>
+      <text class="formule sobre" x="${fixe((a0 + b0) / 2)}" y="${fixe(DETAIL.haut - 12)}">e⁻</text>
+    </g>`;
   }
 
   /** Repère chiffré : une pastille sur fond de papier, et son filet de renvoi. */
@@ -335,7 +377,13 @@
       <pattern id="motif-${nom}-rubrique" width="${taille}" height="${taille}" patternUnits="userSpaceOnUse">
         <g class="encre-rubrique">${contenu}</g>
       </pattern>`;
-    return paire('hachure', 9, '<path d="M-1,8L8,-1M2,11L11,2" stroke-width="1.1" fill="none"/>')
+    const pointe = (nom, encre) => `
+      <marker id="pointe-${nom}" viewBox="0 0 10 10" refX="8.5" refY="5"
+              markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
+        <path class="${encre}" d="M0.5,1L9,5L0.5,9Z" stroke="none"/>
+      </marker>`;
+    return pointe('proton', 'encre-rubrique') + pointe('electron', 'encre-noire')
+         + paire('hachure', 9, '<path d="M-1,8L8,-1M2,11L11,2" stroke-width="1.1" fill="none"/>')
          + paire('semis', 11, '<circle cx="2.6" cy="2.6" r="0.9" stroke="none"/>'
                             + '<circle cx="8.1" cy="8.1" r="0.9" stroke="none"/>')
          + paire('serre', 7, '<path d="M-1,3L4,-2M-1,8L8,-1M3,8L8,3" stroke-width="1.5" fill="none"/>');
@@ -351,9 +399,9 @@
      externe, l’espace intermembranaire, la membrane interne repliée en sept crêtes,
      et la matrice où baignent deux chromosomes circulaires et des ribosomes.
      Figure 2, un agrandissement de la membrane interne : les quatre complexes de la
-     chaîne respiratoire refoulent des protons vers l’espace intermembranaire, ceux-ci
-     dérivent jusqu’à l’ATP synthase et refluent au travers, ce qui en fait tourner le
-     rotor et produit l’ATP.">
+     chaîne respiratoire, puis l’ATP synthase. Des flèches y tracent le circuit des
+     protons : refoulés sous la membrane par les complexes, ils gagnent l’ATP synthase,
+     refluent au travers, et l’ATP paraît dans la matrice.">
   <defs>${motifs()}</defs>
 
   <!-- ------------------------------------------- figure 1 : l'organite -->
@@ -424,7 +472,7 @@
     ${dessinSynthase()}
   </g>
 
-  <g class="animation"></g>
+  ${dessinCircuit()}
 
   <text class="annotation" x="${DETAIL.gauche}" y="36" text-anchor="start">Fig. 1</text>
   <text class="annotation" x="${DETAIL.gauche}" y="366" text-anchor="start">Fig. 2</text>
@@ -439,8 +487,6 @@
   hote.innerHTML = svg;
 
   const planche = hote.querySelector('svg');
-  const scene = planche.querySelector('.animation');
-  const rotor = planche.querySelector('.rotor');
 
   /*
    * Les étiquettes des bandes tombent en plein dans la hachure. Plutôt qu'un
@@ -449,11 +495,12 @@
    * chargés, sans quoi on mesurerait la fonte de repli.
    */
   function poserReserves() {
-    for (const etiquette of planche.querySelectorAll('.etiquette')) {
+    for (const etiquette of planche.querySelectorAll('.etiquette, .formule')) {
       const boite = etiquette.getBBox();
       if (!boite.width) continue;
       const reserve = document.createElementNS(SVGNS, 'rect');
-      reserve.setAttribute('class', 'reserve');
+      const sorte = etiquette.classList.contains('etiquette') ? 'etiquette' : 'formule';
+      reserve.setAttribute('class', `reserve reserve-${sorte}`);
       reserve.setAttribute('x', fixe(boite.x - 7));
       reserve.setAttribute('y', fixe(boite.y - 3));
       reserve.setAttribute('width', fixe(boite.width + 14));
@@ -526,178 +573,4 @@
     const groupe = event.target.closest('[data-partie]');
     selectionner(groupe ? groupe.dataset.partie : null);
   });
-
-  /* ------------------------------------------------------------- animation */
-
-  const VITESSES = { pompe: 0.85, derive: 0.3, reflux: 1.05, dissipation: 0.7 };
-  const SUITE = { pompe: 'derive', derive: 'reflux', reflux: 'dissipation' };
-  const PROTONS_PAR_ATP = 3;
-
-  const DEPART = DETAIL.haut - 54;          // d'où part un proton, dans la matrice
-  const SORTIE = DETAIL.haut - 18;          // où il débouche après le reflux
-
-  const protons = [];
-  const atps = [];
-  const electrons = [];
-
-  let angleRotor = 0;
-  let refluxCumules = 0;
-  let depuisProton = 0;
-  let depuisElectron = 0;
-
-  function noeud(nom, classe) {
-    const el = document.createElementNS(SVGNS, nom);
-    el.setAttribute('class', classe);
-    scene.append(el);
-    return el;
-  }
-
-  function naitreProton() {
-    const pompe = POMPES[Math.floor(hasard() * POMPES.length)];
-    const el = noeud('circle', 'proton');
-    el.setAttribute('r', '7');
-    // Décalé au flanc du fût : le chiffre romain reste lisible dessous.
-    protons.push({ el, x: pompe.x + 16, etape: 'pompe', t: 0, fuite: 60 + hasard() * 40 });
-  }
-
-  function naitreAtp() {
-    const el = noeud('text', 'jeton');
-    el.textContent = 'ATP';
-    atps.push({ el, t: 0, fuite: 10 + hasard() * 30 });
-  }
-
-  function naitreElectron() {
-    const el = noeud('circle', 'electron');
-    el.setAttribute('r', '4.5');
-    electrons.push({ el, t: 0 });
-  }
-
-  /** Où se trouve un proton, selon l'étape de son tour et son avancement. */
-  function poserProton(p) {
-    if (p.etape === 'pompe') return [p.x, DEPART + (DETAIL.allee - DEPART) * p.t];
-    if (p.etape === 'derive') return [p.x + (SYNTHASE.x - p.x) * p.t, DETAIL.allee];
-    if (p.etape === 'reflux') {
-      return [SYNTHASE.x, DETAIL.allee + (SORTIE - DETAIL.allee) * p.t];
-    }
-    // Dissipation : de côté d'abord, pour dégager la tête de la synthase.
-    return [SYNTHASE.x + p.fuite * p.t, SORTIE - 52 * p.t * p.t];
-  }
-
-  function avancer(dt) {
-    depuisProton += dt;
-    while (depuisProton > 0.52 && protons.length < 14) {
-      depuisProton -= 0.52;
-      naitreProton();
-    }
-
-    for (let i = protons.length - 1; i >= 0; i--) {
-      const p = protons[i];
-      p.t += dt * VITESSES[p.etape];
-      if (p.etape === 'reflux') angleRotor += dt * VITESSES.reflux * 240;
-
-      while (p.t >= 1 && p.etape !== 'dissipation') {
-        p.t -= 1;
-        if (p.etape === 'reflux' && ++refluxCumules % PROTONS_PAR_ATP === 0) naitreAtp();
-        p.etape = SUITE[p.etape];
-      }
-
-      if (p.etape === 'dissipation' && p.t >= 1) {
-        p.el.remove();
-        protons.splice(i, 1);
-        continue;
-      }
-
-      const [x, y] = poserProton(p);
-      p.el.setAttribute('cx', fixe(x));
-      p.el.setAttribute('cy', fixe(y));
-      p.el.style.opacity = p.etape === 'dissipation' ? fixe(1 - p.t) : '1';
-    }
-
-    for (let i = atps.length - 1; i >= 0; i--) {
-      const a = atps[i];
-      a.t += dt * 0.42;
-      if (a.t >= 1) { a.el.remove(); atps.splice(i, 1); continue; }
-      // L'ATP paraît au flanc de la tête et dérive dans la matrice, sans jamais
-      // sortir de la bande : au-dessus commence la figure 1.
-      a.el.setAttribute('x', fixe(SYNTHASE.x + SYNTHASE.rTete + 8 + a.fuite * a.t));
-      a.el.setAttribute('y', fixe(SYNTHASE.yTete - 4 - 26 * a.t));
-      a.el.style.opacity = fixe(Math.min(1, 3 * (1 - a.t)));
-    }
-
-    // Électrons : dans l'épaisseur de la membrane, de I à IV.
-    depuisElectron += dt;
-    if (depuisElectron > 1.3 && electrons.length < 4) {
-      depuisElectron = 0;
-      naitreElectron();
-    }
-    const premier = COMPLEXES[0].x;
-    const dernier = COMPLEXES[COMPLEXES.length - 1].x;
-    for (let i = electrons.length - 1; i >= 0; i--) {
-      const e = electrons[i];
-      e.t += dt * 0.4;
-      if (e.t >= 1) { e.el.remove(); electrons.splice(i, 1); continue; }
-      e.el.setAttribute('cx', fixe(premier + (dernier - premier) * e.t));
-      e.el.setAttribute('cy', fixe(DETAIL.conduit));
-      e.el.style.opacity = fixe(Math.min(1, 5 * (1 - e.t)));
-    }
-
-    rotor.setAttribute('transform',
-      `translate(${fixe(SYNTHASE.x)} ${fixe(SYNTHASE.yTete)}) rotate(${fixe(angleRotor % 360)})`);
-  }
-
-  /* --------------------------------------------------------------- commandes */
-
-  const sobre = matchMedia('(prefers-reduced-motion: reduce)');
-  let enMarche = !sobre.matches;
-  let vitesse = 1;
-
-  // Quelques secondes d'avance à vide : la planche s'ouvre déjà peuplée, même
-  // arrêtée — ce qui est le cas si le visiteur a demandé moins de mouvement.
-  for (let i = 0; i < 90; i++) avancer(0.1);
-
-  const boutonAnimer = document.getElementById('animer');
-  const boutonRalenti = document.getElementById('ralenti');
-  const boutonReinitialiser = document.getElementById('reinitialiser');
-
-  function majAnimer() {
-    boutonAnimer.setAttribute('aria-pressed', String(enMarche));
-    boutonAnimer.textContent = enMarche ? 'Animation' : 'Reprendre';
-  }
-
-  boutonAnimer.addEventListener('click', () => {
-    enMarche = !enMarche;
-    majAnimer();
-  });
-
-  boutonRalenti.addEventListener('click', event => {
-    vitesse = vitesse === 1 ? 0.3 : 1;
-    event.currentTarget.setAttribute('aria-pressed', String(vitesse !== 1));
-  });
-
-  boutonReinitialiser.addEventListener('click', () => {
-    vitesse = 1;
-    boutonRalenti.setAttribute('aria-pressed', 'false');
-    enMarche = !sobre.matches;
-    majAnimer();
-    selectionner(null);
-  });
-
-  majAnimer();
-
-  /* ------------------------------------------------------------- la boucle */
-
-  let visible = true;
-  new IntersectionObserver(([entree]) => { visible = entree.isIntersecting; })
-    .observe(hote);
-
-  let precedent = 0;
-  function animer(horodatage) {
-    requestAnimationFrame(animer);
-    const dt = precedent ? (horodatage - precedent) / 1000 : 0;
-    precedent = horodatage;
-    // Un onglet revenu au premier plan livre un delta énorme : on le borne,
-    // sans quoi toute la planche saute d'un coup.
-    if (enMarche && visible) avancer(Math.min(dt, 0.05) * vitesse);
-  }
-  requestAnimationFrame(animer);
 })();
