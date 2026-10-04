@@ -1,48 +1,29 @@
 # precis
 
-A tiny in-browser text summarizer. Paste an article and get back the sentences
-that carry it — as a summary, an outline, or the terms it keeps returning to.
+Page statique, en construction.
 
 **→ https://ksahli.github.io/precis/**
 
-## How it works
+Deux fichiers, aucune dépendance et aucun JavaScript : `index.html` et
+`assets/styles.css`.
 
-`precis` is *extractive*: it ranks the sentences you gave it and shows the best
-ones verbatim. Nothing is paraphrased or generated, so it can't invent a claim
-the source didn't make.
+## En local
 
-Each sentence is scored by the weight of the content words it carries (term
-frequency across the document, damped by `sqrt(length)` so long sentences don't
-win on bulk alone), nudged up if it opens a paragraph or the document, and down
-if it's a fragment. Selection is greedy with a redundancy penalty, so the second
-sentence picked is the best one that *isn't* restating the first. See
-[`assets/summarize.js`](assets/summarize.js).
-
-- **Summary** — top sentences, in original order
-- **Outline** — the strongest sentence from each paragraph
-- **Key terms** — recurring words and word pairs
-- **Length** — the share of sentences to keep (5–60%)
-
-Drop a `.txt` or `.md` file on the page to load it. Your draft is kept in
-`localStorage`; nothing is ever sent anywhere.
-
-## Running it
-
-No build step, no dependencies. Open `index.html`, or serve the folder:
+Ouvrir `index.html` directement, ou servir le dossier :
 
 ```sh
-python3 -m http.server 8000   # then visit http://localhost:8000
+python3 -m http.server 8000   # puis http://localhost:8000
 ```
 
-## Deployment
+## Déploiement
 
-Pushing to `main` triggers [`.github/workflows/pages.yml`](.github/workflows/pages.yml),
-which stages `index.html` + `assets/` and publishes them with
-`actions/deploy-pages`.
+Chaque push sur `main` déclenche
+[`.github/workflows/pages.yml`](.github/workflows/pages.yml), qui publie
+`index.html` et `assets/` via `actions/deploy-pages`.
 
-One-time setup on GitHub: **Settings → Pages → Build and deployment → Source:
-GitHub Actions**.
+Côté GitHub, la source des Pages doit rester réglée sur **GitHub Actions**
+(*Settings → Pages → Build and deployment*).
 
-## License
+## Licence
 
-MIT — see [LICENSE](LICENSE).
+MIT — voir [LICENSE](LICENSE).
