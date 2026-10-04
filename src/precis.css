@@ -239,13 +239,13 @@
   }
 
   /*
-   * La planche gravée.
+   * La planche, en perspective isométrique.
    *
-   * Une seule encre : les régions se distinguent par leur hachure, jamais par
-   * une couleur. Le rouge du typographe ne marque que la partie choisie — d'où
-   * les motifs déclarés en double, noir et rubrique, que l'on échange sous
-   * .actif. Tous les traits tirent sur currentColor, si bien qu'il suffit de
-   * changer la couleur d'un groupe pour que tout son dessin suive.
+   * Chaque face porte deux classes : sa teinte (t-*), prise dans la palette, et
+   * son orientation (f-*), qui l'assombrit d'autant plus qu'elle se détourne de
+   * la lumière, tombée d'en haut à gauche. La partie choisie change de teinte
+   * d'un coup — toutes ses faces passent au rose du typographe, en gardant leur
+   * modelé — et ses traits, qui tirent sur currentColor, passent au rouge.
    */
   .planche {
     display: block;
@@ -264,50 +264,75 @@
     color: var(--color-rubrique);
   }
 
-  /* Traits et aplats. */
-  .planche .trait { fill: none; stroke: currentColor; }
+  /* Les cloisons sont faites de segments voisins : estompés un à un, ils
+     laisseraient voir leurs jointures. On les pâlit donc dans la teinte du
+     papier plutôt qu'en transparence. */
+  .planche.a-selection .cloison:not(.actif) { opacity: 1; }
+  .planche.a-selection .cloison:not(.actif) .face {
+    fill: color-mix(in oklab, var(--c) 22%, var(--color-papier));
+    stroke: color-mix(in oklab, var(--c) 22%, var(--color-papier));
+  }
+  .planche.a-selection .cloison:not(.actif) .trait {
+    stroke: color-mix(in oklab, var(--color-encre) 22%, var(--color-papier));
+  }
+
+  /* Teintes des régions. */
+  .planche .t-papier { --teinte: var(--color-papier-vif); }
+  .planche .t-ombre { --teinte: var(--color-papier-ombre); }
+  .planche .t-filet { --teinte: var(--color-filet); }
+  .planche .t-rose { --teinte: color-mix(in oklab, var(--color-rubrique-pale) 75%, var(--color-papier-vif)); }
+  .planche [data-partie].actif,
+  .planche [data-partie].actif * {
+    --teinte: color-mix(in oklab, var(--color-rubrique) 30%, var(--color-papier-vif));
+  }
+
+  /* Modelé : la même teinte, plus ou moins mêlée d'encre. Le trait reprend le
+     remplissage pour fermer les jointures entre faces voisines. */
+  .planche .f-haut { --c: var(--teinte); }
+  .planche .f-gauche { --c: color-mix(in oklab, var(--teinte), var(--color-encre) 9%); }
+  .planche .f-droite { --c: color-mix(in oklab, var(--teinte), var(--color-encre) 21%); }
+  .planche .f-ombre { --c: color-mix(in oklab, var(--teinte), var(--color-encre) 36%); }
+  .planche .face {
+    fill: var(--c);
+    stroke: var(--c);
+    stroke-width: 0.6;
+    stroke-linejoin: round;
+  }
+  .planche .arete {
+    stroke: currentColor;
+    stroke-opacity: 0.55;
+    stroke-width: 1;
+  }
+  .planche .arete-haute {
+    stroke-width: 1.4;
+    stroke-linecap: round;
+  }
+  .planche .arete-bloc {
+    fill: none;
+    stroke: var(--color-encre);
+    stroke-opacity: 0.55;
+    stroke-width: 1;
+    stroke-linejoin: round;
+    pointer-events: none;
+  }
+
+  /* Traits. */
+  .planche .trait { fill: none; stroke: currentColor; stroke-linejoin: round; }
   .planche .epais { stroke-width: 2.2; }
   .planche .fin { stroke-width: 1; }
-  .planche .aplat { stroke: none; }
-  .planche .hachure { fill: url(#motif-hachure); }
-  .planche .semis { fill: url(#motif-semis); }
-  .planche .actif .hachure { fill: url(#motif-hachure-rubrique); }
-  .planche .actif .semis { fill: url(#motif-semis-rubrique); }
   .planche .encre-noire { stroke: var(--color-encre); fill: var(--color-encre); }
   .planche .encre-rubrique { stroke: var(--color-rubrique); fill: var(--color-rubrique); }
 
-  /* Un ribosome : une couronne claire à noyau plein, pour ne pas se confondre
-     avec le semis de la matrice. */
-  .planche .granule {
-    fill: var(--color-papier-vif);
-    stroke: currentColor;
-    stroke-width: 1.6;
-  }
-  .planche .granule-coeur { fill: currentColor; stroke: none; }
-
-  /* Les feuillets de la membrane, à la figure 2 : un aplat franc qui masque la
-     hachure des deux compartiments. */
-  .planche .feuillets { fill: var(--color-papier-vif); stroke: none; }
+  /* Un ribosome : une petite sphère, son reflet, son ombre sur le fond. */
+  .planche .ombre-portee { fill: var(--color-encre); fill-opacity: 0.14; }
+  .planche .reflet { fill: var(--color-papier-vif); }
 
   /* Le cartouche qui renvoie de la figure 1 à son agrandissement. */
   .planche .cartouche {
     fill: none;
-    stroke: var(--color-filet);
+    stroke: var(--color-encre-pale);
     stroke-width: 1.2;
     stroke-dasharray: 5 5;
-  }
-
-  /* Les pièces de la machinerie : hachure serrée, cerclée d'un trait franc. */
-  .planche .piece {
-    fill: url(#motif-serre);
-    stroke: currentColor;
-    stroke-width: 2;
-  }
-  .planche .actif .piece { fill: url(#motif-serre-rubrique); }
-  .planche .tete {
-    fill: var(--color-papier-vif);
-    stroke: currentColor;
-    stroke-width: 2.2;
   }
 
   /* Repères chiffrés et filets de renvoi. */
@@ -321,6 +346,7 @@
     stroke: currentColor;
     stroke-width: 1;
   }
+  .planche .renvoi-point { fill: currentColor; }
   .planche text {
     fill: currentColor;
     stroke: none;
@@ -330,10 +356,10 @@
   }
   .planche .chiffre { font-size: 15px; font-weight: 600; }
 
-  /* Les chiffres romains sont posés sur une hachure serrée : un listel de
-     papier les en détache, comme une réserve au burin. */
+  /* Les chiffres romains sont posés sur le flanc des fûts : un listel de
+     papier les en détache. */
   .planche .romain {
-    font-size: 19px;
+    font-size: 17px;
     font-weight: 600;
     paint-order: stroke;
     stroke: var(--color-papier-vif);
@@ -346,17 +372,13 @@
     text-anchor: start;
     fill: var(--color-encre-douce);
   }
-
-  /* La réserve de papier ménagée sous une étiquette, posée par le script à la
-     mesure exacte du mot. */
-  .planche .reserve { fill: var(--color-papier); stroke: none; }
   .planche .annotation {
     font-size: 17px;
     font-style: italic;
     font-family: var(--font-titre);
   }
   .planche .etiquette {
-    font-size: 13px;
+    font-size: 12px;
     letter-spacing: 0.18em;
     text-transform: uppercase;
   }
@@ -368,6 +390,7 @@
     fill: none;
     stroke-width: 2.4;
     stroke-linecap: round;
+    stroke-linejoin: round;
   }
   .planche .circuit-proton {
     stroke: var(--color-rubrique);
@@ -380,21 +403,25 @@
     marker-end: url(#pointe-electron);
   }
   /* Playfair et non Cinzel : les capitales inscrites de Cinzel n'ont pas de
-     bas-de-casse, et « e⁻ » y paraîtrait en capitale. */
+     bas-de-casse, et « e⁻ » y paraîtrait en capitale. Un listel de papier les
+     détache des faces qu'elles chevauchent. */
   .planche .formule {
     font-family: var(--font-titre);
     font-size: 18px;
     font-weight: 600;
     fill: var(--color-rubrique);
     text-anchor: middle;
+    paint-order: stroke;
+    stroke: var(--color-papier-vif);
+    stroke-width: 3;
+    stroke-linejoin: round;
   }
   .planche .formule.sobre { fill: var(--color-encre-douce); font-size: 15px; }
 
-  /* En écran étroit, la planche descend sous 340 px de large : les annotations
+  /* En écran étroit, la planche descend sous 340 px de large : les étiquettes
      y deviendraient illisibles, et la légende les porte déjà. */
   @media (width < 30rem) {
-    .planche .etiquette,
-    .planche .reserve-etiquette { display: none; }
+    .planche .etiquette { display: none; }
   }
 
   /* Texte justifié avec césures, comme une composition au plomb.
