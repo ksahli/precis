@@ -9,7 +9,7 @@ texte.
 
 | Chapitre | |
 |---|---|
-| [La mitochondrie](mitochondrie.html) | Structure, chimiosmose, génome propre — avec une planche en relief interactive |
+| [La mitochondrie](mitochondrie.html) | Structure, chimiosmose, génome propre — avec une planche gravée animée |
 
 ## Composition
 
@@ -19,7 +19,7 @@ texte.
 | `mitochondrie.html` | Le chapitre premier |
 | `src/precis.css` | Source Tailwind : thème (encres, caractères) et composants (lettrine, filets ornés, capitales espacées) |
 | `assets/precis.css` | **Construit** — ne pas éditer à la main |
-| `assets/mitochondrie-3d.js` | La planche en relief |
+| `assets/mitochondrie-planche.js` | La planche gravée et son animation |
 
 Le style est bâti avec [Tailwind](https://tailwindcss.com) v4, compilé en une
 feuille statique plutôt que chargé depuis le CDN : pas de flash au chargement,
@@ -39,17 +39,35 @@ Le parti pris typographique est délibérément clair : **pas de variante
 sombre**. Un livre de 1910 n’en avait pas, et inverser ce papier en ferait un
 autre objet.
 
-## La planche en relief
+## La planche gravée
 
-Rendue avec [Three.js](https://threejs.org) (r128 épinglé, avec empreinte SRI).
-Les contrôles orbitaux sont écrits à la main — une quarantaine de lignes contre
-une seconde dépendance au CDN.
+Du SVG calculé par le script, sans aucune dépendance : ni Three.js, ni WebGL,
+ni CDN. **Une seule encre** — les régions se distinguent par leur hachure,
+comme sur une planche gravée, jamais par une couleur. Le rouge du typographe ne
+sert qu’à deux choses : marquer la partie choisie et suivre les protons.
 
-Les sept parties sont déclarées dans une seule liste, qui sert à la fois à
-construire la géométrie, les textes et la légende HTML : on les parcourt donc
-au clavier, sans avoir à viser un pixel dans la scène. La rotation
-automatique se tait si `prefers-reduced-motion` est réglé, et un repli textuel
-s’affiche à défaut de WebGL.
+Elle porte **deux figures**, comme il se doit quand une échelle ne suffit pas.
+La figure 1 donne l’organite en coupe ; la figure 2 agrandit le morceau de
+membrane interne que le cartouche en pointillé désigne, et c’est là seulement
+que la machinerie est à une taille lisible.
+
+Le contour de la figure 1 est un superellipse (|x/a|ⁿ + |y/b|ⁿ = 1, n ≈ 3), qui
+donne la silhouette en gélule de l’organite. Le même rayon sert ensuite à savoir
+si un point tombe dans la matrice : les ribosomes y sont semés par tirage avec
+rejet, si bien qu’aucun ne chevauche un repli, un chromosome ou un repère.
+
+L’animation montre la chimiosmose, et rien d’autre. Les complexes refoulent des
+protons dans l’espace intermembranaire, ceux-ci dérivent jusqu’à l’ATP synthase,
+refluent au travers, en font tourner le rotor, et trois refluxs valent une
+molécule d’ATP. Les électrons courent dans l’épaisseur de la membrane, de I à
+IV, puisque c’est leur passage qui alimente les pompes.
+
+Les neuf parties sont déclarées dans une seule liste, qui pose à la fois les
+repères chiffrés sur la planche et les entrées de la légende : on les parcourt
+donc au clavier, sans jamais viser un pixel. L’animation s’arrête hors de
+l’écran, se tait d’emblée si `prefers-reduced-motion` est réglé — la planche
+s’ouvre alors peuplée mais immobile, quelques secondes ayant été jouées à
+vide — et se mène à la main avec les trois boutons.
 
 ## Déploiement
 

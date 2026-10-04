@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>La mitochondrie — Précis</title>
-<meta name="description" content="La mitochondrie : structure, production d’ATP par chimiosmose, génome propre et origine bactérienne. Avec une planche en relief interactive.">
+<meta name="description" content="La mitochondrie : structure, production d’ATP par chimiosmose, génome propre et origine bactérienne. Avec une planche gravée animée de la chimiosmose.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.92em' font-size='86' fill='%238c2f1f'>§</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,7 +15,7 @@
 
 <!-- ------------------------------------------------------ titre courant -->
 <header class="border-filet border-b">
-  <div class="mx-auto flex max-w-[60rem] items-baseline justify-between gap-4 px-5 py-3">
+  <div class="bande flex items-baseline justify-between gap-4 py-3">
     <a href="./" class="cap hover:text-rubrique no-underline">Précis</a>
     <p class="cap hidden sm:block">La mitochondrie</p>
     <p class="cap">Chap.&nbsp;I</p>
@@ -87,30 +87,34 @@
         <span class="text-rubrique">§&nbsp;II.</span> — Anatomie
       </h2>
       <p class="text-corps justif text-encre mb-8">
-        La planche ci-dessous est en relief&nbsp;: on la fait tourner en la
-        faisant glisser, on l’approche à la molette, et l’on obtient la
-        description d’une partie en la désignant du doigt ou en la choisissant
-        dans la légende. Le bouton <i>vue en coupe</i> lève les enveloppes
-        extérieures.
+        La planche ci-dessous est animée&nbsp;: on y voit les complexes refouler
+        les protons dans l’espace intermembranaire, ceux-ci dériver jusqu’à
+        l’ATP synthase, puis refluer au travers et en faire tourner la tête. On
+        obtient la description d’une partie en la désignant du doigt ou en la
+        choisissant dans la légende&nbsp;; le bouton <i>au ralenti</i> permet de
+        suivre un proton d’un bout à l’autre de son tour.
       </p>
     </div>
 
     <figure class="encadre-planche bg-papier-vif/70 pleine mt-2 p-4 sm:p-6">
       <figcaption class="cap border-filet mb-4 border-b pb-2 text-center">
-        Planche I. — Coupe schématique d’une mitochondrie
+        Planche I. — Coupe d’une mitochondrie, et le tour des protons
       </figcaption>
 
       <div class="grid gap-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
 
-        <!-- la scène -->
+        <!-- la planche -->
         <div class="border-filet bg-papier overflow-hidden border">
-          <div id="scene" class="h-[clamp(260px,50vh,440px)] w-full cursor-grab touch-none active:cursor-grabbing"
-               role="img"
-               aria-label="Planche en relief d’une mitochondrie : enveloppe externe translucide, membrane interne repliée en crêtes, matrice contenant l’ADN circulaire et des ribosomes."></div>
+          <div id="planche" class="w-full p-1">
+            <p class="text-encre-pale p-5 text-sm leading-relaxed italic">
+              La planche se dessine avec le script de la page&nbsp;; l’explication
+              ci-contre reste lisible sans lui.
+            </p>
+          </div>
           <div class="border-filet flex flex-wrap gap-1.5 border-t p-2">
-            <button id="coupe" type="button" class="bouton" aria-pressed="false">Vue en coupe</button>
-            <button id="tourner" type="button" class="bouton" aria-pressed="true">Rotation</button>
-            <button id="recadrer" type="button" class="bouton">Recadrer</button>
+            <button id="animer" type="button" class="bouton" aria-pressed="true">Animation</button>
+            <button id="ralenti" type="button" class="bouton" aria-pressed="false">Au ralenti</button>
+            <button id="reinitialiser" type="button" class="bouton">Réinitialiser</button>
           </div>
         </div>
 
@@ -307,7 +311,7 @@
 
 <!-- ----------------------------------------------------------- colophon -->
 <footer class="border-filet mt-14 border-t">
-  <div class="text-encre-pale mx-auto max-w-[60rem] px-5 py-8 text-center">
+  <div class="bande text-encre-pale py-8 text-center">
     <p class="cap mb-2">Fin du chapitre premier</p>
     <p class="mx-auto max-w-[32rem] text-xs leading-relaxed italic">
       Page statique&nbsp;; la planche est calculée par votre navigateur et rien
@@ -318,9 +322,6 @@
   </div>
 </footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"
-        integrity="sha384-CI3ELBVUz9XQO+97x6nwMDPosPR5XvsxW2ua7N1Xeygeh1IxtgqtCkGfQY9WWdHu"
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="assets/mitochondrie-3d.js"></script>
+<script src="assets/mitochondrie-planche.js"></script>
 </body>
 </html>

@@ -4,7 +4,7 @@
    qui construit la légende de la planche. */
 @source "../index.html";
 @source "../mitochondrie.html";
-@source "../assets/mitochondrie-3d.js";
+@source "../assets/mitochondrie-planche.js";
 
 /*
  * precis — facture d'un précis de médecine, vers 1910.
@@ -41,11 +41,13 @@
      le début de la ligne suivante. */
   --mesure: 30rem;
 
-  /* Largeur hors-texte, pour les planches. */
-  --pleine: 60rem;
+  /* Cadre hors-tout de la page, gouttières comprises. Au-delà, le blanc
+     s'accumule sur les côtés plutôt que d'étirer la composition. */
+  --page: 66rem;
 
-  /* Gouttière minimale, qui devient la marge latérale en écran étroit. */
-  --gouttiere: 1.25rem;
+  /* Marge latérale, garantie à toute largeur : c'est elle qui tient la
+     planche et la note marginale à distance du bord de l'écran. */
+  --gouttiere: clamp(1.25rem, 4vw, 2.5rem);
 }
 
 /* ---------------------------------------------------------------- socle */
@@ -69,13 +71,6 @@
     background-attachment: fixed, fixed;
   }
 
-  /* La préflight ne borne que img et video. Un canvas dimensionné en pixels
-     physiques élargissait la page entière : on l'en empêche ici une fois pour
-     toutes. */
-  canvas {
-    max-width: 100%;
-  }
-
   ::selection {
     background-color: var(--color-rubrique-pale);
     color: var(--color-rubrique);
@@ -93,20 +88,36 @@
   /*
    * Gabarit de page — une seule grille, dont rien ne déroge.
    *
-   * Les deux gouttières sont en 1fr : la colonne de texte est donc exactement
-   * centrée, qu'une note marginale occupe la marge de droite ou non. C'est ce
-   * qui empêche le texte de sauter latéralement d'une section à l'autre, comme
-   * il le faisait quand les sections annotées étaient calées à gauche et les
-   * autres centrées.
+   * Cinq pistes. Les deux pistes de bord sont en dehors de pleine-debut et
+   * pleine-fin : la marge latérale est donc hors d'atteinte, et rien — pas
+   * même une planche en pleine largeur — ne peut venir à fleur de vitre.
+   *
+   * Entre les deux, les marges sont en 1fr : la colonne de texte est donc
+   * exactement centrée, qu'une note marginale occupe la marge de droite ou
+   * non. C'est ce qui empêche le texte de sauter latéralement d'une section à
+   * l'autre, comme il le faisait quand les sections annotées étaient calées à
+   * gauche et les autres centrées.
    */
   .gabarit {
     display: grid;
+    max-width: var(--page);
+    margin-inline: auto;
     grid-template-columns:
-      [pleine-debut] minmax(var(--gouttiere), 1fr)
+      [bord-debut] var(--gouttiere)
+      [pleine-debut] minmax(0, 1fr)
       [texte-debut] minmax(0, var(--mesure)) [texte-fin]
-      minmax(var(--gouttiere), 1fr) [pleine-fin];
+      minmax(0, 1fr) [pleine-fin]
+      var(--gouttiere) [bord-fin];
     /* Le blanc entre paragraphes numérotés, réglé en un seul endroit. */
     row-gap: clamp(2.5rem, 6vw, 4rem);
+  }
+
+  /* Les en-têtes et pieds de page, qui vivent hors du gabarit, se cadrent sur
+     le même axe que lui. */
+  .bande {
+    max-width: var(--page);
+    margin-inline: auto;
+    padding-inline: var(--gouttiere);
   }
 
   /*
@@ -118,12 +129,9 @@
     grid-column: texte-debut / texte-fin;
   }
 
-  /* Les planches traversent la page. */
+  /* Les planches traversent la page, sans mordre sur la gouttière. */
   .pleine {
     grid-column: pleine-debut / pleine-fin;
-    width: 100%;
-    max-width: var(--pleine);
-    justify-self: center;
   }
 
   /*
@@ -131,7 +139,7 @@
    * grille : leurs enfants s'alignent donc au pixel sur la colonne de texte.
    */
   .gabarit > section {
-    grid-column: pleine-debut / pleine-fin;
+    grid-column: bord-debut / bord-fin;
     display: grid;
     grid-template-columns: subgrid;
     align-content: start;
@@ -230,11 +238,173 @@
     box-shadow: 0 0 0 4px var(--color-papier), 0 0 0 5px var(--color-filet);
   }
 
-  /* Texte justifié avec césures, comme une composition au plomb. */
+  /*
+   * La planche gravée.
+   *
+   * Une seule encre : les régions se distinguent par leur hachure, jamais par
+   * une couleur. Le rouge du typographe ne marque que la partie choisie — d'où
+   * les motifs déclarés en double, noir et rubrique, que l'on échange sous
+   * .actif. Tous les traits tirent sur currentColor, si bien qu'il suffit de
+   * changer la couleur d'un groupe pour que tout son dessin suive.
+   */
+  .planche {
+    display: block;
+    width: 100%;
+    height: auto;
+    color: var(--color-encre);
+  }
+
+  .planche [data-partie] {
+    cursor: pointer;
+    transition: opacity 200ms ease, color 200ms ease;
+  }
+  .planche.a-selection [data-partie] { opacity: 0.22; }
+  .planche [data-partie].actif {
+    opacity: 1;
+    color: var(--color-rubrique);
+  }
+
+  /* Traits et aplats. */
+  .planche .trait { fill: none; stroke: currentColor; }
+  .planche .epais { stroke-width: 2.2; }
+  .planche .fin { stroke-width: 1; }
+  .planche .aplat { stroke: none; }
+  .planche .hachure { fill: url(#motif-hachure); }
+  .planche .semis { fill: url(#motif-semis); }
+  .planche .actif .hachure { fill: url(#motif-hachure-rubrique); }
+  .planche .actif .semis { fill: url(#motif-semis-rubrique); }
+  .planche .encre-noire { stroke: var(--color-encre); fill: var(--color-encre); }
+  .planche .encre-rubrique { stroke: var(--color-rubrique); fill: var(--color-rubrique); }
+
+  /* Un ribosome : une couronne claire à noyau plein, pour ne pas se confondre
+     avec le semis de la matrice. */
+  .planche .granule {
+    fill: var(--color-papier-vif);
+    stroke: currentColor;
+    stroke-width: 1.6;
+  }
+  .planche .granule-coeur { fill: currentColor; stroke: none; }
+
+  /* Les feuillets de la membrane, à la figure 2 : un aplat franc qui masque la
+     hachure des deux compartiments. */
+  .planche .feuillets { fill: var(--color-papier-vif); stroke: none; }
+
+  /* Le cartouche qui renvoie de la figure 1 à son agrandissement. */
+  .planche .cartouche {
+    fill: none;
+    stroke: var(--color-filet);
+    stroke-width: 1.2;
+    stroke-dasharray: 5 5;
+  }
+
+  /* Les pièces de la machinerie : hachure serrée, cerclée d'un trait franc. */
+  .planche .piece {
+    fill: url(#motif-serre);
+    stroke: currentColor;
+    stroke-width: 2;
+  }
+  .planche .actif .piece { fill: url(#motif-serre-rubrique); }
+  .planche .tete {
+    fill: var(--color-papier-vif);
+    stroke: currentColor;
+    stroke-width: 2.2;
+  }
+
+  /* Repères chiffrés et filets de renvoi. */
+  .planche .pastille {
+    fill: var(--color-papier);
+    stroke: currentColor;
+    stroke-width: 1.2;
+  }
+  .planche .renvoi {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1;
+  }
+  .planche text {
+    fill: currentColor;
+    stroke: none;
+    font-family: var(--font-cap);
+    text-anchor: middle;
+    pointer-events: none;
+  }
+  .planche .chiffre { font-size: 15px; font-weight: 600; }
+
+  /* Les chiffres romains sont posés sur une hachure serrée : un listel de
+     papier les en détache, comme une réserve au burin. */
+  .planche .romain {
+    font-size: 19px;
+    font-weight: 600;
+    paint-order: stroke;
+    stroke: var(--color-papier-vif);
+    stroke-width: 2.5;
+    stroke-linejoin: round;
+  }
+
+  .planche .annotation,
+  .planche .etiquette {
+    text-anchor: start;
+    fill: var(--color-encre-douce);
+  }
+
+  /* La réserve de papier ménagée sous une étiquette, posée par le script à la
+     mesure exacte du mot. */
+  .planche .reserve { fill: var(--color-papier); stroke: none; }
+  .planche .annotation {
+    font-size: 17px;
+    font-style: italic;
+    font-family: var(--font-titre);
+  }
+  .planche .etiquette {
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  /* Particules : protons, électrons, molécules d'ATP. Toutes portent un listel
+     de papier, sans quoi elles se perdraient dans la hachure du fond. */
+  .planche .animation { pointer-events: none; }
+  .planche .proton {
+    fill: var(--color-rubrique);
+    stroke: var(--color-papier-vif);
+    stroke-width: 1.6;
+  }
+  .planche .electron {
+    fill: var(--color-encre);
+    stroke: var(--color-papier-vif);
+    stroke-width: 1.6;
+  }
+  .planche .jeton {
+    fill: var(--color-rubrique);
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    paint-order: stroke;
+    stroke: var(--color-papier-vif);
+    stroke-width: 4;
+    stroke-linejoin: round;
+  }
+
+  /* En écran étroit, la planche descend sous 340 px de large : les annotations
+     y deviendraient illisibles, et la légende les porte déjà. */
+  @media (width < 30rem) {
+    .planche .etiquette,
+    .planche .reserve { display: none; }
+  }
+
+  /* Texte justifié avec césures, comme une composition au plomb.
+     Pas de text-wrap: pretty ici — il est fait pour le drapeau. Combiné à la
+     justification, il descend un mot à la dernière ligne puis la justifie
+     quand même, ce qui ouvre un blanc béant au milieu. */
   .justif {
     text-align: justify;
     hyphens: auto;
-    text-wrap: pretty;
+  }
+
+  /* Sous une mesure de 30rem, la justification creuse des rivières que les
+     césures ne rattrapent plus : on revient au fer à gauche. */
+  @media (width < 30rem) {
+    .justif { text-align: left; }
   }
 
   /* Bouton d'appareil : petite capitale dans un cadre sobre. */
