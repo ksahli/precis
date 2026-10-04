@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>precis — paste text, get the gist</title>
+<meta name="description" content="A tiny in-browser text summarizer. Paste any text and get an extractive summary, an outline, or the key terms. Nothing leaves your device.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✂️</text></svg>">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="mark" aria-hidden="true"></span>
+    <h1>precis</h1>
+    <p class="tagline">paste text, get the gist</p>
+  </div>
+  <button id="theme" class="ghost" type="button" aria-label="Toggle colour theme">
+    <span data-theme-label>Theme</span>
+  </button>
+</header>
+
+<main>
+  <section class="pane input" aria-labelledby="src-label">
+    <div class="pane-head">
+      <label id="src-label" for="source">Source text</label>
+      <div class="pane-actions">
+        <button id="sample" class="ghost" type="button">Load sample</button>
+        <button id="clear" class="ghost" type="button">Clear</button>
+      </div>
+    </div>
+    <textarea id="source" placeholder="Paste an article, a report, a thread — or drop a .txt / .md file here." spellcheck="false"></textarea>
+    <p class="hint" id="src-stats" aria-live="polite">0 words · 0 sentences</p>
+  </section>
+
+  <section class="pane output" aria-labelledby="out-label">
+    <div class="pane-head">
+      <h2 id="out-label">Precis</h2>
+      <div class="pane-actions">
+        <button id="copy" class="ghost" type="button">Copy</button>
+      </div>
+    </div>
+
+    <div class="controls">
+      <div role="tablist" aria-label="Output mode" class="modes">
+        <button role="tab" class="mode" data-mode="summary" aria-selected="true">Summary</button>
+        <button role="tab" class="mode" data-mode="outline" aria-selected="false">Outline</button>
+        <button role="tab" class="mode" data-mode="terms" aria-selected="false">Key terms</button>
+      </div>
+      <label class="slider" for="length">
+        <span>Length</span>
+        <input id="length" type="range" min="5" max="60" step="5" value="25">
+        <output id="length-out">25%</output>
+      </label>
+    </div>
+
+    <div id="result" class="result" aria-live="polite">
+      <p class="empty">Your summary appears here as you type.</p>
+    </div>
+    <p class="hint" id="out-stats"></p>
+  </section>
+</main>
+
+<footer>
+  <p>
+    Extractive summarisation — sentences are scored and ranked, never rewritten, so nothing is invented.
+    Runs entirely in your browser; your text is never uploaded.
+  </p>
+  <p><a href="https://github.com/ksahli/precis">Source on GitHub</a></p>
+</footer>
+
+<script src="assets/summarize.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
