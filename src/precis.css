@@ -35,7 +35,17 @@
   /* --- mesures --------------------------------------------------------- */
   --text-corps: 1.0625rem;
   --text-corps--line-height: 1.68;
-  --spacing-mesure: 34rem;
+
+  /* Justification du corps : 30rem d'EB Garamond à 17px font environ
+     66 caractères par ligne, la largeur d'un manuel. Au-delà, l'œil perd
+     le début de la ligne suivante. */
+  --mesure: 30rem;
+
+  /* Largeur hors-texte, pour les planches. */
+  --pleine: 60rem;
+
+  /* Gouttière minimale, qui devient la marge latérale en écran étroit. */
+  --gouttiere: 1.25rem;
 }
 
 /* ---------------------------------------------------------------- socle */
@@ -59,6 +69,13 @@
     background-attachment: fixed, fixed;
   }
 
+  /* La préflight ne borne que img et video. Un canvas dimensionné en pixels
+     physiques élargissait la page entière : on l'en empêche ici une fois pour
+     toutes. */
+  canvas {
+    max-width: 100%;
+  }
+
   ::selection {
     background-color: var(--color-rubrique-pale);
     color: var(--color-rubrique);
@@ -73,6 +90,101 @@
 /* ------------------------------------------------------------ fabrique */
 
 @layer components {
+  /*
+   * Gabarit de page — une seule grille, dont rien ne déroge.
+   *
+   * Les deux gouttières sont en 1fr : la colonne de texte est donc exactement
+   * centrée, qu'une note marginale occupe la marge de droite ou non. C'est ce
+   * qui empêche le texte de sauter latéralement d'une section à l'autre, comme
+   * il le faisait quand les sections annotées étaient calées à gauche et les
+   * autres centrées.
+   */
+  .gabarit {
+    display: grid;
+    grid-template-columns:
+      [pleine-debut] minmax(var(--gouttiere), 1fr)
+      [texte-debut] minmax(0, var(--mesure)) [texte-fin]
+      minmax(var(--gouttiere), 1fr) [pleine-fin];
+    /* Le blanc entre paragraphes numérotés, réglé en un seul endroit. */
+    row-gap: clamp(2.5rem, 6vw, 4rem);
+  }
+
+  /*
+   * Par défaut, tout atterrit dans la colonne de texte. Sous :where() pour que
+   * la règle ne pèse rien : .pleine et .note-marge l'emportent alors sans
+   * dépendre de l'ordre de déclaration.
+   */
+  :where(.gabarit > *, .gabarit > section > *) {
+    grid-column: texte-debut / texte-fin;
+  }
+
+  /* Les planches traversent la page. */
+  .pleine {
+    grid-column: pleine-debut / pleine-fin;
+    width: 100%;
+    max-width: var(--pleine);
+    justify-self: center;
+  }
+
+  /*
+   * Les sections reprennent les pistes du parent plutôt que de redéclarer une
+   * grille : leurs enfants s'alignent donc au pixel sur la colonne de texte.
+   */
+  .gabarit > section {
+    grid-column: pleine-debut / pleine-fin;
+    display: grid;
+    grid-template-columns: subgrid;
+    align-content: start;
+    row-gap: 0;        /* à l'intérieur, les marges des blocs suffisent */
+  }
+
+  /* Note marginale : dans la marge de droite dès qu'il y a la place. */
+  .note-marge {
+    grid-column: texte-debut / texte-fin;
+    border: 1px solid var(--color-filet);
+    background-color: color-mix(in oklab, var(--color-papier-vif) 70%, transparent);
+    padding: 0.75rem 0.9rem;
+    margin-block: 0.5rem;
+    font-size: 0.78rem;
+    line-height: 1.6;
+    font-style: italic;
+    color: var(--color-encre-pale);
+  }
+
+  @media (width >= 64rem) {
+    .note-marge {
+      grid-column: texte-fin / pleine-fin;
+      /* Première rangée explicitement : sans cela l'auto-placement peut la
+         poser sous le bloc de texte au lieu de l'accoler. */
+      grid-row: 1;
+      align-self: start;
+      border: 0;
+      border-left: 1px solid var(--color-filet);
+      background: none;
+      padding: 0 0 0 1.25rem;
+      margin-inline-start: 2rem;
+      margin-block: 0;
+    }
+  }
+
+  /* Repli : sans subgrid, les sections redeviennent un bloc centré, et la note
+     reprend sa place sous le texte. */
+  @supports not (grid-template-columns: subgrid) {
+    .gabarit > section {
+      display: block;
+      width: 100%;
+      max-width: var(--mesure);
+      justify-self: center;
+    }
+    .note-marge {
+      border: 1px solid var(--color-filet);
+      border-left-width: 1px;
+      background-color: color-mix(in oklab, var(--color-papier-vif) 70%, transparent);
+      padding: 0.75rem 0.9rem;
+      margin: 0.5rem 0;
+    }
+  }
+
   /* Capitales espacées : les titres courants et les étiquettes de planche. */
   .cap {
     font-family: var(--font-cap);

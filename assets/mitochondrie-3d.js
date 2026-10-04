@@ -430,7 +430,10 @@
     const l = hote.clientWidth;
     const h = hote.clientHeight;
     if (!l || !h) return;
-    rendu.setSize(l, h, false);
+    // Sans le troisième argument, Three pose aussi la taille CSS du canvas.
+    // À false, celui-ci restait dimensionné en pixels physiques — soit le
+    // double de son cadre sur un écran HiDPI.
+    rendu.setSize(l, h);
     camera.aspect = l / h;
     camera.updateProjectionMatrix();
   }

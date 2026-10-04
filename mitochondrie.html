@@ -15,20 +15,20 @@
 
 <!-- ------------------------------------------------------ titre courant -->
 <header class="border-filet border-b">
-  <div class="mx-auto flex max-w-5xl items-baseline justify-between gap-4 px-5 py-3 sm:px-10">
+  <div class="mx-auto flex max-w-[60rem] items-baseline justify-between gap-4 px-5 py-3">
     <a href="./" class="cap hover:text-rubrique no-underline">Précis</a>
     <p class="cap hidden sm:block">La mitochondrie</p>
     <p class="cap">Chap.&nbsp;I</p>
   </div>
 </header>
 
-<article class="mx-auto max-w-5xl px-5 pb-4 sm:px-10">
+<article class="gabarit pb-4">
 
   <!-- ------------------------------------------------- tête de chapitre -->
-  <header class="mx-auto max-w-[34rem] pt-14 pb-2 text-center">
+  <header class="pt-14 text-center">
     <p class="cap">Chapitre premier</p>
 
-    <h1 class="font-titre text-encre mt-4 text-[clamp(2.3rem,9vw,3.6rem)] leading-[1.02] font-medium tracking-[-0.02em]">
+    <h1 class="font-titre text-encre mt-4 text-[clamp(2.1rem,8vw,3.2rem)] leading-[1.02] font-medium tracking-[-0.02em]">
       La mitochondrie
     </h1>
 
@@ -40,8 +40,8 @@
   </header>
 
   <!-- ---------------------------------------------------------- § I -->
-  <section class="mx-auto mt-10 grid max-w-5xl gap-x-12 gap-y-4 lg:grid-cols-[minmax(0,34rem)_13rem]">
-    <div class="mx-auto w-full max-w-[34rem] lg:mx-0">
+  <section>
+    <div>
       <h2 class="font-titre text-encre mb-4 text-xl">
         <span class="text-rubrique">§&nbsp;I.</span> — Définition
       </h2>
@@ -71,7 +71,7 @@
       </p>
     </div>
 
-    <aside class="border-filet text-encre-pale border-l pl-4 text-[0.78rem] leading-relaxed italic lg:mt-12">
+    <aside class="note-marge">
       <p class="mb-3"><span class="cap not-italic">Note marginale.</span>
         L’organite fut aperçu dès 1857 par Kölliker dans le muscle, puis nommé
         <i>mitochondrie</i> par Benda en 1898 — du grec <i>mitos</i>, filament,
@@ -81,8 +81,8 @@
   </section>
 
   <!-- --------------------------------------------------- § II, planche -->
-  <section class="mt-14">
-    <div class="mx-auto max-w-[34rem]">
+  <section>
+    <div>
       <h2 class="font-titre text-encre mb-4 text-xl">
         <span class="text-rubrique">§&nbsp;II.</span> — Anatomie
       </h2>
@@ -95,7 +95,7 @@
       </p>
     </div>
 
-    <figure class="encadre-planche bg-papier-vif/70 mx-auto mt-2 p-4 sm:p-6">
+    <figure class="encadre-planche bg-papier-vif/70 pleine mt-2 p-4 sm:p-6">
       <figcaption class="cap border-filet mb-4 border-b pb-2 text-center">
         Planche I. — Coupe schématique d’une mitochondrie
       </figcaption>
@@ -103,11 +103,11 @@
       <div class="grid gap-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
 
         <!-- la scène -->
-        <div class="border-filet bg-papier relative border">
-          <div id="scene" class="h-[clamp(280px,46vh,440px)] w-full cursor-grab touch-none active:cursor-grabbing"
+        <div class="border-filet bg-papier overflow-hidden border">
+          <div id="scene" class="h-[clamp(260px,50vh,440px)] w-full cursor-grab touch-none active:cursor-grabbing"
                role="img"
                aria-label="Planche en relief d’une mitochondrie : enveloppe externe translucide, membrane interne repliée en crêtes, matrice contenant l’ADN circulaire et des ribosomes."></div>
-          <div class="absolute bottom-2.5 left-2.5 flex flex-wrap gap-1.5">
+          <div class="border-filet flex flex-wrap gap-1.5 border-t p-2">
             <button id="coupe" type="button" class="bouton" aria-pressed="false">Vue en coupe</button>
             <button id="tourner" type="button" class="bouton" aria-pressed="true">Rotation</button>
             <button id="recadrer" type="button" class="bouton">Recadrer</button>
@@ -132,8 +132,8 @@
   </section>
 
   <!-- -------------------------------------------------------- § III -->
-  <section class="mx-auto mt-14 grid max-w-5xl gap-x-12 gap-y-4 lg:grid-cols-[minmax(0,34rem)_13rem]">
-    <div class="mx-auto w-full max-w-[34rem] lg:mx-0">
+  <section>
+    <div>
       <h2 class="font-titre text-encre mb-4 text-xl">
         <span class="text-rubrique">§&nbsp;III.</span> — De la production de l’ATP
       </h2>
@@ -165,7 +165,7 @@
       </p>
     </div>
 
-    <aside class="border-filet text-encre-pale border-l pl-4 text-[0.78rem] leading-relaxed italic lg:mt-12">
+    <aside class="note-marge">
       <p><span class="cap not-italic">Rendement.</span>
         L’estimation classique de 36 à 38 ATP par glucose est aujourd’hui
         révisée à la baisse&nbsp;: le transport des métabolites consomme
@@ -173,7 +173,7 @@
     </aside>
 
     <!-- tableau des chiffres -->
-    <div class="mx-auto w-full max-w-[34rem] lg:mx-0 lg:col-start-1">
+    <div>
       <p class="cap border-filet mt-10 mb-0 border-b pb-1.5">Quelques nombres</p>
       <dl class="divide-filet border-filet divide-y border-b">
         <div class="flex items-baseline justify-between gap-4 py-2.5">
@@ -197,7 +197,7 @@
   </section>
 
   <!-- --------------------------------------------------------- § IV -->
-  <section class="mx-auto mt-14 max-w-[34rem]">
+  <section>
     <h2 class="font-titre text-encre mb-4 text-xl">
       <span class="text-rubrique">§&nbsp;IV.</span> — D’un génome à part
     </h2>
@@ -219,7 +219,7 @@
   </section>
 
   <!-- ---------------------------------------------------------- § V -->
-  <section class="mx-auto mt-14 max-w-[34rem]">
+  <section>
     <h2 class="font-titre text-encre mb-4 text-xl">
       <span class="text-rubrique">§&nbsp;V.</span> — D’une ancienne bactérie
     </h2>
@@ -240,7 +240,7 @@
   </section>
 
   <!-- --------------------------------------------------------- § VI -->
-  <section class="mx-auto mt-14 max-w-[34rem]">
+  <section>
     <h2 class="font-titre text-encre mb-4 text-xl">
       <span class="text-rubrique">§&nbsp;VI.</span> — Des fonctions annexes
     </h2>
@@ -286,7 +286,7 @@
   </section>
 
   <!-- -------------------------------------------------------- notes -->
-  <section class="mx-auto mt-16 max-w-[34rem]" aria-labelledby="notes">
+  <section aria-labelledby="notes">
     <div class="ornement mb-6"><span>&#10022;</span></div>
     <h2 id="notes" class="cap mb-3">Notes</h2>
     <ol class="text-encre-douce space-y-2 text-[0.82rem] leading-relaxed">
@@ -307,7 +307,7 @@
 
 <!-- ----------------------------------------------------------- colophon -->
 <footer class="border-filet mt-14 border-t">
-  <div class="text-encre-pale mx-auto max-w-5xl px-5 py-8 text-center sm:px-10">
+  <div class="text-encre-pale mx-auto max-w-[60rem] px-5 py-8 text-center">
     <p class="cap mb-2">Fin du chapitre premier</p>
     <p class="mx-auto max-w-[32rem] text-xs leading-relaxed italic">
       Page statique&nbsp;; la planche est calculée par votre navigateur et rien
