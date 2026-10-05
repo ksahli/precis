@@ -10,6 +10,8 @@ texte.
 | Chapitre | |
 |---|---|
 | [La mitochondrie](mitochondrie.html) | Structure, chimiosmose, génome propre — avec une planche gravée animée |
+| [Les glucides](glucides.html) | Oses et osides, aldoses et cétoses — avec un tableau synoptique |
+| [La cyclisation des oses](cyclisation.html) | Glucose et fructose, anomères α et β — en projections de Fischer et de Haworth |
 
 ## Composition
 
@@ -17,6 +19,8 @@ texte.
 |---|---|
 | `index.html` | Page de titre et table des matières |
 | `mitochondrie.html` | Le chapitre premier |
+| `glucides.html` | Le chapitre deuxième — classification des glucides |
+| `cyclisation.html` | Le chapitre troisième — cyclisation des oses |
 | `src/precis.css` | Source Tailwind : thème (encres, caractères) et composants (lettrine, filets ornés, capitales espacées) |
 | `assets/precis.css` | **Construit** — ne pas éditer à la main |
 | `assets/mitochondrie-planche.js` | La planche gravée et son animation |
@@ -68,6 +72,20 @@ repères chiffrés sur la planche et les entrées de la légende : on les parcou
 donc au clavier, sans jamais viser un pixel. Désigner une partie — sur la
 planche ou dans la légende — l’allume au rouge du typographe, jusque dans sa
 hachure, et éteint le reste.
+
+## Les formules chimiques
+
+Les chapitres II et III portent des formules — projections de Fischer et de
+Haworth — écrites en SVG **directement dans la page**, sans script : elles
+s’affichent donc même JavaScript coupé. Même parti que la planche gravée : une
+seule encre, et le rouge du typographe réservé aux atomes qui réagissent ou qui
+en résultent — le carbonyle et l’hydroxyle qui l’attaque, puis l’oxygène du
+cycle et l’hydroxyle anomérique. Le cycle de Haworth suit la convention :
+arête avant grasse, flancs mi-gras, arrière en trait fin.
+
+La classification des glucides est un **tableau synoptique** à accolades, fait
+d’une simple liste imbriquée : en colonnes sur grand écran, en arbre en retrait
+sur un téléphone.
 
 ## Déploiement
 
