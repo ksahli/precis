@@ -11,7 +11,7 @@ texte.
 |---|---|
 | [La mitochondrie](mitochondrie.html) | Structure, chimiosmose, génome propre — avec une planche gravée animée |
 | [Les glucides](glucides.html) | Oses et osides, aldoses et cétoses — avec un tableau synoptique |
-| [La cyclisation des oses](cyclisation.html) | Glucose et fructose, anomères α et β — en projections de Fischer et de Haworth |
+| [La cyclisation des oses](cyclisation.html) | Glucose et fructose, anomères α et β — en formules de Fischer et formules cycliques |
 
 ## Composition
 
@@ -75,13 +75,18 @@ hachure, et éteint le reste.
 
 ## Les formules chimiques
 
-Les chapitres II et III portent des formules — projections de Fischer et de
-Haworth — écrites en SVG **directement dans la page**, sans script : elles
+Les chapitres II et III portent des formules — projections de Fischer et
+formules cycliques — écrites en SVG **directement dans la page**, sans script : elles
 s’affichent donc même JavaScript coupé. Même parti que la planche gravée : une
 seule encre, et le rouge du typographe réservé aux atomes qui réagissent ou qui
 en résultent — le carbonyle et l’hydroxyle qui l’attaque, puis l’oxygène du
-cycle et l’hydroxyle anomérique. Le cycle de Haworth suit la convention :
-arête avant grasse, flancs mi-gras, arrière en trait fin.
+cycle et l’hydroxyle anomérique.
+
+**Les schémas de molécule sont toujours plats, en 2D.** Pas de perspective,
+pas d’arête grasse pour figurer l’avant d’un cycle : les cycles sont des
+hexagones et des pentagones réguliers, d’un seul trait. Un substituant au-dessus
+ou au-dessous du cycle se lit à la direction de sa liaison. La perspective
+reste l’affaire des planches d’anatomie, comme celle de la mitochondrie.
 
 La classification des glucides est un **tableau synoptique** à accolades, fait
 d’une simple liste imbriquée : en colonnes sur grand écran, en arbre en retrait

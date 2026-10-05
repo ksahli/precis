@@ -427,13 +427,13 @@
   }
 
   /*
-   * Formules chimiques — projections de Fischer et de Haworth.
+   * Formules chimiques — projections de Fischer et formules cycliques.
    *
    * Des figures fixes, sans script : une seule encre, et le rouge du
    * typographe pour les atomes qui réagissent ou qui en résultent (le
    * carbonyle, l'hydroxyle qui l'attaque, l'oxygène du cycle, l'hydroxyle
-   * anomérique). La convention de Haworth est respectée : l'arête avant du
-   * cycle est grasse, ses flancs mi-gras, l'arrière en trait fin.
+   * anomérique). Toujours à plat, en 2D : pas de perspective, une seule
+   * épaisseur de trait.
    */
   .schema {
     display: block;
@@ -447,8 +447,6 @@
     stroke-width: 1.4;
     stroke-linecap: round;
   }
-  .schema .lien.moyen { stroke-width: 3; }
-  .schema .lien.avant { stroke-width: 5.5; }
   .schema text {
     fill: currentColor;
     font-family: var(--font-texte);
