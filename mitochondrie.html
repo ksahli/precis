@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..700&family=EB+Garamond:ital,wght@0,400..600;1,400..500&family=Playfair+Display:ital,wght@0,400..700;1,400..500&display=swap">
-<link rel="stylesheet" href="assets/precis.css?v=7">
+<link rel="stylesheet" href="assets/precis.css?v=8">
 <script>try{var t=localStorage.getItem('theme');if(t==='clair'||t==='sombre')document.documentElement.dataset.theme=t}catch(e){}</script>
 </head>
 <body>
@@ -288,6 +288,164 @@
     </p>
   </section>
 
+  <!-- ------------------------------------------------- interrogation -->
+  <section class="quiz" aria-labelledby="interrogation" data-quiz>
+    <div class="ornement mb-6"><span>&#10022;</span></div>
+    <h2 id="interrogation" class="font-titre text-encre text-center text-2xl">Interrogation</h2>
+    <p class="consigne-sans-script text-encre-pale mt-2 mb-8 text-center text-sm italic">
+      Huit questions sur le chapitre. Choisissez une réponse, puis dépliez la correction.
+    </p>
+    <p class="consigne-script text-encre-pale mt-2 mb-8 text-center text-sm italic" hidden>
+      Huit questions sur le chapitre. Choisissez une réponse&nbsp;: la correction suit aussitôt.
+    </p>
+
+    <ol class="space-y-9">
+      <li class="question">
+        <fieldset>
+          <legend class="text-corps text-encre mb-3 leading-snug">
+            <span class="font-titre text-rubrique">1.</span> Combien de membranes délimitent la mitochondrie&nbsp;?
+          </legend>
+          <div class="grid gap-1.5">
+            <label class="choix"><input type="radio" name="q-mitochondrie-1" value="a"><span>Une seule</span></label>
+            <label class="choix"><input type="radio" name="q-mitochondrie-1" value="b" data-juste><span>Deux</span></label>
+            <label class="choix"><input type="radio" name="q-mitochondrie-1" value="c"><span>Trois</span></label>
+            <label class="choix"><input type="radio" name="q-mitochondrie-1" value="d"><span>Aucune, c’est un réseau de tubes</span></label>
+          </div>
+        </fieldset>
+        <details class="corrige mt-2.5">
+          <summary class="cap">Réponse</summary>
+          <p class="text-encre-douce mt-1.5 text-[0.92rem] leading-relaxed">Deux&nbsp;: une membrane externe perméable et une membrane interne étanche, repliée en crêtes. Toute la production d’énergie tient à l’espace qu’elles enferment.</p>
+        </details>
+      </li>
+      <li class="question">
+        <fieldset>
+          <legend class="text-corps text-encre mb-3 leading-snug">
+            <span class="font-titre text-rubrique">2.</span> Où la chaîne respiratoire refoule-t-elle les protons&nbsp;?
+          </legend>
+          <div class="grid gap-1.5">
+            <label class="choix"><input type="radio" name="q-mitochondrie-2" value="a"><span>Dans la matrice</span></label>
+            <label class="choix"><input type="radio" name="q-mitochondrie-2" value="b"><span>Dans le cytosol</span></label>
+            <label class="choix"><input type="radio" name="q-mitochondrie-2" value="c" data-juste><span>Dans l’espace intermembranaire</span></label>
+            <label class="choix"><input type="radio" name="q-mitochondrie-2" value="d"><span>Dans le noyau</span></label>
+          </div>
+        </fieldset>
+        <details class="corrige mt-2.5">
+          <summary class="cap">Réponse</summary>
+          <p class="text-encre-douce mt-1.5 text-[0.92rem] leading-relaxed">Dans l’espace intermembranaire. Il s’y accumule une charge&nbsp;: la membrane interne devient une pile, que l’ATP synthase exploite.</p>
+        </details>
+      </li>
+      <li class="question">
+        <fieldset>
+          <legend class="text-corps text-encre mb-3 leading-snug">
+            <span class="font-titre text-rubrique">3.</span> Qui proposa la théorie chimiosmotique&nbsp;?
+          </legend>
+          <div class="grid gap-1.5">
+            <label class="choix"><input type="radio" name="q-mitochondrie-3" value="a"><span>Lynn Margulis</span></label>
+            <label class="choix"><input type="radio" name="q-mitochondrie-3" value="b" data-juste><span>Peter Mitchell</span></label>
+            <label class="choix"><input type="radio" name="q-mitochondrie-3" value="c"><span>Albert von Kölliker</span></label>
+            <label class="choix"><input type="radio" name="q-mitochondrie-3" value="d"><span>Carl Benda</span></label>
+          </div>
+        </fieldset>
+        <details class="corrige mt-2.5">
+          <summary class="cap">Réponse</summary>
+          <p class="text-encre-douce mt-1.5 text-[0.92rem] leading-relaxed">Peter Mitchell, en 1961 — longtemps tenue pour invraisemblable, elle lui valut le prix Nobel de chimie en 1978.</p>
+        </details>
+      </li>
+      <li class="question">
+        <fieldset>
+          <legend class="text-corps text-encre mb-3 leading-snug">
+            <span class="font-titre text-rubrique">4.</span> Quel est le rôle de l’oxygène dans la respiration mitochondriale&nbsp;?
+          </legend>
+          <div class="grid gap-1.5">
+            <label class="choix"><input type="radio" name="q-mitochondrie-4" value="a" data-juste><span>Recueillir les électrons au terme de la chaîne, en formant de l’eau</span></label>
+            <label class="choix"><input type="radio" name="q-mitochondrie-4" value="b"><span>Fournir les protons du gradient</span></label>
+            <label class="choix"><input type="radio" name="q-mitochondrie-4" value="c"><span>Oxyder directement le glucose dans la matrice</span></label>
+            <label class="choix"><input type="radio" name="q-mitochondrie-4" value="d"><span>Faire tourner l’ATP synthase</span></label>
+          </div>
+        </fieldset>
+        <details class="corrige mt-2.5">
+          <summary class="cap">Réponse</summary>
+          <p class="text-encre-douce mt-1.5 text-[0.92rem] leading-relaxed">Il est l’accepteur final des électrons et forme de l’eau. À défaut, la chaîne s’engorge et tout s’arrête.</p>
+        </details>
+      </li>
+      <li class="question">
+        <fieldset>
+          <legend class="text-corps text-encre mb-3 leading-snug">
+            <span class="font-titre text-rubrique">5.</span> Combien de molécules d’ATP tire-t-on, selon l’estimation actuelle, d’une molécule de glucose&nbsp;?
+          </legend>
+          <div class="grid gap-1.5">
+            <label class="choix"><input type="radio" name="q-mitochondrie-5" value="a"><span>2</span></label>
+            <label class="choix"><input type="radio" name="q-mitochondrie-5" value="b"><span>≈ 12</span></label>
+            <label class="choix"><input type="radio" name="q-mitochondrie-5" value="c" data-juste><span>≈ 30 à 32</span></label>
+            <label class="choix"><input type="radio" name="q-mitochondrie-5" value="d"><span>≈ 36 à 38</span></label>
+          </div>
+        </fieldset>
+        <details class="corrige mt-2.5">
+          <summary class="cap">Réponse</summary>
+          <p class="text-encre-douce mt-1.5 text-[0.92rem] leading-relaxed">Environ 30 à 32. L’estimation classique de 36 à 38 a été révisée à la baisse&nbsp;: le transport des métabolites consomme une part du gradient. La glycolyse seule n’en donne que 2.</p>
+        </details>
+      </li>
+      <li class="question">
+        <fieldset>
+          <legend class="text-corps text-encre mb-3 leading-snug">
+            <span class="font-titre text-rubrique">6.</span> Par quelle lignée l’ADN mitochondrial se transmet-il&nbsp;?
+          </legend>
+          <div class="grid gap-1.5">
+            <label class="choix"><input type="radio" name="q-mitochondrie-6" value="a"><span>Paternelle</span></label>
+            <label class="choix"><input type="radio" name="q-mitochondrie-6" value="b" data-juste><span>Maternelle</span></label>
+            <label class="choix"><input type="radio" name="q-mitochondrie-6" value="c"><span>Par les deux parents, après recombinaison</span></label>
+            <label class="choix"><input type="radio" name="q-mitochondrie-6" value="d"><span>Il ne se transmet pas</span></label>
+          </div>
+        </fieldset>
+        <details class="corrige mt-2.5">
+          <summary class="cap">Réponse</summary>
+          <p class="text-encre-douce mt-1.5 text-[0.92rem] leading-relaxed">Par la mère&nbsp;: les mitochondries de l’embryon proviennent presque toutes de l’ovocyte, et cet ADN ne se recombine pas — d’où son usage en généalogie.</p>
+        </details>
+      </li>
+      <li class="question">
+        <fieldset>
+          <legend class="text-corps text-encre mb-3 leading-snug">
+            <span class="font-titre text-rubrique">7.</span> Selon l’hypothèse endosymbiotique, de quoi la mitochondrie descend-elle&nbsp;?
+          </legend>
+          <div class="grid gap-1.5">
+            <label class="choix"><input type="radio" name="q-mitochondrie-7" value="a"><span>D’un virus intégré au génome</span></label>
+            <label class="choix"><input type="radio" name="q-mitochondrie-7" value="b"><span>D’un repli de la membrane plasmique</span></label>
+            <label class="choix"><input type="radio" name="q-mitochondrie-7" value="c" data-juste><span>D’une alphaprotéobactérie englobée</span></label>
+            <label class="choix"><input type="radio" name="q-mitochondrie-7" value="d"><span>D’une cyanobactérie</span></label>
+          </div>
+        </fieldset>
+        <details class="corrige mt-2.5">
+          <summary class="cap">Réponse</summary>
+          <p class="text-encre-douce mt-1.5 text-[0.92rem] leading-relaxed">D’une alphaprotéobactérie englobée sans être digérée. La cyanobactérie, elle, est l’ancêtre du chloroplaste.</p>
+        </details>
+      </li>
+      <li class="question">
+        <fieldset>
+          <legend class="text-corps text-encre mb-3 leading-snug">
+            <span class="font-titre text-rubrique">8.</span> Que fait la protéine UCP1 du tissu adipeux brun&nbsp;?
+          </legend>
+          <div class="grid gap-1.5">
+            <label class="choix"><input type="radio" name="q-mitochondrie-8" value="a"><span>Elle accélère l’ATP synthase</span></label>
+            <label class="choix"><input type="radio" name="q-mitochondrie-8" value="b" data-juste><span>Elle dissipe le gradient de protons en chaleur</span></label>
+            <label class="choix"><input type="radio" name="q-mitochondrie-8" value="c"><span>Elle importe les protéines codées par le noyau</span></label>
+            <label class="choix"><input type="radio" name="q-mitochondrie-8" value="d"><span>Elle déclenche l’apoptose</span></label>
+          </div>
+        </fieldset>
+        <details class="corrige mt-2.5">
+          <summary class="cap">Réponse</summary>
+          <p class="text-encre-douce mt-1.5 text-[0.92rem] leading-relaxed">Elle court-circuite l’ATP synthase&nbsp;: les protons refluent sans produire d’ATP, et le gradient se dissipe en chaleur.</p>
+        </details>
+      </li>
+    </ol>
+
+    <div class="bilan mt-10 px-5 py-5 text-center" aria-live="polite" hidden>
+      <p class="cap">Note</p>
+      <p class="note font-titre text-encre mt-1 text-4xl"></p>
+      <p class="appreciation text-encre-douce mt-1 italic"></p>
+      <button type="button" class="recommencer cap mt-4">Recommencer</button>
+    </div>
+  </section>
+
   <!-- -------------------------------------------------------- notes -->
   <section aria-labelledby="notes">
     <div class="ornement mb-6"><span>&#10022;</span></div>
@@ -324,5 +482,6 @@
 
 <script src="assets/mitochondrie-planche.js"></script>
 <script src="assets/theme.js"></script>
+<script src="assets/quiz.js"></script>
 </body>
 </html>

@@ -583,6 +583,77 @@
     }
   }
 
+  /*
+   * Interrogation de fin de chapitre.
+   *
+   * Chaque réponse possible est une étiquette encadrée d'un filet. Une fois
+   * la question corrigée, la bonne réponse prend l'encre pleine et un ✓, la
+   * mauvaise — s'il y a lieu — le rouge du typographe et un ✗. Pas de vert :
+   * le précis n'a que deux encres.
+   */
+  .quiz fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+  .quiz .choix {
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
+    padding: 0.5rem 0.8rem;
+    border: 1px solid var(--color-filet);
+    background-color: color-mix(in oklab, var(--color-papier-vif) 60%, transparent);
+    cursor: pointer;
+    line-height: 1.45;
+    transition: background-color 150ms ease, border-color 150ms ease;
+  }
+  .quiz .choix:hover { background-color: var(--color-papier-ombre); }
+  .quiz .choix:has(input:focus-visible) {
+    outline: 2px solid var(--color-rubrique);
+    outline-offset: 2px;
+  }
+  .quiz .choix input {
+    flex-shrink: 0;
+    accent-color: var(--color-rubrique);
+    translate: 0 0.1em;
+  }
+  .quiz .choix:has(input:disabled) { cursor: default; }
+  .quiz .choix:has(input:disabled):hover {
+    background-color: color-mix(in oklab, var(--color-papier-vif) 60%, transparent);
+  }
+  .quiz .choix:has(input:disabled):not(.juste, .faux) { opacity: 0.55; }
+  .quiz .choix::after {
+    margin-left: auto;
+    font-family: var(--font-titre);
+    font-weight: 600;
+  }
+  .quiz .choix.juste { border-color: var(--color-encre); }
+  .quiz .choix.juste::after { content: "✓"; color: var(--color-encre); }
+  .quiz .choix.faux {
+    border-color: var(--color-rubrique);
+    color: var(--color-rubrique);
+  }
+  .quiz .choix.faux::after { content: "✗"; }
+
+  .quiz .corrige summary {
+    cursor: pointer;
+    width: fit-content;
+  }
+  .quiz .corrige[data-verdict="juste"] summary { color: var(--color-encre); }
+  .quiz .corrige[data-verdict="faux"] summary { color: var(--color-rubrique); }
+
+  .quiz .bilan {
+    border: 1px solid var(--color-filet);
+    box-shadow: 0 0 0 4px var(--color-papier), 0 0 0 5px var(--color-filet);
+    background-color: color-mix(in oklab, var(--color-papier-vif) 70%, transparent);
+  }
+  .quiz .recommencer {
+    cursor: pointer;
+    border: 1px solid var(--color-filet);
+    padding: 0.45rem 1rem;
+    background: none;
+  }
+  .quiz .recommencer:hover {
+    color: var(--color-rubrique);
+    border-color: var(--color-rubrique);
+  }
+
   /* Texte justifié avec césures, comme une composition au plomb.
      Pas de text-wrap: pretty ici — il est fait pour le drapeau. Combiné à la
      justification, il descend un mot à la dernière ligne puis la justifie

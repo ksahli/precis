@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..700&family=EB+Garamond:ital,wght@0,400..600;1,400..500&family=Playfair+Display:ital,wght@0,400..700;1,400..500&display=swap">
-<link rel="stylesheet" href="assets/precis.css?v=7">
+<link rel="stylesheet" href="assets/precis.css?v=8">
 <script>try{var t=localStorage.getItem('theme');if(t==='clair'||t==='sombre')document.documentElement.dataset.theme=t}catch(e){}</script>
 </head>
 <body>
@@ -347,6 +347,164 @@
     </div>
   </section>
 
+  <!-- ------------------------------------------------- interrogation -->
+  <section class="quiz" aria-labelledby="interrogation" data-quiz>
+    <div class="ornement mb-6"><span>&#10022;</span></div>
+    <h2 id="interrogation" class="font-titre text-encre text-center text-2xl">Interrogation</h2>
+    <p class="consigne-sans-script text-encre-pale mt-2 mb-8 text-center text-sm italic">
+      Huit questions sur le chapitre. Choisissez une réponse, puis dépliez la correction.
+    </p>
+    <p class="consigne-script text-encre-pale mt-2 mb-8 text-center text-sm italic" hidden>
+      Huit questions sur le chapitre. Choisissez une réponse&nbsp;: la correction suit aussitôt.
+    </p>
+
+    <ol class="space-y-9">
+      <li class="question">
+        <fieldset>
+          <legend class="text-corps text-encre mb-3 leading-snug">
+            <span class="font-titre text-rubrique">1.</span> Quel critère sépare les oses des osides&nbsp;?
+          </legend>
+          <div class="grid gap-1.5">
+            <label class="choix"><input type="radio" name="q-glucides-1" value="a"><span>Le nombre de carbones</span></label>
+            <label class="choix"><input type="radio" name="q-glucides-1" value="b"><span>La présence d’un cycle</span></label>
+            <label class="choix"><input type="radio" name="q-glucides-1" value="c" data-juste><span>L’hydrolyse</span></label>
+            <label class="choix"><input type="radio" name="q-glucides-1" value="d"><span>Le caractère réducteur</span></label>
+          </div>
+        </fieldset>
+        <details class="corrige mt-2.5">
+          <summary class="cap">Réponse</summary>
+          <p class="text-encre-douce mt-1.5 text-[0.92rem] leading-relaxed">L’hydrolyse&nbsp;: les oses ne sont pas hydrolysables, les osides le sont et redonnent leurs oses constitutifs. Le caractère réducteur ne tranche pas, certains osides l’étant aussi.</p>
+        </details>
+      </li>
+      <li class="question">
+        <fieldset>
+          <legend class="text-corps text-encre mb-3 leading-snug">
+            <span class="font-titre text-rubrique">2.</span> Le fructose est&nbsp;:
+          </legend>
+          <div class="grid gap-1.5">
+            <label class="choix"><input type="radio" name="q-glucides-2" value="a"><span>un aldose, fonction aldéhyde en C1</span></label>
+            <label class="choix"><input type="radio" name="q-glucides-2" value="b" data-juste><span>un cétose, fonction cétone en C2</span></label>
+            <label class="choix"><input type="radio" name="q-glucides-2" value="c"><span>un cétose, fonction cétone en C1</span></label>
+            <label class="choix"><input type="radio" name="q-glucides-2" value="d"><span>un oside</span></label>
+          </div>
+        </fieldset>
+        <details class="corrige mt-2.5">
+          <summary class="cap">Réponse</summary>
+          <p class="text-encre-douce mt-1.5 text-[0.92rem] leading-relaxed">Un cétose&nbsp;: son carbonyle est une fonction cétone portée par le C2.</p>
+        </details>
+      </li>
+      <li class="question">
+        <fieldset>
+          <legend class="text-corps text-encre mb-3 leading-snug">
+            <span class="font-titre text-rubrique">3.</span> Un hétéroside est formé&nbsp;:
+          </legend>
+          <div class="grid gap-1.5">
+            <label class="choix"><input type="radio" name="q-glucides-3" value="a"><span>d’oses uniquement</span></label>
+            <label class="choix"><input type="radio" name="q-glucides-3" value="b"><span>de plus de dix oses</span></label>
+            <label class="choix"><input type="radio" name="q-glucides-3" value="c" data-juste><span>d’oses liés à une partie non glucidique, l’aglycone</span></label>
+            <label class="choix"><input type="radio" name="q-glucides-3" value="d"><span>d’un seul ose répété</span></label>
+          </div>
+        </fieldset>
+        <details class="corrige mt-2.5">
+          <summary class="cap">Réponse</summary>
+          <p class="text-encre-douce mt-1.5 text-[0.92rem] leading-relaxed">D’oses et d’un aglycone, partie d’une autre nature — la base azotée d’un nucléoside, le stéroïde de la digitaline. Les holosides, eux, ne contiennent que des oses.</p>
+        </details>
+      </li>
+      <li class="question">
+        <fieldset>
+          <legend class="text-corps text-encre mb-3 leading-snug">
+            <span class="font-titre text-rubrique">4.</span> À partir de combien d’oses parle-t-on de polyoside&nbsp;?
+          </legend>
+          <div class="grid gap-1.5">
+            <label class="choix"><input type="radio" name="q-glucides-4" value="a"><span>2</span></label>
+            <label class="choix"><input type="radio" name="q-glucides-4" value="b"><span>3</span></label>
+            <label class="choix"><input type="radio" name="q-glucides-4" value="c" data-juste><span>Plus de 10</span></label>
+            <label class="choix"><input type="radio" name="q-glucides-4" value="d"><span>Plus de 100</span></label>
+          </div>
+        </fieldset>
+        <details class="corrige mt-2.5">
+          <summary class="cap">Réponse</summary>
+          <p class="text-encre-douce mt-1.5 text-[0.92rem] leading-relaxed">Au-delà de dix&nbsp;; jusqu’à dix, ce sont des oligosides. La frontière est conventionnelle.</p>
+        </details>
+      </li>
+      <li class="question">
+        <fieldset>
+          <legend class="text-corps text-encre mb-3 leading-snug">
+            <span class="font-titre text-rubrique">5.</span> Comment nomme-t-on le glucose selon sa classification&nbsp;?
+          </legend>
+          <div class="grid gap-1.5">
+            <label class="choix"><input type="radio" name="q-glucides-5" value="a" data-juste><span>Un aldohexose</span></label>
+            <label class="choix"><input type="radio" name="q-glucides-5" value="b"><span>Un cétohexose</span></label>
+            <label class="choix"><input type="radio" name="q-glucides-5" value="c"><span>Un aldopentose</span></label>
+            <label class="choix"><input type="radio" name="q-glucides-5" value="d"><span>Un cétopentose</span></label>
+          </div>
+        </fieldset>
+        <details class="corrige mt-2.5">
+          <summary class="cap">Réponse</summary>
+          <p class="text-encre-douce mt-1.5 text-[0.92rem] leading-relaxed">Un aldohexose&nbsp;: six carbones, et un carbonyle aldéhyde. Le fructose est un cétohexose, le ribose un aldopentose.</p>
+        </details>
+      </li>
+      <li class="question">
+        <fieldset>
+          <legend class="text-corps text-encre mb-3 leading-snug">
+            <span class="font-titre text-rubrique">6.</span> Quel est le plus petit des cétoses&nbsp;?
+          </legend>
+          <div class="grid gap-1.5">
+            <label class="choix"><input type="radio" name="q-glucides-6" value="a"><span>Le D-glycéraldéhyde</span></label>
+            <label class="choix"><input type="radio" name="q-glucides-6" value="b" data-juste><span>La dihydroxyacétone</span></label>
+            <label class="choix"><input type="radio" name="q-glucides-6" value="c"><span>Le ribose</span></label>
+            <label class="choix"><input type="radio" name="q-glucides-6" value="d"><span>Le fructose</span></label>
+          </div>
+        </fieldset>
+        <details class="corrige mt-2.5">
+          <summary class="cap">Réponse</summary>
+          <p class="text-encre-douce mt-1.5 text-[0.92rem] leading-relaxed">La dihydroxyacétone, un cétotriose. Le D-glycéraldéhyde est le plus petit des aldoses.</p>
+        </details>
+      </li>
+      <li class="question">
+        <fieldset>
+          <legend class="text-corps text-encre mb-3 leading-snug">
+            <span class="font-titre text-rubrique">7.</span> Le saccharose est-il réducteur&nbsp;?
+          </legend>
+          <div class="grid gap-1.5">
+            <label class="choix"><input type="radio" name="q-glucides-7" value="a"><span>Oui, comme tous les osides</span></label>
+            <label class="choix"><input type="radio" name="q-glucides-7" value="b" data-juste><span>Non, ses deux carbones anomériques sont engagés dans la liaison</span></label>
+            <label class="choix"><input type="radio" name="q-glucides-7" value="c"><span>Oui, grâce à son fructose</span></label>
+            <label class="choix"><input type="radio" name="q-glucides-7" value="d"><span>Non, parce que ce n’est pas un glucide</span></label>
+          </div>
+        </fieldset>
+        <details class="corrige mt-2.5">
+          <summary class="cap">Réponse</summary>
+          <p class="text-encre-douce mt-1.5 text-[0.92rem] leading-relaxed">Non&nbsp;: le glucose et le fructose y sont liés par leurs deux carbones anomériques, et il ne reste aucun carbonyle libre. Le lactose, lui, est réducteur.</p>
+        </details>
+      </li>
+      <li class="question">
+        <fieldset>
+          <legend class="text-corps text-encre mb-3 leading-snug">
+            <span class="font-titre text-rubrique">8.</span> Qu’est-ce qui fait d’un ose un ose de la série D&nbsp;?
+          </legend>
+          <div class="grid gap-1.5">
+            <label class="choix"><input type="radio" name="q-glucides-8" value="a"><span>Son pouvoir rotatoire dextrogyre</span></label>
+            <label class="choix"><input type="radio" name="q-glucides-8" value="b"><span>La place de son carbonyle</span></label>
+            <label class="choix"><input type="radio" name="q-glucides-8" value="c" data-juste><span>L’hydroxyle de son avant-dernier carbone, à droite en projection de Fischer</span></label>
+            <label class="choix"><input type="radio" name="q-glucides-8" value="d"><span>Le nombre de ses carbones asymétriques</span></label>
+          </div>
+        </fieldset>
+        <details class="corrige mt-2.5">
+          <summary class="cap">Réponse</summary>
+          <p class="text-encre-douce mt-1.5 text-[0.92rem] leading-relaxed">L’hydroxyle de l’avant-dernier carbone, placé à droite en Fischer comme chez le D-glycéraldéhyde, qui sert d’étalon. La série D ne dit rien du sens de la rotation.</p>
+        </details>
+      </li>
+    </ol>
+
+    <div class="bilan mt-10 px-5 py-5 text-center" aria-live="polite" hidden>
+      <p class="cap">Note</p>
+      <p class="note font-titre text-encre mt-1 text-4xl"></p>
+      <p class="appreciation text-encre-douce mt-1 italic"></p>
+      <button type="button" class="recommencer cap mt-4">Recommencer</button>
+    </div>
+  </section>
+
   <!-- -------------------------------------------------------- notes -->
   <section aria-labelledby="notes">
     <div class="ornement mb-6"><span>&#10022;</span></div>
@@ -378,5 +536,6 @@
 </footer>
 
 <script src="assets/theme.js"></script>
+<script src="assets/quiz.js"></script>
 </body>
 </html>

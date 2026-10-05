@@ -14,6 +14,11 @@
   `--color-*` (redéfinies pour la nuit dans `src/precis.css`) ou par
   `currentColor`, et chaque page porte le bouton Jour / Nuit et le petit
   script de tête qui applique le choix retenu avant le premier rendu.
+- **Chaque chapitre finit par une interrogation** (avant les notes) : huit
+  questions à choix multiple tirées du texte même du chapitre, bonne réponse
+  marquée `data-juste`, corrigé dans un `<details class="corrige">`, script
+  `assets/quiz.js`. Un nouveau chapitre en reçoit une ; un chapitre modifié
+  voit ses questions revues.
 - La CSS se construit avec `npm run build` (src/precis.css → assets/precis.css) ;
   après un changement de la feuille, incrémenter le `?v=` du lien dans toutes
   les pages.

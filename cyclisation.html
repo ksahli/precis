@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..700&family=EB+Garamond:ital,wght@0,400..600;1,400..500&family=Playfair+Display:ital,wght@0,400..700;1,400..500&display=swap">
-<link rel="stylesheet" href="assets/precis.css?v=7">
+<link rel="stylesheet" href="assets/precis.css?v=8">
 <script>try{var t=localStorage.getItem('theme');if(t==='clair'||t==='sombre')document.documentElement.dataset.theme=t}catch(e){}</script>
 </head>
 <body>
@@ -286,6 +286,164 @@
     </div>
   </section>
 
+  <!-- ------------------------------------------------- interrogation -->
+  <section class="quiz" aria-labelledby="interrogation" data-quiz>
+    <div class="ornement mb-6"><span>&#10022;</span></div>
+    <h2 id="interrogation" class="font-titre text-encre text-center text-2xl">Interrogation</h2>
+    <p class="consigne-sans-script text-encre-pale mt-2 mb-8 text-center text-sm italic">
+      Huit questions sur le chapitre. Choisissez une réponse, puis dépliez la correction.
+    </p>
+    <p class="consigne-script text-encre-pale mt-2 mb-8 text-center text-sm italic" hidden>
+      Huit questions sur le chapitre. Choisissez une réponse&nbsp;: la correction suit aussitôt.
+    </p>
+
+    <ol class="space-y-9">
+      <li class="question">
+        <fieldset>
+          <legend class="text-corps text-encre mb-3 leading-snug">
+            <span class="font-titre text-rubrique">1.</span> Comment nomme-t-on la réaction qui ferme un ose sur lui-même&nbsp;?
+          </legend>
+          <div class="grid gap-1.5">
+            <label class="choix"><input type="radio" name="q-cyclisation-1" value="a"><span>Une estérification</span></label>
+            <label class="choix"><input type="radio" name="q-cyclisation-1" value="b" data-juste><span>Une hémiacétalisation intramoléculaire</span></label>
+            <label class="choix"><input type="radio" name="q-cyclisation-1" value="c"><span>Une hydrolyse</span></label>
+            <label class="choix"><input type="radio" name="q-cyclisation-1" value="d"><span>Une oxydation</span></label>
+          </div>
+        </fieldset>
+        <details class="corrige mt-2.5">
+          <summary class="cap">Réponse</summary>
+          <p class="text-encre-douce mt-1.5 text-[0.92rem] leading-relaxed">Une hémiacétalisation intramoléculaire&nbsp;: une fonction alcool attaque le carbonyle de la même molécule. Pour un cétose, on parle d’hémicétal.</p>
+        </details>
+      </li>
+      <li class="question">
+        <fieldset>
+          <legend class="text-corps text-encre mb-3 leading-snug">
+            <span class="font-titre text-rubrique">2.</span> Dans le D-glucose, quel hydroxyle attaque le carbonyle&nbsp;?
+          </legend>
+          <div class="grid gap-1.5">
+            <label class="choix"><input type="radio" name="q-cyclisation-2" value="a"><span>Celui du C2</span></label>
+            <label class="choix"><input type="radio" name="q-cyclisation-2" value="b"><span>Celui du C4</span></label>
+            <label class="choix"><input type="radio" name="q-cyclisation-2" value="c" data-juste><span>Celui du C5</span></label>
+            <label class="choix"><input type="radio" name="q-cyclisation-2" value="d"><span>Celui du C6</span></label>
+          </div>
+        </fieldset>
+        <details class="corrige mt-2.5">
+          <summary class="cap">Réponse</summary>
+          <p class="text-encre-douce mt-1.5 text-[0.92rem] leading-relaxed">Celui du C5, l’avant-dernier carbone. La cyclisation se fait sur le C1, avec le C5.</p>
+        </details>
+      </li>
+      <li class="question">
+        <fieldset>
+          <legend class="text-corps text-encre mb-3 leading-snug">
+            <span class="font-titre text-rubrique">3.</span> Quel carbone devient le carbone anomérique du D-fructose&nbsp;?
+          </legend>
+          <div class="grid gap-1.5">
+            <label class="choix"><input type="radio" name="q-cyclisation-3" value="a"><span>Le C1</span></label>
+            <label class="choix"><input type="radio" name="q-cyclisation-3" value="b" data-juste><span>Le C2</span></label>
+            <label class="choix"><input type="radio" name="q-cyclisation-3" value="c"><span>Le C5</span></label>
+            <label class="choix"><input type="radio" name="q-cyclisation-3" value="d"><span>Le C6</span></label>
+          </div>
+        </fieldset>
+        <details class="corrige mt-2.5">
+          <summary class="cap">Réponse</summary>
+          <p class="text-encre-douce mt-1.5 text-[0.92rem] leading-relaxed">Le C2, qui portait la fonction cétone. Chez le glucose, c’est le C1.</p>
+        </details>
+      </li>
+      <li class="question">
+        <fieldset>
+          <legend class="text-corps text-encre mb-3 leading-snug">
+            <span class="font-titre text-rubrique">4.</span> Combien de sommets compte le cycle d’un pyranose&nbsp;?
+          </legend>
+          <div class="grid gap-1.5">
+            <label class="choix"><input type="radio" name="q-cyclisation-4" value="a"><span>Cinq&nbsp;: quatre carbones et l’oxygène</span></label>
+            <label class="choix"><input type="radio" name="q-cyclisation-4" value="b" data-juste><span>Six&nbsp;: cinq carbones et l’oxygène</span></label>
+            <label class="choix"><input type="radio" name="q-cyclisation-4" value="c"><span>Six carbones</span></label>
+            <label class="choix"><input type="radio" name="q-cyclisation-4" value="d"><span>Sept&nbsp;: six carbones et l’oxygène</span></label>
+          </div>
+        </fieldset>
+        <details class="corrige mt-2.5">
+          <summary class="cap">Réponse</summary>
+          <p class="text-encre-douce mt-1.5 text-[0.92rem] leading-relaxed">Six&nbsp;: cinq carbones et l’oxygène, comme le pyrane. Un furanose en a cinq&nbsp;: quatre carbones et l’oxygène.</p>
+        </details>
+      </li>
+      <li class="question">
+        <fieldset>
+          <legend class="text-corps text-encre mb-3 leading-snug">
+            <span class="font-titre text-rubrique">5.</span> Sur la formule cyclique d’un ose de la série D, où l’anomère α porte-t-il son hydroxyle anomérique&nbsp;?
+          </legend>
+          <div class="grid gap-1.5">
+            <label class="choix"><input type="radio" name="q-cyclisation-5" value="a" data-juste><span>En dessous du cycle, à l’opposé du CH<sub>2</sub>OH terminal</span></label>
+            <label class="choix"><input type="radio" name="q-cyclisation-5" value="b"><span>Au-dessus du cycle, du côté du CH<sub>2</sub>OH terminal</span></label>
+            <label class="choix"><input type="radio" name="q-cyclisation-5" value="c"><span>Dans le plan du cycle</span></label>
+            <label class="choix"><input type="radio" name="q-cyclisation-5" value="d"><span>Il n’en porte pas</span></label>
+          </div>
+        </fieldset>
+        <details class="corrige mt-2.5">
+          <summary class="cap">Réponse</summary>
+          <p class="text-encre-douce mt-1.5 text-[0.92rem] leading-relaxed">En dessous, du côté opposé au CH<sub>2</sub>OH terminal. L’anomère β le porte au-dessus, du même côté.</p>
+        </details>
+      </li>
+      <li class="question">
+        <fieldset>
+          <legend class="text-corps text-encre mb-3 leading-snug">
+            <span class="font-titre text-rubrique">6.</span> En solution, quelle forme du glucose domine à l’équilibre&nbsp;?
+          </legend>
+          <div class="grid gap-1.5">
+            <label class="choix"><input type="radio" name="q-cyclisation-6" value="a"><span>La forme linéaire</span></label>
+            <label class="choix"><input type="radio" name="q-cyclisation-6" value="b"><span>L’α-D-glucopyranose</span></label>
+            <label class="choix"><input type="radio" name="q-cyclisation-6" value="c" data-juste><span>Le β-D-glucopyranose</span></label>
+            <label class="choix"><input type="radio" name="q-cyclisation-6" value="d"><span>Les trois à parts égales</span></label>
+          </div>
+        </fieldset>
+        <details class="corrige mt-2.5">
+          <summary class="cap">Réponse</summary>
+          <p class="text-encre-douce mt-1.5 text-[0.92rem] leading-relaxed">Le β-D-glucopyranose, environ deux tiers (64&nbsp;%)&nbsp;; l’α environ un tiers&nbsp;; la forme linéaire moins de 1&nbsp;%. Dans la chaise du β, tous les gros substituants sont à l’équateur.</p>
+        </details>
+      </li>
+      <li class="question">
+        <fieldset>
+          <legend class="text-corps text-encre mb-3 leading-snug">
+            <span class="font-titre text-rubrique">7.</span> Un hydroxyle placé à droite en projection de Fischer se retrouve, sur le cycle&nbsp;:
+          </legend>
+          <div class="grid gap-1.5">
+            <label class="choix"><input type="radio" name="q-cyclisation-7" value="a"><span>au-dessus</span></label>
+            <label class="choix"><input type="radio" name="q-cyclisation-7" value="b" data-juste><span>en dessous</span></label>
+            <label class="choix"><input type="radio" name="q-cyclisation-7" value="c"><span>dans le plan</span></label>
+            <label class="choix"><input type="radio" name="q-cyclisation-7" value="d"><span>cela dépend de l’anomère</span></label>
+          </div>
+        </fieldset>
+        <details class="corrige mt-2.5">
+          <summary class="cap">Réponse</summary>
+          <p class="text-encre-douce mt-1.5 text-[0.92rem] leading-relaxed">En dessous du cycle — et ce qui est à gauche passe au-dessus. Seul l’hydroxyle anomérique, nouveau, dépend de l’anomère.</p>
+        </details>
+      </li>
+      <li class="question">
+        <fieldset>
+          <legend class="text-corps text-encre mb-3 leading-snug">
+            <span class="font-titre text-rubrique">8.</span> Pourquoi le cycle du fructose est-il plus petit que celui du glucose&nbsp;?
+          </legend>
+          <div class="grid gap-1.5">
+            <label class="choix"><input type="radio" name="q-cyclisation-8" value="a"><span>Parce qu’il a moins de carbones</span></label>
+            <label class="choix"><input type="radio" name="q-cyclisation-8" value="b" data-juste><span>Parce que son carbonyle est en C2&nbsp;: l’hydroxyle du C5 n’enferme que quatre carbones</span></label>
+            <label class="choix"><input type="radio" name="q-cyclisation-8" value="c"><span>Parce que l’hydroxyle du C4 l’attaque</span></label>
+            <label class="choix"><input type="radio" name="q-cyclisation-8" value="d"><span>Parce qu’il ne forme pas d’hémiacétal</span></label>
+          </div>
+        </fieldset>
+        <details class="corrige mt-2.5">
+          <summary class="cap">Réponse</summary>
+          <p class="text-encre-douce mt-1.5 text-[0.92rem] leading-relaxed">Les deux ont six carbones, et c’est le même hydroxyle, celui du C5, qui ferme le cycle. Mais il attaque le C2 au lieu du C1&nbsp;: le cycle compte quatre carbones au lieu de cinq.</p>
+        </details>
+      </li>
+    </ol>
+
+    <div class="bilan mt-10 px-5 py-5 text-center" aria-live="polite" hidden>
+      <p class="cap">Note</p>
+      <p class="note font-titre text-encre mt-1 text-4xl"></p>
+      <p class="appreciation text-encre-douce mt-1 italic"></p>
+      <button type="button" class="recommencer cap mt-4">Recommencer</button>
+    </div>
+  </section>
+
   <!-- -------------------------------------------------------- notes -->
   <section aria-labelledby="notes">
     <div class="ornement mb-6"><span>&#10022;</span></div>
@@ -317,5 +475,6 @@
 </footer>
 
 <script src="assets/theme.js"></script>
+<script src="assets/quiz.js"></script>
 </body>
 </html>

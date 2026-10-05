@@ -98,6 +98,15 @@ La classification des glucides est un **tableau synoptique** à accolades, fait
 d’une simple liste imbriquée : en colonnes sur grand écran, en arbre en retrait
 sur un téléphone.
 
+## Les interrogations
+
+Chaque chapitre se clôt sur une **interrogation** de huit questions à choix
+multiple, écrites dans la page : la bonne réponse porte `data-juste`, et le
+corrigé suit dans un `<details>`. `assets/quiz.js` corrige au premier choix,
+marque la bonne réponse (✓, à l’encre) et la mauvaise (✗, au rouge), puis
+donne la note et une appréciation ; l’ordre des réponses est battu à chaque
+tentative. Sans script, on coche et l’on déplie soi-même la réponse.
+
 ## Déploiement
 
 Chaque push sur `main` déclenche
