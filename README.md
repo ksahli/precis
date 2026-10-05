@@ -11,7 +11,7 @@ texte.
 |---|---|
 | [La mitochondrie](mitochondrie.html) | Structure, chimiosmose, génome propre — avec une planche gravée animée |
 | [Les glucides](glucides.html) | Oses et osides, aldoses et cétoses — avec un tableau synoptique |
-| [La cyclisation des oses](cyclisation.html) | Glucose et fructose, anomères α et β — en formes linéaires et cycliques, couchées |
+| [La cyclisation des oses](cyclisation.html) | Glucose et fructose, anomères α et β — en projections de Fischer et cycles couchés |
 
 ## Composition
 
@@ -75,19 +75,18 @@ hachure, et éteint le reste.
 
 ## Les formules chimiques
 
-Les chapitres II et III portent des formules — formes linéaires et formes
-cycliques — écrites en SVG **directement dans la page**, sans script : elles
+Les chapitres II et III portent des formules — projections de Fischer et
+formes cycliques — écrites en SVG **directement dans la page**, sans script : elles
 s’affichent donc même JavaScript coupé. Même parti que la planche gravée : une
 seule encre, et le rouge du typographe réservé aux atomes qui réagissent ou qui
 en résultent — le carbonyle et l’hydroxyle qui l’attaque, puis l’oxygène du
 cycle et l’hydroxyle anomérique.
 
-**Les schémas de molécule sont toujours couchés et plats, en 2D.** Les
-chaînes sont horizontales, C1 à gauche, chaque carbone portant un groupe
-au-dessus et un au-dessous ; les cycles sont plus larges que hauts. Pas de
-perspective, pas d’arête grasse : un seul trait. Ce que la projection de
-Fischer place à droite est ici en dessous, si bien que chaque hydroxyle garde
-le même côté dans la chaîne et dans le cycle.
+**Les schémas de molécule sont toujours plats, en 2D.** Les cycles sont
+couchés, plus larges que hauts. Pas de perspective, pas d’arête grasse : un
+seul trait. Seule exception à l’horizontale : la forme linéaire garde sa
+**projection de Fischer verticale**, C1 en haut. Ce que Fischer place à droite
+passe en dessous du cycle, ce qu’il place à gauche au-dessus.
 
 La règle vaut pour **toutes les figures**, planches d’anatomie comprises : la
 mitochondrie est une coupe à plat, couchée à l’horizontale, sans perspective.

@@ -400,14 +400,13 @@
   }
 
   /*
-   * Formules chimiques — formes linéaires et formes cycliques.
+   * Formules chimiques — projections de Fischer et formes cycliques.
    *
    * Des figures fixes, sans script : une seule encre, et le rouge du
    * typographe pour les atomes qui réagissent ou qui en résultent (le
    * carbonyle, l'hydroxyle qui l'attaque, l'oxygène du cycle, l'hydroxyle
-   * anomérique). Toujours couchées et à plat, en 2D : chaînes à
-   * l'horizontale, cycles plus larges que hauts, pas de perspective, une
-   * seule épaisseur de trait.
+   * anomérique). Toujours à plat, en 2D : Fischer vertical, cycles plus
+   * larges que hauts, pas de perspective, une seule épaisseur de trait.
    */
   .schema {
     display: block;
