@@ -39,9 +39,12 @@ La feuille construite est versionnée pour qu’`index.html` s’ouvre directeme
 sans rien installer ; mais le workflow la reconstruit à chaque publication, si
 bien qu’elle ne peut pas dériver de la source.
 
-Le parti pris typographique est délibérément clair : **pas de variante
-sombre**. Un livre de 1910 n’en avait pas, et inverser ce papier en ferait un
-autre objet.
+**Jour et nuit.** Le papier crème suit par défaut le réglage du système ; la
+nuit, c’est le même livre lu à la lampe — papier brun sombre, encre crème, rouge
+éclairci. Un bouton *Nuit* / *Jour* dans le titre courant permet de choisir, et
+le choix est retenu (`localStorage`, via `assets/theme.js`). Seules les encres
+changent : toutes les couleurs, planches et formules comprises, passent par les
+variables `--color-*`, redéfinies pour la nuit dans `src/precis.css`.
 
 ## La planche gravée
 

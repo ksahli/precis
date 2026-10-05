@@ -10,6 +10,10 @@
   - Pas de perspective, pas d'arête grasse : une seule épaisseur de trait.
   Les formules sont des SVG statiques écrits dans la page, avec `stroke` et
   `stroke-width` en attributs (pour rester visibles sans la feuille de style).
+- **Jour et nuit** : aucune couleur en dur. Tout passe par les variables
+  `--color-*` (redéfinies pour la nuit dans `src/precis.css`) ou par
+  `currentColor`, et chaque page porte le bouton Jour / Nuit et le petit
+  script de tête qui applique le choix retenu avant le premier rendu.
 - La CSS se construit avec `npm run build` (src/precis.css → assets/precis.css) ;
   après un changement de la feuille, incrémenter le `?v=` du lien dans toutes
   les pages.

@@ -13,8 +13,11 @@
  *
  * Le parti pris est assumé : papier crème, encre brune, rubriques au rouge
  * du typographe, caractères didones pour les titres et elzéviriens pour le
- * texte. Pas de variante sombre — un livre de 1910 n'en avait pas, et
- * inverser ce papier en ferait un autre objet.
+ * texte.
+ *
+ * La nuit, le même livre lu à la lampe : papier brun sombre, encre crème, et
+ * un rouge éclairci pour rester lisible. Seules les encres changent — tout,
+ * planches et formules comprises, passe par les variables --color-*.
  */
 
 @theme {
@@ -56,9 +59,50 @@
 
 @layer base {
   html {
-    color-scheme: light;         /* le papier ne s'inverse pas */
+    color-scheme: light;
     scroll-behavior: smooth;
   }
+
+  /*
+   * Le papier de nuit. Il suit le réglage du système, sauf si le lecteur a
+   * choisi lui-même : data-theme, posé sur <html> par le bouton Jour / Nuit,
+   * l'emporte alors dans les deux sens.
+   */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="clair"]) {
+      --color-papier: #1c1813;
+      --color-papier-vif: #241f19;
+      --color-papier-ombre: #30291f;
+      --color-encre: #ece3d0;
+      --color-encre-douce: #cdbfa5;
+      --color-encre-pale: #a09279;
+      --color-filet: #4e4435;
+      --color-rubrique: #e2826a;
+      --color-rubrique-pale: #3f251d;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="sombre"] {
+    --color-papier: #1c1813;
+    --color-papier-vif: #241f19;
+    --color-papier-ombre: #30291f;
+    --color-encre: #ece3d0;
+    --color-encre-douce: #cdbfa5;
+    --color-encre-pale: #a09279;
+    --color-filet: #4e4435;
+    --color-rubrique: #e2826a;
+    --color-rubrique-pale: #3f251d;
+    color-scheme: dark;
+  }
+
+  /* Le bouton Jour / Nuit, dans le titre courant. */
+  .bascule-theme {
+    cursor: pointer;
+    background: none;
+    border: 0;
+    padding: 0;
+  }
+  .bascule-theme:hover { color: var(--color-rubrique); }
 
   body {
     background-color: var(--color-papier);

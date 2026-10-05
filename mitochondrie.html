@@ -9,7 +9,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..700&family=EB+Garamond:ital,wght@0,400..600;1,400..500&family=Playfair+Display:ital,wght@0,400..700;1,400..500&display=swap">
-<link rel="stylesheet" href="assets/precis.css?v=6">
+<link rel="stylesheet" href="assets/precis.css?v=7">
+<script>try{var t=localStorage.getItem('theme');if(t==='clair'||t==='sombre')document.documentElement.dataset.theme=t}catch(e){}</script>
 </head>
 <body>
 
@@ -18,7 +19,10 @@
   <div class="bande flex items-baseline justify-between gap-4 py-3">
     <a href="./" class="cap hover:text-rubrique no-underline">Précis</a>
     <p class="cap hidden sm:block">La mitochondrie</p>
-    <p class="cap">Chap.&nbsp;I</p>
+    <div class="flex items-baseline gap-5">
+      <button type="button" class="cap bascule-theme" data-bascule-theme hidden>Nuit</button>
+      <p class="cap">Chap.&nbsp;I</p>
+    </div>
   </div>
 </header>
 
@@ -319,5 +323,6 @@
 </footer>
 
 <script src="assets/mitochondrie-planche.js"></script>
+<script src="assets/theme.js"></script>
 </body>
 </html>
