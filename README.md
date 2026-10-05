@@ -11,7 +11,7 @@ texte.
 |---|---|
 | [La mitochondrie](mitochondrie.html) | Structure, chimiosmose, génome propre — avec une planche gravée animée |
 | [Les glucides](glucides.html) | Oses et osides, aldoses et cétoses — avec un tableau synoptique |
-| [La cyclisation des oses](cyclisation.html) | Glucose et fructose, anomères α et β — en formules de Fischer et formules cycliques |
+| [La cyclisation des oses](cyclisation.html) | Glucose et fructose, anomères α et β — en formes linéaires et cycliques, couchées |
 
 ## Composition
 
@@ -75,17 +75,19 @@ hachure, et éteint le reste.
 
 ## Les formules chimiques
 
-Les chapitres II et III portent des formules — projections de Fischer et
-formules cycliques — écrites en SVG **directement dans la page**, sans script : elles
+Les chapitres II et III portent des formules — formes linéaires et formes
+cycliques — écrites en SVG **directement dans la page**, sans script : elles
 s’affichent donc même JavaScript coupé. Même parti que la planche gravée : une
 seule encre, et le rouge du typographe réservé aux atomes qui réagissent ou qui
 en résultent — le carbonyle et l’hydroxyle qui l’attaque, puis l’oxygène du
 cycle et l’hydroxyle anomérique.
 
-**Les schémas de molécule sont toujours plats, en 2D.** Pas de perspective,
-pas d’arête grasse pour figurer l’avant d’un cycle : les cycles sont des
-hexagones et des pentagones réguliers, d’un seul trait. Un substituant au-dessus
-ou au-dessous du cycle se lit à la direction de sa liaison. La perspective
+**Les schémas de molécule sont toujours couchés et plats, en 2D.** Les
+chaînes sont horizontales, C1 à gauche, chaque carbone portant un groupe
+au-dessus et un au-dessous ; les cycles sont plus larges que hauts. Pas de
+perspective, pas d’arête grasse : un seul trait. Ce que la projection de
+Fischer place à droite est ici en dessous, si bien que chaque hydroxyle garde
+le même côté dans la chaîne et dans le cycle. La perspective
 reste l’affaire des planches d’anatomie, comme celle de la mitochondrie.
 
 La classification des glucides est un **tableau synoptique** à accolades, fait

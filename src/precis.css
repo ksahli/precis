@@ -427,13 +427,14 @@
   }
 
   /*
-   * Formules chimiques — projections de Fischer et formules cycliques.
+   * Formules chimiques — formes linéaires et formes cycliques.
    *
    * Des figures fixes, sans script : une seule encre, et le rouge du
    * typographe pour les atomes qui réagissent ou qui en résultent (le
    * carbonyle, l'hydroxyle qui l'attaque, l'oxygène du cycle, l'hydroxyle
-   * anomérique). Toujours à plat, en 2D : pas de perspective, une seule
-   * épaisseur de trait.
+   * anomérique). Toujours couchées et à plat, en 2D : chaînes à
+   * l'horizontale, cycles plus larges que hauts, pas de perspective, une
+   * seule épaisseur de trait.
    */
   .schema {
     display: block;
@@ -469,18 +470,18 @@
   .schema .rouge { fill: var(--color-rubrique); }
   .schema .numero.rouge { fill: var(--color-rubrique); }
 
-  /* L'équilibre entre deux formes : couché en écran large, debout quand les
-     figures s'empilent. */
+  /* L'équilibre entre la forme linéaire, au-dessus, et chaque cycle. */
   .equilibre {
     font-family: var(--font-titre);
     font-size: 1.6rem;
     line-height: 1;
     color: var(--color-encre-pale);
     text-align: center;
-    align-self: center;
+    margin-block: 0.25rem;
   }
-  @media (width < 40rem) {
-    .equilibre { transform: rotate(90deg); }
+  .equilibre > span {
+    display: inline-block;
+    transform: rotate(90deg);
   }
 
   /*
