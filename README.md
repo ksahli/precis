@@ -87,8 +87,10 @@ chaînes sont horizontales, C1 à gauche, chaque carbone portant un groupe
 au-dessus et un au-dessous ; les cycles sont plus larges que hauts. Pas de
 perspective, pas d’arête grasse : un seul trait. Ce que la projection de
 Fischer place à droite est ici en dessous, si bien que chaque hydroxyle garde
-le même côté dans la chaîne et dans le cycle. La perspective
-reste l’affaire des planches d’anatomie, comme celle de la mitochondrie.
+le même côté dans la chaîne et dans le cycle.
+
+La règle vaut pour **toutes les figures**, planches d’anatomie comprises : la
+mitochondrie est une coupe à plat, couchée à l’horizontale, sans perspective.
 
 La classification des glucides est un **tableau synoptique** à accolades, fait
 d’une simple liste imbriquée : en colonnes sur grand écran, en arbre en retrait

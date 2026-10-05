@@ -1,31 +1,26 @@
 /**
- * Planche d'une mitochondrie — deux volumes en perspective isométrique.
+ * Planche d'une mitochondrie — une gravure au trait, en deux dimensions.
  *
- * Tout est dessiné en SVG, sans bibliothèque : une projection isométrique de
- * quelques lignes, et des volumes faits de faces planes. Chaque face prend la
- * teinte de sa région, plus ou moins assombrie selon qu'elle regarde le haut,
- * la gauche ou la droite — la lumière tombe d'en haut à gauche. Les teintes
- * sortent toutes de la palette du précis ; le rouge du typographe ne sert qu'à
- * marquer la partie choisie et à tracer le circuit des protons.
+ * Tout est dessiné en SVG, d'une seule encre : les régions se distinguent par
+ * leur hachure, comme sur une planche gravée, et non par une couleur. Le rouge
+ * du typographe ne sert qu'à deux choses, marquer la partie choisie et tracer
+ * le circuit des protons.
  *
  * La planche porte deux figures, comme il se doit quand une échelle ne suffit
- * pas. La figure 1 donne l'organite ouvert par le dessus, comme une gélule dont
- * on aurait ôté le couvercle : on voit le fond de la matrice, et les crêtes s'y
- * dressent en cloisons. La figure 2 agrandit, en bloc, le morceau de membrane
- * interne que le cartouche en pointillé désigne ; c'est là seulement que la
- * machinerie est à une taille lisible. Une seule liste de parties sert les
- * deux : choisir « matrice » éclaire aussi bien le fond de la figure 1 que le
- * haut du bloc de la figure 2.
+ * pas. La figure 1 donne l'organite en coupe ; la figure 2 agrandit le morceau
+ * de membrane interne que le cartouche en pointillé désigne, et c'est là
+ * seulement que la machinerie est à une taille lisible. Une seule liste de
+ * parties sert les deux : choisir « matrice » éclaire aussi bien le dedans de
+ * la figure 1 que la bande supérieure de la figure 2.
  *
  * Le contour de la figure 1 est un superellipse (|x/a|^n + |y/b|^n = 1, n ≈ 3),
  * qui donne la silhouette en gélule de l'organite. Le même rayon sert ensuite à
  * savoir si un point tombe dans la matrice — ce qui sème les ribosomes sans
  * qu'aucun ne chevauche un repli, un chromosome ou un repère.
  *
- * Les volumes se recouvrent selon l'ordre du peintre : on dessine du fond vers
- * l'avant, la profondeur d'un point valant x + y dans le repère du monde.
- *
- * La chimiosmose est portée par des flèches, non par un mouvement. Rien ne
+ * La chimiosmose est portée par des flèches, non par un mouvement : les
+ * complexes refoulent les protons sous la membrane, ceux-ci gagnent l'ATP
+ * synthase, refluent au travers, et l'ATP paraît dans la matrice. Rien ne
  * bouge — la planche est un schéma, pas un film.
  *
  * Les repères chiffrés de la planche et les entrées de la légende sortent de la
@@ -38,77 +33,17 @@
   const legende = document.getElementById('legende');
   if (!hote) return;
 
-  const CADRE = { l: 760, h: 840 };
+  const SVGNS = 'http://www.w3.org/2000/svg';
+  const CADRE = { l: 760, h: 640 };
   const fixe = n => n.toFixed(1);
 
-  /* --------------------------------------------------- projection isométrique */
-
-  const COS30 = Math.cos(Math.PI / 6);
-
-  /**
-   * Une projection isométrique : l'axe x file vers la droite et le bas, l'axe y
-   * vers la gauche et le bas, l'axe z monte. Seules les faces tournées vers
-   * +x, +y ou +z sont visibles.
-   */
-  const projection = (ox, oy, echelle) => (x, y, z) =>
-    [ox + (x - y) * COS30 * echelle, oy + (x + y) * 0.5 * echelle - z * echelle];
-
-  /** Un chemin de points d'écran. */
-  const chemin = (points, ferme = true) =>
-    'M' + points.map(([x, y]) => `${fixe(x)},${fixe(y)}`).join('L') + (ferme ? 'Z' : '');
-
-  /** Une face plane, teintée selon sa région et son orientation. */
-  const face = (points, teinte, orientation, extra = '') =>
-    `<path class="face t-${teinte} f-${orientation} ${extra}" d="${chemin(points)}"/>`;
-
-  /**
-   * Orientation d'une paroi verticale d'après sa normale (nx, ny) dans le
-   * monde : face à +y elle regarde à gauche, face à +x à droite.
-   */
-  const orientation = (nx, ny) => (ny > nx ? 'gauche' : 'droite');
-
-  /**
-   * Les parois entre deux contours de même longueur, fusionnées en bandes
-   * quand des segments voisins partagent la même teinte — sans quoi chaque
-   * jointure laisserait voir un fil.
-   */
-  function bandes(haut, bas, teinte, classeDe) {
-    const n = haut.length;
-    const classes = haut.map((_, i) => classeDe(i));
-    let debut = classes.findIndex((c, i) => c !== classes[(i + n - 1) % n]);
-    if (debut < 0) debut = 0;
-    let svg = '';
-    for (let k = 0; k < n;) {
-      const i = (debut + k) % n;
-      const classe = classes[i];
-      let j = k;
-      while (j + 1 < n && classes[(debut + j + 1) % n] === classe) j++;
-      if (classe) {
-        const indices = [];
-        for (let m = k; m <= j + 1; m++) indices.push((debut + m) % n);
-        svg += face([...indices.map(m => haut[m]), ...indices.reverse().map(m => bas[m])],
-                    teinte, classe);
-      }
-      k = j + 1;
-    }
-    return svg;
-  }
-
-  /* ------------------------------------------- figure 1 : l'organite ouvert */
+  /* ------------------------------------------- figure 1 : l'organite en coupe */
 
   const CX = 380, CY = 185, N = 3.2;
 
-  const EXT     = { a: 318, b: 140 };   // membrane externe, bord extérieur
-  const EXT_INT = { a: 306, b: 128 };   // son bord intérieur — l'ouverture
+  const EXT     = { a: 318, b: 140 };   // membrane externe, trait extérieur
+  const EXT_INT = { a: 310, b: 132 };   // son trait intérieur — la bicouche
   const INT     = { a: 282, b: 104 };   // membrane interne
-
-  const SOL = -16;     // le fond de l'organite, sous le bord de la membrane externe
-  const CLOISON = 15;  // hauteur des cloisons : membrane interne et crêtes
-  const CORPS = 44;    // épaisseur de la gélule sous son bord
-
-  const P1 = projection(380, 214, 0.78);
-  /** Un point de la figure 1, en coordonnées de la coupe d'origine. */
-  const p1 = (X, Y, z = SOL) => P1(X - CX, Y - CY, z);
 
   /** Rayon du superellipse à l'angle donné. */
   function rayon(theta, forme) {
@@ -126,28 +61,21 @@
   const plafond = (x, forme) => CY - demiHauteur(x, forme);
   const plancher = (x, forme) => CY + demiHauteur(x, forme);
 
-  /** Contour fermé d'une forme, échantillonné au pas donné (en degrés). */
-  function contour(forme, pas = 1.5, k = 1) {
-    const points = [];
-    for (let t = 0; t < 360; t += pas) {
-      const theta = t * Math.PI / 180;
-      const r = k * rayon(theta, forme);
-      points.push([CX + r * Math.cos(theta), CY + r * Math.sin(theta)]);
+  /** Contour fermé d'une forme, échantillonné au demi-degré. */
+  function trace(forme) {
+    const pas = 0.7 * Math.PI / 180;
+    let d = '';
+    for (let t = 0; t < 2 * Math.PI; t += pas) {
+      const r = rayon(t, forme);
+      d += `${d ? 'L' : 'M'}${fixe(CX + r * Math.cos(t))},${fixe(CY + r * Math.sin(t))}`;
     }
-    return points;
+    return d + 'Z';
   }
-
-  /** Normale sortante d'un segment du contour (parcouru dans le sens des angles). */
-  const normale = ([ax, ay], [bx, by]) => {
-    const l = Math.hypot(bx - ax, by - ay) || 1;
-    return [(by - ay) / l, -(bx - ax) / l];
-  };
 
   /**
    * Les crêtes sont des lamelles, non des bosses : des doigts à flancs
-   * parallèles qui plongent depuis le fond de la membrane interne. Leur lumière
-   * communique avec l'espace intermembranaire, d'où la même teinte — et la
-   * cloison de la membrane interne s'ouvre à leur embouchure.
+   * parallèles qui plongent depuis le haut de la membrane interne. Leur lumière
+   * communique avec l'espace intermembranaire, d'où la même hachure.
    *
    * Elles alternent de longueur : une rangée parfaitement égale ferait un
    * peigne, non un organite.
@@ -158,47 +86,35 @@
   });
   const CRETE_DEMI = 13;
 
-  /** Le doigt d'une crête, en U ouvert vers la membrane interne. */
-  function creteU({ x, fond }) {
-    const g = x - CRETE_DEMI, d = x + CRETE_DEMI, coude = fond - CRETE_DEMI;
-    const flanc = (xf, y0, y1) => {
-      const n = Math.max(2, Math.ceil(Math.abs(y1 - y0) / 10));
-      return Array.from({ length: n }, (_, i) => [xf, y0 + (y1 - y0) * i / n]);
-    };
-    const arc = Array.from({ length: 9 }, (_, i) => {
-      const a = Math.PI - (i * Math.PI) / 8;
-      return [x + CRETE_DEMI * Math.cos(a), coude + CRETE_DEMI * Math.sin(a)];
-    });
-    return [...flanc(g, plafond(g, INT), coude), ...arc, ...flanc(d, coude, plafond(d, INT)).slice(1), [d, plafond(d, INT)]];
+  /** Le doigt refermé, pour la hachure. */
+  function creteFermee({ x, base, fond }) {
+    const g = x - CRETE_DEMI, d = x + CRETE_DEMI;
+    return `M${fixe(g)},${fixe(base - 7)}V${fixe(fond - CRETE_DEMI)}`
+         + `A${CRETE_DEMI},${CRETE_DEMI} 0 0 0 ${fixe(d)},${fixe(fond - CRETE_DEMI)}`
+         + `V${fixe(base - 7)}Z`;
   }
 
-  // Deux chromosomes circulaires, sur le fond de la matrice.
+  /** Le même doigt, ouvert à son embouchure : la membrane ne s'y referme pas. */
+  function creteOuverte({ x, base, fond }) {
+    const g = x - CRETE_DEMI, d = x + CRETE_DEMI;
+    return `M${fixe(g)},${fixe(base - 7)}V${fixe(fond - CRETE_DEMI)}`
+         + `A${CRETE_DEMI},${CRETE_DEMI} 0 0 0 ${fixe(d)},${fixe(fond - CRETE_DEMI)}`
+         + `V${fixe(base - 7)}`;
+  }
+
+  // Deux chromosomes circulaires, dans la matrice sous les crêtes.
   const ADN = [[250, 250, 26], [480, 252, 19]];
 
   /* ------------------------- figure 2 : le détail de la membrane interne */
 
-  /*
-   * Le bloc se lit sur sa face avant, en coordonnées de coupe (X vers la
-   * droite, Y vers le bas) ; il fuit en profondeur sur PROFONDEUR unités.
-   */
   const DETAIL = {
     gauche: 60, droite: 700,
     haut: 486, bas: 516,        // les deux feuillets de la membrane
-    matrice: 396,               // le dessus du bloc
-    ims: 580,                   // le dessous du bloc
+    matrice: 380,               // plafond de la bande matricielle
+    ims: 580,                   // plancher de la bande intermembranaire
   };
   DETAIL.allee = (DETAIL.bas + DETAIL.ims) / 2;   // l'allée des protons
   DETAIL.conduit = (DETAIL.haut + DETAIL.bas) / 2; // l'axe des électrons
-  const PROFONDEUR = 70;
-
-  const ECHELLE2 = 0.74;
-  const P2 = projection(196, 566, ECHELLE2);
-  /**
-   * Un point de la figure 2 : (X, Y) sur la face avant, avancé de `avant`
-   * unités vers l'observateur (négatif pour s'enfoncer dans le bloc).
-   */
-  const p2 = (X, Y, avant = 0) =>
-    P2(X - DETAIL.gauche, PROFONDEUR + avant, DETAIL.ims - Y);
 
   // Le cartouche de renvoi part de ce segment de la membrane interne.
   const RENVOI = [300, 460];
@@ -210,24 +126,18 @@
     { nom: 'IV',  x: 450, pompe: true },
   ];
   const POMPES = COMPLEXES.filter(c => c.pompe);
-  const FUT = { r: 25, h: 54 };
+  const FUT = { l: 54, h: 54 };
 
-  const SYNTHASE = { x: 592, r: 24, rTete: 36, yTete: 432 };
+  const SYNTHASE = { x: 592, l: 50, rTete: 36, yTete: 432 };
 
   /* ----------------------------------------------------------------- parties */
 
-  /*
-   * Les repères et leurs filets se donnent dans le repère de leur figure :
-   * (X, Y, z) de la coupe pour la figure 1, (X, Y, avant) de la face avant pour
-   * la figure 2. On les projette au moment de dessiner. Une pastille qui doit
-   * se tenir hors du bloc se donne directement en coordonnées d'écran.
-   */
   const PARTIES = [
     {
       id: 'externe',
       chiffre: 1,
       nom: 'Membrane externe',
-      figure: 1, repere: [20, 200, 0], vers: [62, 200, 0],
+      repere: [28, 184], vers: [58, 185],
       resume: 'Une double couche lipidique perméable, criblée de porines.',
       texte: `Elle délimite l'organite et le sépare du cytosol. Ses porines laissent
         passer librement ions et petites molécules jusqu'à environ 5 000 daltons,
@@ -239,20 +149,20 @@
       id: 'intermembranaire',
       chiffre: 2,
       nom: 'Espace intermembranaire',
-      figure: 1, repere: [700, 20, 0], vers: [660, 120, SOL],
+      repere: [730, 128], vers: [676, 152],
       resume: 'Le réservoir de protons qui fait tourner l’ATP synthase.',
       texte: `Un espace mince entre les deux membranes, où la chaîne respiratoire
         refoule les protons&nbsp;— c'est la flèche qui court vers la droite au bas de
         la figure&nbsp;2. Il y règne un pH plus acide que dans la matrice&nbsp;: c'est cette différence, le gradient électrochimique, qui
         stocke l'énergie. La lumière des crêtes en fait partie, et c'est pourquoi
-        elle porte la même teinte. On y trouve aussi le cytochrome&nbsp;c, dont la
+        elle porte la même hachure. On y trouve aussi le cytochrome&nbsp;c, dont la
         libération vers le cytosol déclenche l'apoptose.`,
     },
     {
       id: 'interne',
       chiffre: 3,
       nom: 'Membrane interne',
-      figure: 1, repere: [60, 330, 0], vers: [150, 265, SOL + CLOISON],
+      repere: [28, 258], vers: [134, 258],
       resume: 'Imperméable, repliée, couverte de complexes respiratoires.',
       texte: `Riche en cardiolipide, elle est quasiment étanche&nbsp;: rien ne la
         traverse sans transporteur dédié. Elle porte les quatre complexes de la
@@ -264,7 +174,7 @@
       id: 'cretes',
       chiffre: 4,
       nom: 'Crêtes',
-      figure: 1, repere: [200, -20, 0], vers: [240, 100, SOL + CLOISON],
+      repere: [380, 26], vers: [380, 84],
       resume: 'Les replis qui multiplient la surface utile.',
       texte: `Les crêtes (ou <i>cristae</i>) sont les invaginations de la membrane
         interne. Elles peuvent multiplier sa surface par cinq, et les cellules les
@@ -277,7 +187,7 @@
       id: 'matrice',
       chiffre: 5,
       nom: 'Matrice',
-      figure: 1, repere: [340, 254, SOL],
+      repere: [330, 252],
       resume: 'Le compartiment enzymatique, siège du cycle de Krebs.',
       texte: `Un gel dense en enzymes où se déroulent le cycle de Krebs, la
         β-oxydation des acides gras et une partie du cycle de l'urée. C'est là que
@@ -289,7 +199,7 @@
       id: 'adn',
       chiffre: 6,
       nom: 'ADN mitochondrial',
-      figure: 1, repere: [570, 256, SOL], vers: [500, 254, SOL],
+      repere: [560, 252], vers: [502, 252],
       resume: 'Un chromosome circulaire, transmis par la mère.',
       texte: `Chez l'humain, une molécule circulaire de 16&nbsp;569 paires de bases
         portant 37 gènes&nbsp;: 13 protéines de la chaîne respiratoire, 22 ARN de
@@ -301,7 +211,7 @@
       id: 'ribosomes',
       chiffre: 7,
       nom: 'Ribosomes',
-      figure: 1, repere: [162, 250, SOL],
+      repere: [162, 250],
       resume: 'Une machinerie de traduction propre à l’organite.',
       texte: `Les mitoribosomes traduisent sur place les 13 protéines codées par
         l'ADN mitochondrial. Plus proches des ribosomes bactériens que de ceux du
@@ -312,7 +222,7 @@
       id: 'chaine',
       chiffre: 8,
       nom: 'Chaîne respiratoire',
-      figure: 2, ecran: [240, 742], vers: [350, 528, FUT.r],
+      repere: [300, 608], vers: [350, 538],
       resume: 'Quatre complexes ; trois d’entre eux refoulent des protons.',
       texte: `Les électrons du NADH et du FADH₂ descendent de complexe en complexe
         — les petites flèches de la figure&nbsp;2 vont de <b class="font-semibold">I</b>
@@ -326,7 +236,7 @@
       id: 'synthase',
       chiffre: 9,
       nom: 'ATP synthase',
-      figure: 2, ecran: [448, 806], vers: [592 + SYNTHASE.r, 500, SYNTHASE.r],
+      repere: [650, 608], vers: [614, 540],
       resume: 'La turbine qui monnaie le gradient en ATP.',
       texte: `Les protons accumulés ne peuvent revenir que par elle. Leur reflux
         fait tourner le rotor, et chaque tour soude un phosphate sur l'ADP&nbsp;:
@@ -335,9 +245,6 @@
         grandeur admis.`,
     },
   ];
-
-  /** Un point de repère, projeté selon sa figure. */
-  const ecran = (figure, [a, b, c = 0]) => (figure === 1 ? p1(a, b, c) : p2(a, b, c));
 
   /* ------------------------------------------------------- semis de ribosomes */
 
@@ -358,10 +265,9 @@
     const x = CX + (hasard() * 2 - 1) * INT.a;
     const y = CY + (hasard() * 2 - 1) * INT.b;
     if (!dansMatrice(x, y, 16)) continue;
-    if (dansCrete(x, y, 14)) continue;
+    if (dansCrete(x, y, 11)) continue;
     if (ADN.some(([ax, ay, r]) => Math.hypot(x - ax, y - ay) < r + 16)) continue;
-    if (PARTIES.some(p => p.figure === 1
-        && Math.hypot(x - p.repere[0], y - p.repere[1]) < 30)) continue;
+    if (PARTIES.some(p => Math.hypot(x - p.repere[0], y - p.repere[1]) < 24)) continue;
     if (GRANULES.some(([gx, gy]) => Math.hypot(x - gx, y - gy) < 28)) continue;
     GRANULES.push([x, y]);
   }
@@ -372,172 +278,35 @@
     const [cx, cy] = cle.repere;
     const proche = GRANULES.reduce((a, b) =>
       Math.hypot(cx - a[0], cy - a[1]) < Math.hypot(cx - b[0], cy - b[1]) ? a : b);
-    if (proche) cle.vers = [proche[0] - Math.sign(proche[0] - cx) * 8, proche[1], SOL + 6];
+    if (proche) cle.vers = [proche[0] - Math.sign(proche[0] - cx) * 9, proche[1]];
   }
 
-  /* ------------------------------------------------------- dessin, figure 1 */
-
-  /** La gélule sous son bord : deux étages de parois qui s'arrondissent. */
-  function dessinCorps() {
-    const etages = [[1, 0], [0.985, -CORPS * 0.55], [0.9, -CORPS]].map(([k, z]) =>
-      contour(EXT, 1.5, k).map(([X, Y]) => p1(X, Y, z)));
-    const plan = contour(EXT, 1.5);
-    const n = plan.length;
-    const visible = i => {
-      const [nx, ny] = normale(plan[i], plan[(i + 1) % n]);
-      return nx + ny > 0 ? [nx, ny] : null;
-    };
-    const assombri = { gauche: 'droite', droite: 'ombre' };
-    return bandes(etages[0], etages[1], 'filet', i => {
-      const v = visible(i);
-      return v && orientation(...v);
-    }) + bandes(etages[1], etages[2], 'filet', i => {
-      const v = visible(i);
-      return v && assombri[orientation(...v)];
-    });
-  }
-
-  /** Le bord de la membrane externe, et l'ouverture qu'il cerne. */
-  const BORD = contour(EXT).map(([X, Y]) => p1(X, Y, 0));
-  const OUVERTURE = contour(EXT_INT).map(([X, Y]) => p1(X, Y, 0));
-
-  /** La paroi intérieure de la membrane externe, visible sur le bord du fond. */
-  function dessinParoiInterieure() {
-    const plan = contour(EXT_INT);
-    const n = plan.length;
-    return bandes(OUVERTURE, plan.map(([X, Y]) => p1(X, Y, SOL)), 'papier', i => {
-      const [nx, ny] = normale(plan[i], plan[(i + 1) % n]);
-      return -nx - ny > 0 ? orientation(-nx, -ny) : null;
-    });
-  }
-
-  /**
-   * Une cloison : un segment de mur dressé sur le fond, qu'on range parmi les
-   * autres volumes selon sa profondeur. On en voit tantôt une face, tantôt
-   * l'autre, selon qu'elle regarde l'observateur ou s'en détourne.
-   */
-  function cloison(a, b, partie) {
-    let [nx, ny] = normale(a, b);
-    if (nx + ny < 0) [nx, ny] = [-nx, -ny];
-    const haut = SOL + CLOISON;
-    const sommet = [p1(...a, haut), p1(...b, haut)];
-    return {
-      profondeur: (a[0] + b[0] + a[1] + b[1]) / 2 - 2 * CY,
-      svg: `<g data-partie="${partie}" class="cloison">
-        ${face([p1(...a), p1(...b), sommet[1], sommet[0]], 'papier', orientation(nx, ny))}
-        <path class="trait arete-haute" d="${chemin(sommet, false)}"/>
-      </g>`,
-    };
-  }
-
-  function volumesDuFond() {
-    const volumes = [];
-
-    // La membrane interne, ouverte à l'embouchure de chaque crête.
-    const interne = contour(INT, 2.5);
-    interne.forEach((a, i) => {
-      const b = interne[(i + 1) % interne.length];
-      const xm = (a[0] + b[0]) / 2;
-      if ((a[1] + b[1]) / 2 < CY && CRETES.some(c => Math.abs(xm - c.x) < CRETE_DEMI)) return;
-      volumes.push(cloison(a, b, 'interne'));
-    });
-
-    for (const c of CRETES) {
-      const u = creteU(c);
-      for (let i = 0; i + 1 < u.length; i++) volumes.push(cloison(u[i], u[i + 1], 'cretes'));
-    }
-
-    // Un ribosome : une petite sphère posée sur le fond.
-    const r = 6.5;
-    for (const [X, Y] of GRANULES) {
-      const [x, y] = p1(X, Y, SOL + r / 0.78);
-      volumes.push({
-        profondeur: X + Y - 2 * CY,
-        svg: `<g data-partie="ribosomes">
-          <ellipse class="ombre-portee" cx="${fixe(x + 2)}" cy="${fixe(y + r)}" rx="${fixe(r * 1.1)}" ry="${fixe(r * 0.45)}"/>
-          <circle class="face t-filet f-droite" cx="${fixe(x)}" cy="${fixe(y)}" r="${r}"/>
-          <circle class="face t-filet f-haut" cx="${fixe(x - 1.2)}" cy="${fixe(y - 1.2)}" r="${fixe(r * 0.72)}"/>
-          <circle class="reflet" cx="${fixe(x - 2.4)}" cy="${fixe(y - 2.6)}" r="1.6"/>
-        </g>`,
-      });
-    }
-
-    return volumes.sort((a, b) => a.profondeur - b.profondeur).map(v => v.svg).join('');
-  }
-
-  /** Un chromosome circulaire, couché sur le fond. */
-  function dessinAdn([X, Y, r]) {
-    const anneau = rr => Array.from({ length: 48 }, (_, i) => {
-      const a = (i * 2 * Math.PI) / 48;
-      return p1(X + rr * Math.cos(a), Y + rr * Math.sin(a));
-    });
-    return `<path class="trait epais" d="${chemin(anneau(r))}"/>
-            <path class="trait fin" d="${chemin(anneau(r - 6))}"/>`;
-  }
-
-  /** Le fond lui-même : l'espace intermembranaire, la matrice, la lumière des crêtes. */
-  const fond = forme => chemin(contour(forme).map(([X, Y]) => p1(X, Y)));
-
-  function lumiereCrete(c) {
-    const u = creteU(c);
-    const g = u[0], d = u[u.length - 1];
-    return chemin([[g[0], g[1] - 6], ...u, [d[0], d[1] - 6]].map(([X, Y]) => p1(X, Y)));
-  }
-
-  /* ------------------------------------------------------- dessin, figure 2 */
-
-  /** Une tranche horizontale du bloc, entre deux ordonnées de la face avant. */
-  function tranche(y0, y1, teinte, dessus = false) {
-    const { gauche: g, droite: d } = DETAIL;
-    const avant = face([p2(g, y0), p2(d, y0), p2(d, y1), p2(g, y1)], teinte, 'gauche');
-    const cote = face([p2(d, y0), p2(d, y0, -PROFONDEUR), p2(d, y1, -PROFONDEUR), p2(d, y1)],
-                      teinte, 'droite');
-    const toit = dessus
-      ? face([p2(g, y0), p2(d, y0), p2(d, y0, -PROFONDEUR), p2(g, y0, -PROFONDEUR)], teinte, 'haut')
-      : '';
-    return avant + cote + toit;
-  }
-
-  /**
-   * Un cylindre vertical dressé contre la face avant du bloc, son axe avancé
-   * de `axe` unités. On n'en voit que le dessus et le flanc tourné vers
-   * l'observateur — de -45° à 135°, coupé en deux teintes à 45°.
-   */
-  function cylindre(X, y0, y1, r, teinte, axe = r) {
-    const arc = (Y, de, a) => Array.from({ length: 17 }, (_, i) => {
-      const t = de + ((a - de) * i) / 16;
-      return p2(X + r * Math.cos(t), Y, axe + r * Math.sin(t));
-    });
-    const flanc = (de, a, orient) =>
-      face([...arc(y0, de, a), ...arc(y1, de, a).reverse()], teinte, orient);
-    const q = Math.PI / 4;
-    return flanc(-q, q, 'droite') + flanc(q, 3 * q, 'gauche')
-         + face(arc(y0, -q, 7 * q), teinte, 'haut', 'arete');
-  }
+  /* ------------------------------------------------------------ dessin SVG */
 
   /** Un complexe respiratoire : un fût qui traverse la membrane. */
   function futComplexe({ nom, x }) {
-    const y0 = DETAIL.conduit - FUT.h / 2, y1 = DETAIL.conduit + FUT.h / 2;
-    const [tx, ty] = p2(x, DETAIL.conduit + 4, FUT.r * 1.7);
-    return cylindre(x, y0, y1, FUT.r, 'ombre')
-         + `<text class="romain" x="${fixe(tx)}" y="${fixe(ty + 6)}">${nom}</text>`;
+    const y = (DETAIL.haut + DETAIL.bas) / 2;
+    return `<rect class="piece" x="${fixe(x - FUT.l / 2)}" y="${fixe(y - FUT.h / 2)}"
+              width="${FUT.l}" height="${FUT.h}" rx="11"/>
+            <text class="romain" x="${fixe(x)}" y="${fixe(y + 7)}">${nom}</text>`;
   }
 
-  /** L'ATP synthase : un pied dans la membrane, une tige, une tête ronde. */
   function dessinSynthase() {
-    const { x, r, rTete, yTete } = SYNTHASE;
-    const y0 = DETAIL.conduit - FUT.h / 2, y1 = DETAIL.conduit + FUT.h / 2;
-    const [cx, cy] = p2(x, yTete, r);
-    const R = rTete * ECHELLE2;
+    const { x, l, rTete, yTete } = SYNTHASE;
+    const y = (DETAIL.haut + DETAIL.bas) / 2;
     const branches = [0, 1, 2].map(i => {
-      const a = (i * 2 * Math.PI) / 3 - Math.PI / 2;
-      return `M${fixe(cx)},${fixe(cy)}L${fixe(cx + R * 0.62 * Math.cos(a))},${fixe(cy + R * 0.62 * Math.sin(a))}`;
+      const a = (i * 2 * Math.PI) / 3;
+      return `M0,0L${fixe(rTete * 0.74 * Math.cos(a))},${fixe(rTete * 0.74 * Math.sin(a))}`;
     }).join('');
-    return cylindre(x, y0, y1, r, 'ombre')
-         + cylindre(x, yTete + rTete * 0.7, y0, 7, 'ombre', r)
-         + `<circle class="face t-papier f-droite arete" cx="${fixe(cx)}" cy="${fixe(cy)}" r="${fixe(R)}"/>
-            <circle class="face t-papier f-haut" cx="${fixe(cx - R * 0.13)}" cy="${fixe(cy - R * 0.13)}" r="${fixe(R * 0.8)}"/>
-            <path class="trait epais" d="${branches}"/>`;
+    return `
+      <rect class="piece" x="${fixe(x - l / 2)}" y="${fixe(y - FUT.h / 2)}"
+            width="${l}" height="${FUT.h}" rx="11"/>
+      <path class="trait epais" d="M${fixe(x - 7)},${fixe(y - FUT.h / 2)}V${fixe(yTete + rTete - 6)}
+                                   M${fixe(x + 7)},${fixe(y - FUT.h / 2)}V${fixe(yTete + rTete - 6)}"/>
+      <circle class="tete" cx="${fixe(x)}" cy="${fixe(yTete)}" r="${rTete}"/>
+      <g transform="translate(${fixe(x)} ${fixe(yTete)})">
+        <path class="trait epais" d="${branches}"/>
+      </g>`;
   }
 
   /**
@@ -546,152 +315,154 @@
    * et l'ATP paraît dans la matrice. Les électrons, eux, sautent de complexe en
    * complexe dans l'épaisseur même de la membrane.
    *
-   * Tout est tracé sur la face avant du bloc, ou dans le plan des axes des
-   * fûts pour les traverser. Le circuit vit hors des groupes de parties : c'est
-   * une annotation, non une pièce de l'organite, et il ne doit donc ni
-   * s'éteindre ni se laisser cliquer.
+   * Le circuit vit hors des groupes de parties : c'est une annotation, non une
+   * pièce de l'organite, et il ne doit donc ni s'éteindre ni se laisser cliquer.
    */
   function dessinCircuit() {
-    const fleche = (classe, points) =>
-      `<path class="fleche ${classe}" d="${chemin(points.map(([X, Y, av = 0]) => p2(X, Y, av)), false)}"/>`;
-    const haut = DETAIL.haut - 34;
-    const bas = DETAIL.allee + 2;
-    const voie = DETAIL.allee + 10;
+    const fleche = (classe, d) => `<path class="fleche ${classe}" d="${d}"/>`;
+    const haut = DETAIL.haut - 36;              // d'où partent les protons
+    const bas = DETAIL.allee + 6;               // où ils débouchent
+    const voie = DETAIL.allee + 20;             // l'allée qu'ils suivent ensuite
 
-    // Trois descentes, au travers des fûts qui pompent.
+    // Trois descentes, au flanc des fûts qui pompent.
     const descentes = POMPES.map(p =>
-      fleche('circuit-proton', [[p.x, haut, FUT.r], [p.x, bas, FUT.r]])).join('');
+      fleche('circuit-proton', `M${fixe(p.x + 18)},${fixe(haut)}V${fixe(bas)}`)).join('');
 
-    // La dérive sous la membrane et le reflux par la synthase ne font qu'un coude.
-    const coude = fleche('circuit-proton', [
-      [POMPES[0].x + 30, voie], [SYNTHASE.x, voie],
-      [SYNTHASE.x, SYNTHASE.yTete + SYNTHASE.rTete + 6],
-    ]);
-    const sortie = fleche('circuit-proton', [
-      [SYNTHASE.x + SYNTHASE.rTete + 4, SYNTHASE.yTete - 4, SYNTHASE.r],
-      [SYNTHASE.x + SYNTHASE.rTete + 34, SYNTHASE.yTete - 24, SYNTHASE.r],
-    ]);
+    // La dérive sous la membrane et le reflux par la synthase ne font qu'un
+    // coude : deux flèches bout à bout laisseraient voir le raccord.
+    const coude = fleche('circuit-proton',
+      `M${fixe(POMPES[0].x + 32)},${fixe(voie)}H${fixe(SYNTHASE.x)}`
+      + `V${fixe(SYNTHASE.yTete + SYNTHASE.rTete + 6)}`);
+    const sortie = fleche('circuit-proton',
+      `M${fixe(SYNTHASE.x + SYNTHASE.rTete + 4)},${fixe(SYNTHASE.yTete - 8)}`
+      + `L${fixe(SYNTHASE.x + SYNTHASE.rTete + 30)},${fixe(SYNTHASE.yTete - 24)}`);
 
     // Les sauts d'électrons, dans les intervalles entre complexes.
     const intervalles = COMPLEXES.slice(0, -1).map((c, i) => [
-      c.x + 10, COMPLEXES[i + 1].x - 34,
+      c.x + FUT.l / 2 + 6, COMPLEXES[i + 1].x - FUT.l / 2 - 6,
     ]);
     const sauts = intervalles.map(([a, b]) =>
-      fleche('circuit-electron', [[a, DETAIL.conduit], [b, DETAIL.conduit]])).join('');
+      fleche('circuit-electron', `M${fixe(a)},${fixe(DETAIL.conduit)}H${fixe(b)}`)).join('');
     const [a0, b0] = intervalles[0];
 
-    const texte = (classe, X, Y, av, contenu) => {
-      const [x, y] = p2(X, Y, av);
-      return `<text class="${classe}" x="${fixe(x)}" y="${fixe(y)}">${contenu}</text>`;
-    };
     return `<g class="circuit">
       ${descentes}${coude}${sortie}${sauts}
-      ${texte('formule', SYNTHASE.x - 60, voie - 6, 0, 'H⁺')}
-      ${texte('formule', SYNTHASE.x + SYNTHASE.rTete + 56, SYNTHASE.yTete - 30, SYNTHASE.r, 'ATP')}
-      ${texte('formule sobre', (a0 + b0) / 2, DETAIL.haut - 10, 0, 'e⁻')}
+      <text class="formule" x="${fixe(SYNTHASE.x - 180)}" y="${fixe(voie - 14)}">H⁺</text>
+      <text class="formule" x="${fixe(SYNTHASE.x + SYNTHASE.rTete + 52)}" y="${fixe(SYNTHASE.yTete - 26)}">ATP</text>
+      <text class="formule sobre" x="${fixe((a0 + b0) / 2)}" y="${fixe(DETAIL.haut - 12)}">e⁻</text>
     </g>`;
   }
 
-  /** Une étiquette couchée sur la face avant du bloc. */
-  function etiquette(X, Y, contenu) {
-    const [x, y] = p2(X, Y);
-    return `<text class="etiquette" transform="matrix(${fixe(COS30)} 0.5 0 1 ${fixe(x)} ${fixe(y)})">${contenu}</text>`;
-  }
-
-  /** Repère chiffré : une pastille, et son filet de renvoi. */
-  function dessinRepere({ chiffre, figure, repere, vers, ecran: pose }) {
-    const [x, y] = pose ?? ecran(figure, repere);
+  /** Repère chiffré : une pastille sur fond de papier, et son filet de renvoi. */
+  function dessinRepere({ chiffre, repere, vers }) {
+    const [x, y] = repere;
     const filet = vers
-      ? `<path class="renvoi" d="${chemin([[x, y], ecran(figure, vers)], false)}"/>
-         <circle class="renvoi-point" cx="${fixe(ecran(figure, vers)[0])}" cy="${fixe(ecran(figure, vers)[1])}" r="2.2"/>`
+      ? `<path class="renvoi" d="M${fixe(x)},${fixe(y)}L${fixe(vers[0])},${fixe(vers[1])}"/>`
       : '';
     return `${filet}
       <circle class="pastille" cx="${fixe(x)}" cy="${fixe(y)}" r="12"/>
       <text class="chiffre" x="${fixe(x)}" y="${fixe(y + 5)}">${chiffre}</text>`;
   }
 
-  const pointes = () => [['proton', 'encre-rubrique'], ['electron', 'encre-noire']].map(([nom, encre]) => `
-    <marker id="pointe-${nom}" viewBox="0 0 10 10" refX="8.5" refY="5"
-            markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
-      <path class="${encre}" d="M0.5,1L9,5L0.5,9Z" stroke="none"/>
-    </marker>`).join('');
+  /**
+   * Hachures et semis : les aplats d'une gravure. Chaque motif existe en deux
+   * encres, la noire et celle du typographe, pour que la partie choisie change
+   * de teinte jusque dans son remplissage.
+   */
+  function motifs() {
+    const paire = (nom, taille, contenu) => `
+      <pattern id="motif-${nom}" width="${taille}" height="${taille}" patternUnits="userSpaceOnUse">
+        <g class="encre-noire">${contenu}</g>
+      </pattern>
+      <pattern id="motif-${nom}-rubrique" width="${taille}" height="${taille}" patternUnits="userSpaceOnUse">
+        <g class="encre-rubrique">${contenu}</g>
+      </pattern>`;
+    const pointe = (nom, encre) => `
+      <marker id="pointe-${nom}" viewBox="0 0 10 10" refX="8.5" refY="5"
+              markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
+        <path class="${encre}" d="M0.5,1L9,5L0.5,9Z" stroke="none"/>
+      </marker>`;
+    return pointe('proton', 'encre-rubrique') + pointe('electron', 'encre-noire')
+         + paire('hachure', 9, '<path d="M-1,8L8,-1M2,11L11,2" stroke-width="1.1" fill="none"/>')
+         + paire('semis', 11, '<circle cx="2.6" cy="2.6" r="0.9" stroke="none"/>'
+                            + '<circle cx="8.1" cy="8.1" r="0.9" stroke="none"/>')
+         + paire('serre', 7, '<path d="M-1,3L4,-2M-1,8L8,-1M3,8L8,3" stroke-width="1.5" fill="none"/>');
+  }
 
-  // Le segment de membrane que la figure 2 agrandit, et les arêtes du bloc où
-  // aboutit le cartouche.
-  const segmentRenvoi = [];
-  for (let X = RENVOI[0]; X <= RENVOI[1]; X += 8) segmentRenvoi.push(p1(X, plancher(X, INT)));
-  const coinsBloc = [p2(DETAIL.gauche, DETAIL.matrice), p2(DETAIL.droite, DETAIL.matrice, -PROFONDEUR)];
+  const bandeDetail = (y0, y1, classe) =>
+    `<rect class="${classe}" x="${DETAIL.gauche}" y="${fixe(y0)}"
+           width="${DETAIL.droite - DETAIL.gauche}" height="${fixe(y1 - y0)}"/>`;
 
   const svg = `
 <svg class="planche" viewBox="0 0 ${CADRE.l} ${CADRE.h}" role="img"
-     aria-label="Planche en deux figures, en perspective isométrique. Figure 1,
-     l’organite ouvert par le dessus : le bord de la membrane externe, l’espace
-     intermembranaire, la membrane interne dressée en cloison et repliée en sept
-     crêtes, et le fond de la matrice où reposent deux chromosomes circulaires et
-     des ribosomes. Figure 2, un bloc de membrane interne agrandi : les quatre
-     complexes de la chaîne respiratoire, puis l’ATP synthase. Des flèches y tracent
-     le circuit des protons : refoulés sous la membrane par les complexes, ils
-     gagnent l’ATP synthase, refluent au travers, et l’ATP paraît dans la matrice.">
-  <defs>
-    ${pointes()}
-    <clipPath id="ouverture"><path d="${chemin(OUVERTURE)}"/></clipPath>
-  </defs>
-
-  <!-- ------------------------------- cartouche de renvoi vers la figure 2 -->
-
-  <path class="cartouche" d="${chemin([segmentRenvoi[0], coinsBloc[0]], false)}
-                             ${chemin([segmentRenvoi.at(-1), coinsBloc[1]], false)}"/>
+     aria-label="Planche en deux figures. Figure 1, l’organite en coupe : la membrane
+     externe, l’espace intermembranaire, la membrane interne repliée en sept crêtes,
+     et la matrice où baignent deux chromosomes circulaires et des ribosomes.
+     Figure 2, un agrandissement de la membrane interne : les quatre complexes de la
+     chaîne respiratoire, puis l’ATP synthase. Des flèches y tracent le circuit des
+     protons : refoulés sous la membrane par les complexes, ils gagnent l’ATP synthase,
+     refluent au travers, et l’ATP paraît dans la matrice.">
+  <defs>${motifs()}</defs>
 
   <!-- ------------------------------------------- figure 1 : l'organite -->
 
-  <g data-partie="externe">
-    ${dessinCorps()}
-    <path class="face t-papier f-haut arete" fill-rule="evenodd"
-          d="${chemin(BORD)}${chemin(OUVERTURE)}"/>
-  </g>
-
-  <g clip-path="url(#ouverture)">
-    <g data-partie="externe">${dessinParoiInterieure()}</g>
-    <g data-partie="intermembranaire">
-      <path class="face t-ombre f-haut" d="${fond(EXT_INT)}"/>
-    </g>
-    <g data-partie="matrice">
-      <path class="face t-rose f-haut" d="${fond(INT)}"/>
-    </g>
-    <g data-partie="cretes">
-      ${CRETES.map(c => `<path class="face t-ombre f-haut" d="${lumiereCrete(c)}"/>`).join('')}
-    </g>
-    <g data-partie="adn">${ADN.map(dessinAdn).join('')}</g>
-    ${volumesDuFond()}
-    <path class="cartouche" d="${chemin(segmentRenvoi, false)}"/>
-  </g>
-
-  <!-- ------------------------------- figure 2 : le bloc de membrane -->
-
   <g data-partie="intermembranaire">
-    ${tranche(DETAIL.bas, DETAIL.ims, 'ombre')}
-  </g>
-
-  <g data-partie="interne">
-    ${tranche(DETAIL.haut, DETAIL.haut + 7, 'papier')}
-    ${tranche(DETAIL.haut + 7, DETAIL.bas - 7, 'filet')}
-    ${tranche(DETAIL.bas - 7, DETAIL.bas, 'papier')}
+    <path class="aplat hachure" fill-rule="evenodd" d="${trace(EXT_INT)}${trace(INT)}"/>
   </g>
 
   <g data-partie="matrice">
-    ${tranche(DETAIL.matrice, DETAIL.haut, 'rose', true)}
+    <path class="aplat semis" d="${trace(INT)}"/>
   </g>
 
-  <path class="arete-bloc" d="${chemin([
-    p2(DETAIL.gauche, DETAIL.ims), p2(DETAIL.gauche, DETAIL.matrice),
-    p2(DETAIL.gauche, DETAIL.matrice, -PROFONDEUR), p2(DETAIL.droite, DETAIL.matrice, -PROFONDEUR),
-    p2(DETAIL.droite, DETAIL.ims, -PROFONDEUR), p2(DETAIL.droite, DETAIL.ims),
-  ])}M${chemin([p2(DETAIL.gauche, DETAIL.matrice), p2(DETAIL.droite, DETAIL.matrice),
-               p2(DETAIL.droite, DETAIL.ims)], false).slice(1)}
-     M${chemin([p2(DETAIL.droite, DETAIL.matrice), p2(DETAIL.droite, DETAIL.matrice, -PROFONDEUR)], false).slice(1)}"/>
+  <g data-partie="ribosomes">
+    ${GRANULES.map(([x, y]) => `
+      <circle class="granule" cx="${fixe(x)}" cy="${fixe(y)}" r="6"/>
+      <circle class="granule-coeur" cx="${fixe(x)}" cy="${fixe(y)}" r="2.4"/>`).join('')}
+  </g>
 
-  ${etiquette(DETAIL.gauche + 12, DETAIL.matrice + 24, 'Matrice')}
-  ${etiquette(DETAIL.gauche + 4, DETAIL.ims + 22, 'Espace intermembranaire')}
+  <g data-partie="adn">
+    ${ADN.map(([x, y, r]) => `
+      <circle class="trait epais" cx="${fixe(x)}" cy="${fixe(y)}" r="${r}"/>
+      <circle class="trait fin" cx="${fixe(x)}" cy="${fixe(y)}" r="${r - 6}"/>`).join('')}
+  </g>
+
+  <g data-partie="externe">
+    <path class="trait epais" d="${trace(EXT)}"/>
+    <path class="trait epais" d="${trace(EXT_INT)}"/>
+  </g>
+
+  <g data-partie="interne">
+    <path class="trait epais" d="${trace(INT)}"/>
+    ${bandeDetail(DETAIL.haut, DETAIL.bas, 'feuillets')}
+  </g>
+
+  <g data-partie="cretes">
+    ${CRETES.map(c => `<path class="aplat hachure" d="${creteFermee(c)}"/>`).join('')}
+    ${CRETES.map(c => `<path class="trait epais" d="${creteOuverte(c)}"/>`).join('')}
+  </g>
+
+  <!-- ------------------------------- cartouche de renvoi vers la figure 2 -->
+
+  <path class="cartouche" d="M${RENVOI[0]},${fixe(plancher(RENVOI[0], INT))}
+                             L${DETAIL.gauche},${DETAIL.haut}
+                             M${RENVOI[1]},${fixe(plancher(RENVOI[1], INT))}
+                             L${DETAIL.droite},${DETAIL.haut}"/>
+
+  <!-- ------------------------------- figure 2 : le détail de la membrane -->
+
+  <g data-partie="matrice">
+    ${bandeDetail(DETAIL.matrice, DETAIL.haut, 'aplat semis')}
+  </g>
+
+  <g data-partie="intermembranaire">
+    ${bandeDetail(DETAIL.bas, DETAIL.ims, 'aplat hachure')}
+  </g>
+
+  <g data-partie="interne">
+    <path class="trait epais"
+          d="M${DETAIL.gauche},${DETAIL.haut}H${DETAIL.droite}
+             M${DETAIL.gauche},${DETAIL.bas}H${DETAIL.droite}"/>
+  </g>
 
   <g data-partie="chaine">
     ${COMPLEXES.map(futComplexe).join('')}
@@ -703,8 +474,12 @@
 
   ${dessinCircuit()}
 
-  <text class="annotation" x="40" y="36">Fig. 1</text>
-  <text class="annotation" x="40" y="${fixe(coinsBloc[0][1] - 40)}">Fig. 2</text>
+  <text class="annotation" x="${DETAIL.gauche}" y="36" text-anchor="start">Fig. 1</text>
+  <text class="annotation" x="${DETAIL.gauche}" y="366" text-anchor="start">Fig. 2</text>
+  <text class="etiquette" x="${DETAIL.gauche + 10}" y="${DETAIL.matrice + 22}"
+        text-anchor="start">Matrice</text>
+  <text class="etiquette" x="${DETAIL.gauche + 10}" y="${DETAIL.ims - 10}"
+        text-anchor="start">Espace intermembranaire</text>
 
   ${PARTIES.map(p => `<g data-partie="${p.id}" class="cle">${dessinRepere(p)}</g>`).join('')}
 </svg>`;
@@ -712,6 +487,31 @@
   hote.innerHTML = svg;
 
   const planche = hote.querySelector('svg');
+
+  /*
+   * Les étiquettes des bandes tombent en plein dans la hachure. Plutôt qu'un
+   * listel autour de chaque lettre, qui les empâte, on leur ménage une réserve
+   * de papier — exactement la taille du mot, mesurée une fois les caractères
+   * chargés, sans quoi on mesurerait la fonte de repli.
+   */
+  function poserReserves() {
+    for (const etiquette of planche.querySelectorAll('.etiquette, .formule')) {
+      const boite = etiquette.getBBox();
+      if (!boite.width) continue;
+      const reserve = document.createElementNS(SVGNS, 'rect');
+      const sorte = etiquette.classList.contains('etiquette') ? 'etiquette' : 'formule';
+      reserve.setAttribute('class', `reserve reserve-${sorte}`);
+      reserve.setAttribute('x', fixe(boite.x - 7));
+      reserve.setAttribute('y', fixe(boite.y - 3));
+      reserve.setAttribute('width', fixe(boite.width + 14));
+      reserve.setAttribute('height', fixe(boite.height + 6));
+      etiquette.before(reserve);
+    }
+  }
+
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(poserReserves);
+  else poserReserves();
+
   /* ------------------------------------------------- mise en avant / panneau */
 
   let actif = null;

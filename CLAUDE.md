@@ -1,5 +1,8 @@
 # Précis — consignes
 
+- **Toutes les figures sont horizontales et plates, en 2D** — planches
+  d'anatomie comprises (la mitochondrie est une coupe à plat, couchée). Pas de
+  perspective, pas d'isométrie, pas de volumes modelés.
 - **Les schémas de molécule sont toujours couchés et plats, en 2D.**
   - Chaînes horizontales, C1 à gauche, un groupe au-dessus et un au-dessous de
     chaque carbone ; pas de projection de Fischer verticale. Ce que Fischer met
